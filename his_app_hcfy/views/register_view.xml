@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_register_tree" model="ir.ui.view">
+        <field name="name">his.register.tree</field>
+        <field name="model">his.register</field>
+        <field name="inherit_id" ref="his_data_sync_hcfy.view_register_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='total_queue_id']" position="after">
+                <field name="reserve_record_ids"/>
+                <field name="operator_code"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="view_register_form" model="ir.ui.view">
+        <field name="name">his.register.form</field>
+        <field name="model">his.register</field>
+        <field name="inherit_id" ref="his_data_sync_hcfy.view_register_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page string="预约记录">
+                        <field name="reserve_record_ids"/>
+                    </page>
+                </notebook>
+            </xpath>
+            <xpath expr="//field[@name='total_queue_id']" position="after">
+                <field name="operator_code"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
+
+</odoo>

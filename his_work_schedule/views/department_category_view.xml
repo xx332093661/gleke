@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_department_category_tree" model="ir.ui.view">
+        <field name="name">hrp.department_category.tree</field>
+        <field name="model">hrp.department_category</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_department_category_form" model="ir.ui.view">
+        <field name="name">hrp.department_category.form</field>
+        <field name="model">hrp.department_category</field>
+        <field name="arch" type="xml">
+            <form  string="department_category">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_department_category_filter" model="ir.ui.view">
+        <field name="name">hrp.department_category.select</field>
+        <field name="model">hrp.department_category</field>
+        <field name="arch" type="xml">
+            <search>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_department_category_tree" model="ir.actions.act_window">
+        <field name="name">科室分类</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hrp.department_category</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_department_category_filter"/>
+    </record>
+
+        <menuitem action="action_department_category_tree" id="menu_department_category_tree"
+              parent="his_work_schedule.menu_work_schedule_setting_main" sequence="2"/>
+
+
+
+</odoo>

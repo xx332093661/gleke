@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record id="his_child_health_register_tree" model="ir.ui.view">
+            <field name="name">his_child_health_register_tree</field>
+            <field name="model">his.child_health_register</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="document_no"/>
+                    <field name="name"/>
+                    <field name="gender"/>
+                    <field name="age"/>
+                    <field name="birth_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="his_child_health_register_form" model="ir.ui.view">
+            <field name="name">his_child_health_register_form</field>
+            <field name="model">his.child_health_register</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="document_no" required="1"/>
+                                <field name="address"/>
+                                <field name="community"/>
+                                <field name="birth_date" required="1"/>
+                            </group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="permanent_address"/>
+                                <field name="phone"/>
+                                <field name="age"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="father_name"/>
+                                <field name="mother_name"/>
+                            </group>
+                            <group>
+                                <field name="father_identity_no"/>
+                                <field name="mother_identity_no"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="register_date" required="1"/>
+                            </group>
+                            <group>
+                                <field name="person_liable"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_child_health_register_filter" model="ir.ui.view">
+            <field name="name">view_child_health_register_filter</field>
+            <field name="model">his.child_health_register</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="address"/>
+                    <field name="father_name"/>
+                    <field name="father_identity_no"/>
+                    <field name="mother_name"/>
+                    <field name="mother_identity_no"/>
+                    <field name="community"/>
+                    <field name="phone"/>
+                    <field name="person_liable"/>
+                    <field name="permanent_address"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="his_child_health_register_action">
+            <field name="name">儿保登记表</field>
+            <field name="res_model">his.child_health_register</field>
+            <field name="search_view_id" ref="view_child_health_register_filter"/>
+        </record>
+
+        <menuitem id="his_child_health_register_menu" parent="child_health_config_main" action="his_child_health_register_action" sequence="3"/>
+
+
+
+    </data>
+</odoo>

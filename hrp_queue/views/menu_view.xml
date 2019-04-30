@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <menuitem id="hrp_visit_root_menu" name="就诊管理" sequence="1"/>
+        <menuitem id="hrp_hospital_info_menu" name="医院信息管理" parent="hrp_visit_root_menu"/>
+        <menuitem id="patient_manage_menu" name="患者管理" parent="hrp_visit_root_menu"/>
+
+    </data>
+</odoo>

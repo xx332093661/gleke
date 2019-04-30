@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <menuitem id="hrp_queue_root_menu" name="就诊队列" sequence="0"/>
+
+        <menuitem id="hrp_total_queue_root_menu" name="总队列" parent="hrp_queue_root_menu" sequence="0"/>
+
+        <menuitem id="hrp_queue_set_menu" name="队列设置" parent="hrp_queue_root_menu" sequence="30"/>
+        <!--总队列-->
+        <record id="hrp_total_queue_filter" model="ir.ui.view">
+            <field name="name">hrp_total_queue_filter</field>
+            <field name="model">hrp.total_queue</field>
+            <field name="arch" type="xml">
+                <search string="hrp_total_queue_filter">
+                    <field name="partner_id"/>
+                    <field name="outpatient_num"/>
+                    <field name="spell"/>
+                    <field name="business"/>
+                    <field name="department_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="hrp_total_queue_tree_view" model="ir.ui.view">
+            <field name="name">hrp_total_queue_tree_view</field>
+            <field name="model">hrp.total_queue</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_total_queue_tree_view" create="1" delete="1">
+                    <field name="enqueue_datetime"/>
+                    <field name="appointment_time"/>
+                    <field name="outpatient_num"/>
+                    <field name="partner_id"/>
+                    <field name="business"/>
+                    <field name="department_id"/>
+                    <field name="room_id"/>
+                    <field name="employee_id"/>
+                    <field name="register_type"/>
+                    <field name="part"/>
+                    <field name="coll_method"/>
+                    <field name="is_emerg_treat"/>
+                    <field name="origin"/>
+                    <field name="state"/>
+                    <field name="date_state" invisible="1"/>
+                    <!--<field name="queue_id"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <record id="hrp_total_queue_form_view" model="ir.ui.view">
+            <field name="name">hrp_total_queue_form_view</field>
+            <field name="model">hrp.total_queue</field>
+            <field name="arch" type="xml">
+                <form string="hrp_total_queue_form_view" create="1" delete="1" edit="1">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for='partner_id' class="oe_edit_only"/>
+                            <h1>
+                                <field name="partner_id" required="1"/>
+                            </h1>
+                            <label for='outpatient_num' class="oe_edit_only"/>
+                            <h2>
+                                <field name="outpatient_num" required="1"/>
+                            </h2>
+                        </div>
+                        <group col="4">
+                            <field name="spell"/>
+                            <field name="business"/>
+                            <field name="department_id"/>
+                            <field name="room_id"/>
+                            <field name="enqueue_datetime"/>
+                            <field name="state"/>
+                            <field name="origin"/>
+                            <field name="date_state"/>
+                            <field name="queue_id"/>
+                        </group>
+                        <notebook>
+                            <page string="挂号信息">
+                                <group>
+                                    <group>
+                                        <field name="register_type"/>
+                                        <field name="appointment_number_str"/>
+                                        <field name="is_emerg_treat"/>
+                                    </group>
+                                    <group>
+                                        <field name="employee_id"/>
+                                        <field name="appointment_time"/>
+                                        <field name="operator_code"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="检验检查">
+                                <group>
+                                    <group>
+                                        <field name="part"/>
+                                        <field name="count"/>
+                                    </group>
+                                    <group>
+                                        <field name="coll_method"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hrp_total_queue_action">
+            <field name="name">总队列</field>
+            <field name="res_model">hrp.total_queue</field>
+            <field name="domain">[('date_state', '=', '1')]</field>
+            <field name="search_view_id" ref="hrp_total_queue_filter"/>
+        </record>
+        <record model="ir.actions.act_window" id="hrp_total_queue_his_action">
+            <field name="name">历史总队列</field>
+            <field name="res_model">hrp.total_queue</field>
+            <field name="domain">[('date_state', '=', '2')]</field>
+            <field name="search_view_id" ref="hrp_total_queue_filter"/>
+        </record>
+        <menuitem id="hrp_total_queue_menu1" name="总队列" parent="hrp_total_queue_root_menu"
+                  action="hrp_total_queue_action" sequence="1"/>
+        <menuitem id="hrp_total_queue_menu2" name="历史总队列" parent="hrp_total_queue_root_menu"
+                  action="hrp_total_queue_his_action" sequence="2"/>
+
+        <!--队列-->
+        <record id="hrp_queue_filter" model="ir.ui.view">
+            <field name="name">hrp_queue_filter</field>
+            <field name="model">hrp.queue</field>
+            <field name="arch" type="xml">
+                <search string="hrp_queue_filter">
+                    <field name="partner_id"/>
+                    <field name="outpatient_num"/>
+                    <field name="spell"/>
+                    <field name="business"/>
+                    <field name="department_id"/>
+                    <field name="room_id"/>
+                    <field name="operation_room_id"/>
+                    <field name="operation_employee_id"/>
+                    <filter name="state_filter" string="待排队" domain="[('state','=',-1)]"/>
+                    <filter name="state_filter1" string="待诊" domain="[('state','=',1)]"/>
+                    <filter name="state_filter2" string="就诊" domain="[('state','=',2)]"/>
+                    <filter name="state_filter3" string="未到" domain="[('state','=',3)]"/>
+                    <filter name="state_filter4" string="诊结" domain="[('state','=',4)]"/>
+                    <filter name="state_filter5" string="退费" domain="[('state','=',5)]"/>
+                    <filter name="state_filter6" string="取报告" domain="[('state','=',6)]"/>
+                    <filter name="state_filter7" string="待出报告" domain="[('state','=',7)]"/>
+                    <filter name="department_id_group" string="科室" context="{'group_by': 'department_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="hrp_queue_tree_view" model="ir.ui.view">
+            <field name="name">hrp_queue_tree_view</field>
+            <field name="model">hrp.queue</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_queue_tree_view" create="1" delete="1">
+                    <field name="enqueue_datetime"/>
+                    <field name="appointment_time"/>
+                    <field name="outpatient_num"/>
+                    <field name="partner_id"/>
+                    <field name="business"/>
+                    <field name="department_id"/>
+                    <field name="room_id"/>
+                    <field name="employee_id"/>
+                    <field name="operation_room_id"/>
+                    <field name="operation_equipment_id"/>
+                    <field name="operation_employee_id"/>
+                    <field name="register_type"/>
+                    <field name="part"/>
+                    <field name="coll_method"/>
+                    <field name="is_emerg_treat"/>
+                    <field name="return_visit"/>
+                    <field name="origin"/>
+                    <field name="confirm_datetime"/>
+                    <field name="operation_time"/>
+                    <field name="state"/>
+                    <field name="stage"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hrp_queue_form_view" model="ir.ui.view">
+            <field name="name">hrp_queue_form_view</field>
+            <field name="model">hrp.queue</field>
+            <field name="arch" type="xml">
+                <form string="hrp_queue_form_view" create="1" delete="1" edit="1">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for='partner_id' class="oe_edit_only"/>
+                            <h1>
+                                <field name="partner_id" required="1"/>
+                            </h1>
+                            <label for='outpatient_num' class="oe_edit_only"/>
+                            <h2>
+                                <field name="outpatient_num" required="1"/>
+                            </h2>
+                        </div>
+                        <group col="4">
+                            <field name="spell"/>
+                            <field name="business"/>
+                            <field name="department_id"/>
+                            <field name="operation_room_id"/>
+                            <field name="operation_equipment_id"/>
+                            <field name="operation_employee_id"/>
+                            <field name="return_visit"/>
+                            <field name="enqueue_datetime"/>
+                            <field name="confirm_datetime"/>
+                            <field name="operation_time"/>
+                            <field name="state"/>
+                            <field name="stage"/>
+                            <field name="origin"/>
+                            <field name="date_state"/>
+                        </group>
+                        <notebook>
+                            <page string="挂号信息">
+                                <group>
+                                    <group>
+                                        <field name="register_type"/>
+                                        <field name="appointment_number_str"/>
+                                        <field name="is_emerg_treat"/>
+                                    </group>
+                                    <group>
+                                        <field name="employee_id"/>
+                                        <field name="appointment_time"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="检验检查">
+                                <group>
+                                    <group>
+                                        <field name="part"/>
+                                        <field name="count"/>
+                                    </group>
+                                    <group>
+                                        <field name="coll_method"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="分诊记录">
+                                <field name="queue_dispatch_ids">
+                                    <tree editable="top">
+                                        <field name="room_id"/>
+                                        <field name="employee_ids" widget="many2many_tags"/>
+                                        <!--<field name="order_num"/>-->
+                                        <field name="order_num_str"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="操作记录">
+                                <field name="queue_operation_ids">
+                                    <tree editable="top">
+                                        <field name="user_id"/>
+                                        <field name="room_id"/>
+                                        <field name="equipment_id"/>
+                                        <field name="state"/>
+                                        <field name="create_date" string="操作时间"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--分诊-->
+        <record model="ir.actions.act_window" id="hrp_queue_action1">
+            <field name="name">待排队</field>
+            <field name="res_model">hrp.queue</field>
+            <field name="domain">[('date_state', '=', '1')]</field>
+            <field name="context">{'search_default_state_filter':1}</field>
+            <field name="search_view_id" ref="hrp_queue_filter"/>
+        </record>
+        <record model="ir.actions.act_window" id="hrp_queue_action2">
+            <field name="name">待诊</field>
+            <field name="res_model">hrp.queue</field>
+            <field name="domain">[('date_state', '=', '1')]</field>
+            <field name="context">{'search_default_state_filter1':1, 'search_default_state_filter2':1,'search_default_state_filter3':1}</field>
+            <field name="search_view_id" ref="hrp_queue_filter"/>
+        </record>
+        <record model="ir.actions.act_window" id="hrp_queue_action3">
+            <field name="name">完诊</field>
+            <field name="res_model">hrp.queue</field>
+            <field name="domain">[('date_state', '=', '1')]</field>
+            <field name="context">{
+                'search_default_state_filter4':1,
+                'search_default_state_filter5':1,
+                'search_default_state_filter6':1,
+                'search_default_state_filter7':1,
+                'search_default_department_id_group':1
+                }</field>
+            <field name="search_view_id" ref="hrp_queue_filter"/>
+        </record>
+        <record model="ir.actions.act_window" id="hrp_queue_action4">
+            <field name="name">历史</field>
+            <field name="res_model">hrp.queue</field>
+            <field name="domain">[('date_state', '=', '2')]</field>
+            <field name="search_view_id" ref="hrp_queue_filter"/>
+        </record>
+
+        <menuitem id="hrp_queue_menu" name="分诊" parent="hrp_queue_root_menu" sequence="10"/>
+        <menuitem id="hrp_queue_menu1" name="待排队" parent="hrp_queue_menu" action="hrp_queue_action1" sequence="1"/>
+        <menuitem id="hrp_queue_menu2" name="待诊" parent="hrp_queue_menu" action="hrp_queue_action2" sequence="2"/>
+        <menuitem id="hrp_queue_menu3" name="完诊" parent="hrp_queue_menu" action="hrp_queue_action3" sequence="3"/>
+        <menuitem id="hrp_queue_menu4" name="历史" parent="hrp_queue_menu" action="hrp_queue_action4" sequence="4"/>
+
+        <!--队列更新记录-->
+        <record id="hrp_queue_update_record_tree_view" model="ir.ui.view">
+            <field name="name">hrp_queue_update_record_tree_view</field>
+            <field name="model">hrp.queue_update_record</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_queue_update_record_tree_view">
+                    <field name="update_date"/>
+                    <field name="state"/>
+                    <field name="start"/>
+                    <field name="stop"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hrp_queue_update_record_form_view" model="ir.ui.view">
+            <field name="name">hrp_queue_update_record_form_view</field>
+            <field name="model">hrp.queue_update_record</field>
+            <field name="arch" type="xml">
+                <form string="hrp_queue_update_record_form_view">
+                    <sheet>
+                        <group col="4">
+                            <field name="update_date"/>
+                            <field name="state"/>
+                            <field name="start"/>
+                            <field name="stop"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hrp_queue_update_record_action">
+            <field name="name">队列更新记录</field>
+            <field name="res_model">hrp.queue_update_record</field>
+        </record>
+
+        <menuitem id="hrp_queue_update_record_menu" name="队列更新记录" parent="hrp_queue_set_menu" sequence="10" action="hrp_queue_update_record_action"/>
+
+
+        <!--队列备份-->
+        <record id="hrp_queue_backup_filter" model="ir.ui.view">
+            <field name="name">hrp_queue_backup_filter</field>
+            <field name="model">hrp.queue_backup</field>
+            <field name="arch" type="xml">
+                <search string="hrp_queue_backup_filter">
+                    <field name="partner_id"/>
+                    <field name="outpatient_num"/>
+                    <field name="spell"/>
+                    <field name="business"/>
+                    <field name="department_id"/>
+                    <filter name="department_id_group" string="科室" context="{'group_by': 'department_id'}"/>
+                    <filter string="当天" name="operation_date_filter" domain="[('operation_date','&gt;=',time.strftime('%%Y-%%m-%%d'))]"/>
+                    <filter string="历史" name="operation_date_his_filter" domain="[('operation_date','&lt;',time.strftime('%%Y-%%m-%%d'))]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="hrp_queue_backup_tree_view" model="ir.ui.view">
+            <field name="name">hrp_queue_backup_tree_view</field>
+            <field name="model">hrp.queue_backup</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_queue_backup_tree_view" create="1" delete="1">
+                    <field name="outpatient_num"/>
+                    <field name="partner_id"/>
+                    <field name="business"/>
+                    <field name="department_id"/>
+                    <!--<field name="room_id"/>-->
+                    <!--<field name="employee_id"/>-->
+                    <!--<field name="register_type"/>-->
+                    <!--<field name="part"/>-->
+                    <!--<field name="coll_method"/>-->
+                    <!--<field name="is_emerg_treat"/>-->
+                    <!--<field name="return_visit"/>-->
+                    <field name="origin"/>
+                    <field name="enqueue_datetime"/>
+                    <field name="confirm_datetime"/>
+                    <field name="operation_room_id"/>
+                    <field name="operation_employee_id"/>
+                    <field name="operation_equipment_id"/>
+                    <field name="operation_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hrp_queue_backup_form_view" model="ir.ui.view">
+            <field name="name">hrp_queue_backup_form_view</field>
+            <field name="model">hrp.queue_backup</field>
+            <field name="arch" type="xml">
+                <form string="hrp_queue_backup_form_view" create="1" delete="1" edit="1">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for='partner_id' class="oe_edit_only"/>
+                            <h1>
+                                <field name="partner_id" required="1"/>
+                            </h1>
+                            <label for='outpatient_num' class="oe_edit_only"/>
+                            <h2>
+                                <field name="outpatient_num" required="1"/>
+                            </h2>
+                        </div>
+                        <group col="4">
+                            <field name="business"/>
+                            <field name="department_id"/>
+                            <!--<field name="room_id"/>-->
+                            <!--<field name="return_visit"/>-->
+                            <!--<field name="origin"/>-->
+                            <field name="enqueue_datetime"/>
+                            <field name="confirm_datetime"/>
+                            <field name="operation_room_id"/>
+                            <field name="operation_employee_id"/>
+                            <field name="operation_equipment_id"/>
+                            <field name="operation_time"/>
+                        </group>
+                        <notebook>
+                            <!--<page string="挂号信息">-->
+                                <!--<group>-->
+                                    <!--<group>-->
+                                        <!--<field name="register_type"/>-->
+                                        <!--<field name="is_emerg_treat"/>-->
+                                    <!--</group>-->
+                                    <!--<group>-->
+                                        <!--<field name="employee_id"/>-->
+                                    <!--</group>-->
+                                <!--</group>-->
+                            <!--</page>-->
+                            <!--<page string="检验检查">-->
+                                <!--<group>-->
+                                    <!--<group>-->
+                                        <!--<field name="part"/>-->
+                                        <!--<field name="origin"/>-->
+                                    <!--</group>-->
+                                    <!--<group>-->
+                                        <!--<field name="coll_method"/>-->
+                                    <!--</group>-->
+                                <!--</group>-->
+                            <!--</page>-->
+                            <page string="操作记录">
+                                <field name="queue_operation_ids">
+                                    <tree editable="top">
+                                        <field name="user_id"/>
+                                        <field name="room_id"/>
+                                        <field name="equipment_id"/>
+                                        <field name="state"/>
+                                        <field name="create_date" string="操作时间"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hrp_queue_backup_action1">
+            <field name="name">当天</field>
+            <field name="res_model">hrp.queue_backup</field>
+            <field name="search_view_id" ref="hrp_queue_backup_filter"/>
+            <field name="context">{'search_default_department_id_group':1, 'search_default_operation_date_filter':1}</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hrp_queue_backup_action2">
+            <field name="name">历史</field>
+            <field name="res_model">hrp.queue_backup</field>
+            <field name="search_view_id" ref="hrp_queue_backup_filter"/>
+            <field name="context">{'search_default_department_id_group':1, 'search_default_operation_date_his_filter':1}</field>
+        </record>
+
+        <menuitem id="hrp_queue_backup_menu" name="接诊记录" parent="hrp_queue_root_menu" sequence="99"/>
+        <menuitem id="hrp_queue_backup_menu1" name="当天" parent="hrp_queue_backup_menu" action="hrp_queue_backup_action1" sequence="1"/>
+        <menuitem id="hrp_queue_backup_menu2" name="历史" parent="hrp_queue_backup_menu" action="hrp_queue_backup_action2" sequence="2"/>
+
+
+        <!--分诊详情-->
+        <record id="hrp_queue_dispatch_filter" model="ir.ui.view">
+            <field name="name">hrp_queue_dispatch_filter</field>
+            <field name="model">hrp.queue_dispatch</field>
+            <field name="arch" type="xml">
+                <search string="hrp_queue_dispatch_filter">
+                    <field name="partner_id"/>
+                    <field name="business"/>
+                    <field name="department_id"/>
+                    <field name="room_id"/>
+                    <field name="employee_ids"/>
+                    <filter name="date_state_1" string="有效" domain="[('date_state', '=', '1')]"/>
+                    <filter name="department_group" string="科室" context="{'group_by': 'department_id'}"/>
+                    <filter name="room_group" string="诊室" context="{'group_by': 'room_id'}"/>
+                    <filter name="state_str_group" string="就诊状态" context="{'group_by': 'state_str'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="hrp_queue_dispatch_tree_view" model="ir.ui.view">
+            <field name="name">hrp_queue_dispatch_tree_view</field>
+            <field name="model">hrp.queue_dispatch</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_queue_dispatch_tree_view" create="0" delete="0">
+                    <field name="enqueue_datetime"/>
+                    <field name="order_num_str"/>
+                    <field name="partner_id"/>
+                    <field name="state_str"/>
+                    <field name="stage"/>
+                    <field name="confirm_datetime"/>
+                    <field name="business"/>
+                    <field name="department_id"/>
+                    <field name="room_id"/>
+                    <field name="employee_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hrp_queue_dispatch_form_view" model="ir.ui.view">
+            <field name="name">hrp_queue_dispatch_form_view</field>
+            <field name="model">hrp.queue_dispatch</field>
+            <field name="arch" type="xml">
+                <form string="hrp_queue_dispatch_form_view" create="0" delete="0" edit="0">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for='partner_id' class="oe_edit_only"/>
+                            <h1>
+                                <field name="partner_id" required="1"/>
+                            </h1>
+                        </div>
+                        <group col="4">
+                            <field name="order_num_str"/>
+                            <field name="state_str"/>
+                            <field name="stage"/>
+                            <field name="enqueue_datetime"/>
+                            <field name="confirm_datetime"/>
+                            <field name="business"/>
+                            <field name="department_id"/>
+                            <field name="room_id"/>
+                            <field name="employee_ids" widget="many2many_tags"/>
+                            <field name="queue_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hrp_queue_dispatch_action">
+            <field name="name">科室分诊</field>
+            <field name="res_model">hrp.queue_dispatch</field>
+            <field name="search_view_id" ref="hrp_queue_dispatch_filter"/>
+            <field name="context">{'search_default_department_group': 1, 'search_default_room_group': 1, 'search_default_date_state_1': 1, 'search_default_state_str_group': 1}</field>
+        </record>
+
+        <menuitem id="hrp_queue_dispatch_menu" name="科室分诊" parent="hrp_queue_menu"
+                  action="hrp_queue_dispatch_action" sequence="10"/>
+
+    </data>
+</odoo>

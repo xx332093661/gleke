@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="hrp_inoculation_item_tree" model="ir.ui.view">
+            <field name="name">hrp_inoculation_item_tree</field>
+            <field name="model">hrp.inoculation_item</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="prevent_disease"/>
+                    <field name="part"/>
+                    <field name="method"/>
+                    <field name="effect"/>
+                    <field name="taboo"/>
+                    <field name="attention"/>
+                    <field name="reaction"/>
+                    <field name="is_private"/>
+                    <field name="times"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="hrp_inoculation_item_form" model="ir.ui.view">
+            <field name="name">hrp_inoculation_item_form</field>
+            <field name="model">hrp.inoculation_item</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="prevent_disease"/>
+                            <field name="part"/>
+                            <field name="method"/>
+                            <field name="is_private"/>
+                            <field name="times"/>
+                            <field name="effect"/>
+                            <field name="taboo"/>
+                            <field name="attention"/>
+                            <field name="reaction"/>
+                        </group>
+                        <notebook>
+                            <page string="关联收费项目">
+                                <field name="product_ids">
+                                    <tree>
+                                        <field name="id"/>
+                                        <field name="name" string="名称"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="hrp_inoculation_item_action">
+            <field name="name">接种项目</field>
+            <field name="res_model">hrp.inoculation_item</field>
+        </record>
+
+        <menuitem id="hrp_inoculation_item_menu" name="接种项目" parent="hrp_hospital_info_menu" action="hrp_inoculation_item_action"/>
+
+    </data>
+</odoo>

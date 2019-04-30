@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_department_tree" model="ir.ui.view">
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_tree"/>
+            <field name="arch" type="xml">
+                <field name="manager_id" position="replace"/>
+                <field name="display_name" position="replace">
+                    <field name="id"/>
+                    <field name="internal_id"/>
+                    <field name="his_id" string="HISID"/>
+                    <field name="name"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_department_form" model="ir.ui.view">
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_form"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <field name="pinyin"/>
+                    <field name="location"/>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                </field>
+                <field name="manager_id" position="replace"/>
+                <xpath expr="//div[@class='oe_chatter']" position="replace"/>
+            </field>
+        </record>
+
+        <record id="hr_department_filter" model="ir.ui.view">
+            <field name="name">hr_department_filter</field>
+            <field name="model">hr.department</field>
+            <field name="arch" type="xml">
+                <search string="hr_department_filter">
+                    <field name="name"/>
+                    <filter name="company_filter" string="医院" domain="[]" context="{'group_by':'company_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="hr.open_module_tree_department" model="ir.actions.act_window">
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="search_view_id" ref="hr_department_filter"/>
+            <field name="context">{'search_default_company_filter': 1}</field>
+        </record>
+
+    </data>
+</odoo>

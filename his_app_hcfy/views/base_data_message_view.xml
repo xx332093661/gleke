@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_base_data_message_tree" model="ir.ui.view">
+        <field name="name">his.base_data_message.tree</field>
+        <field name="model">his.base_data_message</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="id"/>
+                <field name="action"/>
+                <field name="create_date" string="创建时间"/>
+                <field name="identifier"/>
+                <field name="source_topic"/>
+                <field name="accept_topic"/>
+                <field name="msg_type"/>
+                <field name="state"/>
+                <field name="refund_apply_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_base_data_message_form" model="ir.ui.view">
+        <field name="name">his.base_data_message.form</field>
+        <field name="model">his.base_data_message</field>
+        <field name="arch" type="xml">
+            <form  string="base_data_message" create="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="msg_type"/>
+                            <field name="create_date" string="创建时间"/>
+                            <field name="source_topic"/>
+                            <field name="mac"/>
+                            <field name="state"/>
+                        </group>
+                        <group>
+                            <field name="action"/>
+                            <field name="identifier"/>
+                            <field name="accept_topic"/>
+                            <field name="token"/>
+                            <field name="refund_apply_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="有效载荷">
+                            <field name="payload"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_base_data_message_filter" model="ir.ui.view">
+        <field name="name">his.base_data_message.select</field>
+        <field name="model">his.base_data_message</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="payload"/>
+                <field name="action"/>
+                <field name="source_topic"/>
+                <separator/>
+                <filter string="收到的消息" name="msg_type_accept" domain="[('msg_type','=','accept')]"/>
+                <filter string="发送的消息" domain="[('msg_type','=','send')]"/>
+                <separator/>
+                <filter string="未处理" name="state_draft" domain="[('state','=','draft')]"/>
+                <filter string="已处理" domain="[('state','=','done')]"/>
+                <separator/>
+                <filter string="已作退款" domain="[('refund_apply_id','!=',False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_base_data_message_tree" model="ir.actions.act_window">
+        <field name="name">MQTT消息</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">his.base_data_message</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_base_data_message_filter"/>
+        <field name="context">{'search_default_msg_type_accept': 1, 'search_default_state_draft': 1}</field>
+    </record>
+
+
+
+<menuitem id="his_base_data_message_menu" name="MQTT消息" parent="his_base_data_message_main" action="action_base_data_message_tree"/>
+
+
+
+
+
+</odoo>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_inoculation_cycle_tree" model="ir.ui.view">
+            <field name="name">inoculation_cycle_tree</field>
+            <field name="model">his.inoculation_cycle</field>
+            <field name="arch" type="xml">
+                <tree create="0" delete="0" edit="0">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_inoculation_cycle_form" model="ir.ui.view">
+            <field name="name">inoculation_cycle_form</field>
+            <field name="model">his.inoculation_cycle</field>
+            <field name="arch" type="xml">
+                <form create="0" delete="0" edit="0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <label for="value"/>
+                                <div class="o_address_format">
+                                    <div class="o_form_field_many2one" style="width:20px">第</div>
+                                    <field name="value" style="width:100px" required="1"/>
+                                    <div class="o_form_field_many2one" style="width:20px">月</div>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="name" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_inoculation_cycle_filter" model="ir.ui.view">
+            <field name="name">his.inoculation_cycle.select</field>
+            <field name="model">his.inoculation_cycle</field>
+            <field name="arch" type="xml">
+                <search>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="inoculation_cycle_action">
+            <field name="name">接种周期</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">his.inoculation_cycle</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_inoculation_cycle_filter"/>
+        </record>
+
+        <menuitem id="inoculation_cycle_menu" name="接种周期" parent="config_main" action="inoculation_cycle_action" sequence="1"/>
+
+    </data>
+</odoo>

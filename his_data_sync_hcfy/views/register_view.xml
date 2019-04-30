@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_register_tree" model="ir.ui.view">
+        <field name="name">his.register.tree</field>
+        <field name="model">his.register</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="id"/>
+                <field name="his_id"/>
+                <field name="partner_id"/>
+                <field name="receipt_no"/>
+                <field name="record_state"/>
+                <field name="exe_state"/>
+                <field name="department_id"/>
+                <field name="employee_id"/>
+                <field name="is_emerg_treat"/>
+                <field name="register_datetime"/>
+                <field name="create_date"/>
+                <field name="total_queue_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_register_form" model="ir.ui.view">
+        <field name="name">his.register.form</field>
+        <field name="model">his.register</field>
+        <field name="arch" type="xml">
+            <form  string="register">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="his_id"/>
+                            <field name="partner_id"/>
+                            <field name="record_state"/>
+                            <field name="department_id"/>
+                            <field name="is_emerg_treat"/>
+                            <field name="register_datetime"/>
+                        </group>
+                        <group>
+
+                            <field name="receipt_no"/>
+                            <field name="exe_state"/>
+                            <field name="employee_id"/>
+                            <field name="total_queue_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_register_filter" model="ir.ui.view">
+        <field name="name">his.register.select</field>
+        <field name="model">his.register</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="his_id"/>
+                <field name="partner_id" string="患者"/>
+                <field name="register_date"/>
+                <field string="创建开始时间" name="create_date" domain="[('create_date', '&gt;=', self)]"/>
+                <field string="创建截止时间" name="create_date" domain="[('create_date', '&lt;', self)]"/>
+
+                <separator/>
+                <filter string="退号" domain="[('record_state','in',[2,3])]"/>
+                <separator/>
+                <filter string="待诊" domain="[('exe_state','=',0)]"/>
+                <filter string="接诊" domain="[('exe_state','=',2)]"/>
+                <filter string="完诊" domain="[('exe_state','=',1)]"/>
+                <separator/>
+                <filter name="not_history" string="活动记录" domain="[('is_history', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_register_tree" model="ir.actions.act_window">
+        <field name="name">病人挂号记录</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">his.register</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_register_filter"/>
+        <field name="context">{"search_default_not_history":1}</field>
+    </record>
+
+
+
+    <menuitem action="action_register_tree" id="menu_action_register_tree"
+              parent="his_data_synchronization_poll.menu_sync_business_data_main" sequence="0"/>
+
+</odoo>

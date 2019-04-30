@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="ir_cron_start_process_base_data_thread" model="ir.cron">
+            <field name="name">处理基础数据队列</field>
+            <field name="priority">5</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model">his.emqtt</field>
+            <field name="function">ir_cron_start_process_base_data_thread</field>
+            <field name="active" eval="True"/>
+            <field name="args">()</field>
+        </record>
+
+        <record id="ir_cron_generate_register_plan" model="ir.cron">
+            <field name="name">生成挂号计划表</field>
+            <field name="priority">5</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model">his.register_plan</field>
+            <field name="function">generate_register_plan</field>
+            <field name="active" eval="True"/>
+            <field name="args">()</field>
+        </record>
+
+        <record id="ir_cron_reserve_record_commit" model="ir.cron">
+            <field name="name">预约记录提交到HIS</field>
+            <field name="priority">5</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model">his.reserve_record</field>
+            <field name="function">commit_his</field>
+            <field name="active" eval="True"/>
+            <field name="args">()</field>
+        </record>
+
+
+        <record id="ir_cron_sync_register_plan" model="ir.cron">
+            <field name="name">获取挂号安排</field>
+            <field name="priority">5</field>
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model">hr.department</field>
+            <field name="function">sync_register_plan</field>
+            <field name="active" eval="True"/>
+            <field name="args">()</field>
+        </record>
+
+        <record id="ir_cron_unlock_register_source" model="ir.cron">
+            <field name="name">自动解锁号源</field>
+            <field name="priority">5</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model">his.register_source</field>
+            <field name="function">auto_unlock_register_source</field>
+            <field name="active" eval="True"/>
+            <field name="args">()</field>
+        </record>
+
+    </data>
+</odoo>
+

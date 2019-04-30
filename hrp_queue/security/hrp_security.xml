@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="group_hrp_doctor" model="res.groups">
+            <field name="name">医生</field>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <record id="group_hrp_nurse" model="res.groups">
+            <field name="name">护士</field>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <record id="group_hrp_manager" model="res.groups">
+            <field name="name">管理员</field>
+            <field name="implied_ids" eval="[(4, ref('group_hrp_doctor')), (4, ref('group_hrp_nurse'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+
+        <!--===========隐藏菜单===========-->
+        <!--讨论-->
+        <record model='ir.ui.menu' id='mail.mail_channel_menu_root_chat'>
+            <field name="groups_id" eval="[(5,),(4,ref('base.group_no_one'))]"/>
+        </record>
+    </data>
+</odoo>

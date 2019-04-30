@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_hrp_generate_schedule" model="ir.ui.view">
+            <field name="name">view_hrp_generate_schedule</field>
+            <field name="model">hrp.generate_schedule</field>
+            <field name="arch" type="xml">
+                <form string="view_hrp_generate_schedule">
+                    <group>
+                         <group>
+                             <field name="week" required="1"/>
+                         </group>
+                        <group>
+                            <field name="date_text"/>
+                        </group>
+                    </group>
+                     <notebook>
+                        <page string="班次">
+                            <field name="schedule_type_ids">
+                                <tree>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button string="生成排班" name="generate_schedule" type="object" class="btn-primary"/>
+                        <button string="取消" class="btn-default" special="cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_hrp_generate_schedule" model="ir.actions.act_window">
+            <field name="name">生成排班</field>
+            <field name="res_model">hrp.generate_schedule</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+           <field name="view_id" ref="view_hrp_generate_schedule"/>
+           <field name="target">new</field>
+        </record>
+
+
+    </data>
+</odoo>

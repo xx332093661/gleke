@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="his_long_pay_record_tree" model="ir.ui.view">
+            <field name="name">his_long_pay_record_tree</field>
+            <field name="model">his.long_pay_record</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ORDERID"/>
+                    <field name="PAYMENT"/>
+                    <field name="SUCCESS"/>
+                    <field name="ACCDATE"/>
+                    <field name="ERRMSG"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="his_long_pay_record_form" model="ir.ui.view">
+            <field name="name">his_long_pay_record_form</field>
+            <field name="model">his.long_pay_record</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="ORDERID"/>
+                                <field name="PAYMENT"/>
+                                <field name="SUCCESS"/>
+                            </group>
+                            <group>
+                                <field name="ACCDATE"/>
+                                <field name="ERRMSG"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="POSID"/>
+                                <field name="BRANCHID"/>
+                                <field name="CURCODE"/>
+                            </group>
+                            <group>
+                                <field name="REFERER"/>
+                                <field name="SIGN"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="REMARK1"/>
+                            </group>
+                            <group>
+                                <field name="REMARK2"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="ACC_TYPE"/>
+                            </group>
+                            <group>
+                                <field name="TYPE"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="CLIENTIP"/>
+                                <field name="USRINFO"/>
+                                <field name="INSTALLNUM"/>
+                            </group>
+                            <group>
+                                <field name="USRMSG"/>
+                                <field name="DISCOUNT"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="医院信息">
+                                <group col="4">
+                                    <field name="company_id"/>
+                                    <field name="internal_id"/>
+                                </group>
+                            </page>
+                            <page string="订单">
+                                <field name="order_ids"/>
+                            </page>
+                            <page string="退款信息">
+                                <group>
+                                    <group>
+                                        <field name="is_refund"/>
+                                        <field name="refund_code"/>
+                                    </group>
+                                    <group>
+                                        <field name="refund_time"/>
+                                        <field name="refund_msg"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="view_long_pay_record_filter" model="ir.ui.view">
+            <field name="name">his.long_pay_record.select</field>
+            <field name="model">his.long_pay_record</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="ORDERID"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="his_long_pay_record_action">
+            <field name="name">龙支付记录</field>
+            <field name="res_model">his.long_pay_record</field>
+            <field name="view_type">form</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_long_pay_record_filter"/>
+        </record>
+
+        <menuitem id="his_long_pay_record_menu" name="龙支付记录" parent="shango_app_pay_record_menu" action="his_long_pay_record_action"  sequence="3"/>
+
+    </data>
+</odoo>

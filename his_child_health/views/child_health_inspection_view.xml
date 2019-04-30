@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_child_health_inspection_tree" model="ir.ui.view">
+            <field name="name">child_health_inspection_tree</field>
+            <field name="model">his.child_health_inspection</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="month_label"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_child_health_inspection_form" model="ir.ui.view">
+            <field name="name">child_health_inspection_form</field>
+            <field name="model">his.child_health_inspection</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <label for="month"/>
+                                <div class="o_address_format">
+                                    <div class="o_form_field_many2one" style="width:20px">第</div>
+                                    <field name="month" style="width:100px" required="1"/>
+                                    <div class="o_form_field_many2one" style="width:20px">月</div>
+                                </div>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="儿保项目">
+                                <field name="item_ids" required="1"/>
+                            </page>
+                            <page string="检查重点">
+                                <field name="main_point" placeholder="检查重点" required="1"/>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_child_health_inspection_filter" model="ir.ui.view">
+            <field name="name">his.child_health_inspection.select</field>
+            <field name="model">his.child_health_inspection</field>
+            <field name="arch" type="xml">
+                <search>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="child_health_inspection_action">
+            <field name="name">儿保计划</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">his.child_health_inspection</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_child_health_inspection_filter"/>
+        </record>
+
+        <menuitem id="child_health_inspection_menu" parent="child_health_config_main" action="child_health_inspection_action" sequence="2"/>
+
+
+
+    </data>
+</odoo>

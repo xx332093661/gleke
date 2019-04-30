@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="his.subscribe_type" id="subscribe_type_insert">
+          <field name="name">新建记录</field>
+          <field name="subscribe_type">OPCODE_INSERT</field>
+        </record>
+        <record model="his.subscribe_type" id="subscribe_type_update">
+          <field name="name">更新记录</field>
+          <field name="subscribe_type">OPCODE_UPDATE</field>
+        </record>
+    </data>
+</odoo>
+

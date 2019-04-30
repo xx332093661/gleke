@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_pregnant_inspection_tree" model="ir.ui.view">
+            <field name="name">pregnant_inspection_tree</field>
+            <field name="model">his.pregnant_inspection</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="number_label"/>
+                    <field name="start_cycle_id"/>
+                    <field name="end_cycle_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pregnant_inspection_form" model="ir.ui.view">
+            <field name="name">pregnant_inspection_form</field>
+            <field name="model">his.pregnant_inspection</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <label for="start_cycle_id" string="孕周"/>
+                                <div class="o_address_format">
+                                    <div class="o_form_field_many2one" style="width:15px">从</div>
+                                    <field name="start_cycle_id" required="1" style="width:70px" options="{'no_open':True,'no_create':True}"/>
+                                    <div class="o_form_field_many2one" style="width:15px">到</div>
+                                    <field name="end_cycle_id" required="1" style="width:70px" options="{'no_open':True,'no_create':True}"/>
+                                </div>
+                            </group>
+                            <group>
+                                <label for="start_cycle_id" string="检查顺序"/>
+                                <div class="o_address_format">
+                                    <div class="o_form_field_many2one" style="width:15px">第</div>
+                                    <field name="number" required="1" style="width:100px"/>
+                                    <div class="o_form_field_many2one" style="width:15px">次</div>
+                                </div>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="产检项目">
+                                <field name="item_ids" options="{'no_create':1}"/>
+                            </page>
+                            <page string="产检详情">
+                                <separator string="产检重点"/>
+                                <field name="main_point" nolabel="1" placeholder="产检重点"/>
+                                <separator string="产检目的"/>
+                                <field name="purpose" nolabel="1" placeholder="产检目的"/>
+                                <separator string="产检准备"/>
+                                <field name="preparation" nolabel="1" placeholder="产检准备"/>
+                                <separator string="注意事项"/>
+                                <field name="precautions" nolabel="1" placeholder="注意事项"/>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pregnant_inspection_filter" model="ir.ui.view">
+            <field name="name">his.pregnant_inspection.select</field>
+            <field name="model">his.pregnant_inspection</field>
+            <field name="arch" type="xml">
+                <search>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="pregnant_inspection_action">
+            <field name="name">产检计划</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">his.pregnant_inspection</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pregnant_inspection_filter"/>
+        </record>
+
+        <menuitem id="pregnant_inspection_menu" parent="config_main" action="pregnant_inspection_action" sequence="3"/>
+
+
+
+    </data>
+</odoo>

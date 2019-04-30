@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <!--血糖检测-->
+        <record model="his.pregnant_inspection_item" id="pregnant_inspection_item1">
+            <field name="name">血糖检测</field>
+            <field name="description">
+防止孕期糖尿病和低血糖
+            </field>
+        </record>
+
+        <!--心电图-->
+        <record model="his.pregnant_inspection_item" id="pregnant_inspection_item2">
+            <field name="name">心电图</field>
+            <field name="description">
+
+            </field>
+        </record>
+
+        <!--血型-->
+        <record model="his.pregnant_inspection_item" id="pregnant_inspection_item3">
+            <field name="name">血型</field>
+            <field name="description">
+
+            </field>
+        </record>
+
+        <!--艾滋、梅毒、乙肝、丙肝-->
+        <record model="his.pregnant_inspection_item" id="pregnant_inspection_item4">
+            <field name="name">艾滋、梅毒、乙肝、丙肝</field>
+            <field name="description">
+
+            </field>
+        </record>
+
+        <!--肝功能-->
+        <record model="his.pregnant_inspection_item" id="pregnant_inspection_item5">
+            <field name="name">肝功能</field>
+            <field name="description">
+
+            </field>
+        </record>
+
+        <!--NT(胎儿畸形筛查)-->
+        <record model="his.pregnant_inspection_item" id="pregnant_inspection_item6">
+            <field name="name">NT(胎儿畸形筛查)</field>
+            <field name="description">
+
+            </field>
+        </record>
+
+        <!--尿常规-->
+        <record model="his.pregnant_inspection_item" id="pregnant_inspection_item7">
+            <field name="name">尿常规</field>
+            <field name="description">
+
+            </field>
+        </record>
+
+        <!--产前检查-->
+        <record model="his.pregnant_inspection_item" id="pregnant_inspection_item8">
+            <field name="name">产前检查</field>
+            <field name="description">
+
+            </field>
+        </record>
+
+        <!--常规检查-->
+        <record model="his.pregnant_inspection_item" id="pregnant_inspection_item9">
+            <field name="name">常规检查</field>
+            <field name="description">
+
+            </field>
+        </record>
+
+        <!--血常规-->
+        <record model="his.pregnant_inspection_item" id="pregnant_inspection_item10">
+            <field name="name">血常规</field>
+            <field name="description">
+
+            </field>
+        </record>
+
+        <!--孕中期唐筛-->
+        <record model="his.pregnant_inspection_item" id="pregnant_inspection_item11">
+            <field name="name">孕中期唐筛</field>
+            <field name="description">
+
+            </field>
+        </record>
+
+        <!--四维彩超-->
+        <record model="his.pregnant_inspection_item" id="pregnant_inspection_item12">
+            <field name="name">四维彩超</field>
+            <field name="description">
+
+            </field>
+        </record>
+
+        <!--糖耐量筛查-->
+        <record model="his.pregnant_inspection_item" id="pregnant_inspection_item13">
+            <field name="name">糖耐量筛查</field>
+            <field name="description">
+
+            </field>
+        </record>
+
+        <!--中晚孕B超(常规)-->
+        <record model="his.pregnant_inspection_item" id="pregnant_inspection_item14">
+            <field name="name">中晚孕B超(常规)</field>
+            <field name="description">
+
+            </field>
+        </record>
+
+        <!--胎心监护-->
+        <record model="his.pregnant_inspection_item" id="pregnant_inspection_item15">
+            <field name="name">胎心监护</field>
+            <field name="description">
+
+            </field>
+        </record>
+
+        <!--血凝分析四项-->
+        <record model="his.pregnant_inspection_item" id="pregnant_inspection_item16">
+            <field name="name">血凝分析四项</field>
+            <field name="description">
+
+            </field>
+        </record>
+
+        <!--肾功能-->
+        <record model="his.pregnant_inspection_item" id="pregnant_inspection_item17">
+            <field name="name">肾功能</field>
+            <field name="description">
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_convenient_item_service_tree" model="ir.ui.view">
+            <field name="name">convenient_item_service_tree</field>
+            <field name="model">his.convenient_item</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="category_id"/>
+                    <field name="is_package"/>
+                    <field name="discount"/>
+                    <field name="item_price"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_convenient_item_service_form" model="ir.ui.view">
+            <field name="name">convenient_item_service_form</field>
+            <field name="model">his.convenient_item</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="image" widget="image" class="oe_avatar" required="1"/>
+                        <div class="oe_title">
+                            <h2>
+                                <field name="name" required="1" style="width:300px" placeholder="项目名称"/>
+                            </h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="category_id" required="1" domain="[('type', '=', 'category'), ('code', '=', 'service')]" options="{'no_create': True, 'no_open':True}"/>
+                                <field name="is_package" string="是套餐"/>
+                                <field name="quantity" required="1" string="数量" invisible="1"/>
+                            </group>
+                            <group>
+                                <label for="discount"/>
+                                <div class="o_address_format">
+                                    <field name="discount" style="width:70px" required="1"/>
+                                    <div class="o_form_field_many2one" style="width:auto">(0&lt;=折扣&lt;=100)</div>
+                                </div>
+                                <field name="item_price"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="套餐明细">
+                                <field name="package_detail_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="code"/>
+                                        <field name="quantity"/>
+                                        <field name="item_price" sum="Total"/>
+                                        <field name="department_id"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="name" required="1"/>
+                                                    <field name="department_id"/>
+                                                    <field name="remark" placeholder="套餐说明"/>
+                                                </group>
+                                                <group>
+                                                    <field name="code"/>
+                                                    <field name="quantity" required="1"/>
+                                                    <field name="item_price"/>
+                                                </group>
+                                            </group>
+                                            <notebook>
+                                                <page string="关联收费">
+                                                    <field name="fee_ids">
+                                                        <tree editable="bottom">
+                                                            <field name="product_id" required="1" options="{'no_open': True, 'no_create': True}" context="{'fee_ids': parent.fee_ids}"/>
+                                                            <field name="uom_id" readonly="1" options="{'no_open': True, 'no_create': True}"/>
+                                                            <field name="list_price" string="现价"/>
+                                                            <field name="scale" required="1"/>
+                                                            <field name="price_subtotal" sum="Total"/>
+                                                        </tree>
+                                                        <form>
+                                                            <sheet>
+                                                                <group>
+                                                                    <group>
+                                                                        <field name="product_id" options="{'no_open': True, 'no_create': True}"/>
+                                                                        <field name="list_price"/>
+                                                                        <field name="price_subtotal"/>
+                                                                    </group>
+                                                                    <group>
+                                                                        <field name="uom_id"/>
+                                                                        <field name="scale"/>
+                                                                    </group>
+                                                                </group>
+                                                            </sheet>
+                                                        </form>
+                                                    </field>
+                                                </page>
+
+                                            </notebook>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="关联收费" invisible="1">
+                                <field name="fee_ids">
+                                    <tree editable="bottom">
+                                        <field name="product_id" required="1" options="{'no_open': True, 'no_create': True}" context="{'fee_ids': parent.fee_ids}"/>
+                                        <field name="uom_id" readonly="1" options="{'no_open': True, 'no_create': True}"/>
+                                        <field name="list_price" string="现价"/>
+                                        <field name="scale" required="1"/>
+                                        <field name="price_subtotal" sum="Total"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="product_id" options="{'no_open': True, 'no_create': True}"/>
+                                                    <field name="list_price"/>
+                                                    <field name="price_subtotal"/>
+                                                </group>
+                                                <group>
+                                                    <field name="uom_id"/>
+                                                    <field name="scale"/>
+                                                </group>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="项目描述">
+                                <field name="description" nolabel="1" placeholder="例如：购买5次，赠送1次"/>
+                            </page>
+                            <page string="项目内容">
+                                <field name="content" nolabel="1" placeholder="例如：套餐包括；游泳、洗澡、抚触、被动操+教育元素"/>
+                            </page>
+                            <page string="图文介绍">
+                                <field name="detail_ids">
+                                    <tree>
+                                        <field name="description"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="image" widget="image" class="oe_avatar" required="1"/>
+                                            </group>
+                                            <group>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <field name="description" string="图片描述" required="1"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+
+                            <page string="适用儿保月龄范围">
+                                <group>
+                                    <group>
+                                        <label for="start_months" string="月龄"/>
+                                        <div class="o_address_format">
+                                            <field name="start_months" style="width:41%" />
+                                            <div class="o_form_field_many2one" style="width:20px">到</div>
+                                            <field name="end_months" style="width:41%"/>
+                                        </div>
+                                    </group>
+                                    <group>
+
+                                    </group>
+                                </group>
+
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_convenient_item_service_filter" model="ir.ui.view">
+            <field name="name">his.convenient_item.select</field>
+            <field name="model">his.convenient_item</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="项目名称"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="convenience_item_service_action">
+            <field name="name">服务项目</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">his.convenient_item</field>
+            <field name="domain">[('category_id.code', '=', 'service')]</field>
+            <field name="search_view_id" ref="view_convenient_item_service_filter"/>
+            <field name="context">{'category_code':'service'}</field>
+        </record>
+
+        <record id="convenience_item_service_action_tree_view" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_convenient_item_service_tree"/>
+            <field name="act_window_id" ref="convenience_item_service_action"/>
+        </record>
+
+        <record id="convenience_item_service_action_form_view" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_convenient_item_service_form"/>
+            <field name="act_window_id" ref="convenience_item_service_action"/>
+        </record>
+
+        <menuitem id="convenience_service_item_menu" parent="convenient_item_main" action="convenience_item_service_action" sequence="1"/>
+
+    </data>
+</odoo>

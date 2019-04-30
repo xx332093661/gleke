@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem name="数据同步" id="menu_data_sync_root" sequence="40"/>
+        <menuitem id="menu_sync_define_main" parent="menu_data_sync_root" sequence="0" name="数据同步"/>
+        <menuitem id="menu_sync_base_data_main" parent="menu_data_sync_root" sequence="1" name="基础数据"/>
+        <menuitem id="menu_sync_business_data_main" parent="menu_data_sync_root" sequence="2" name="业务数据"/>
+
+        <menuitem id="menu_notify_data_main" parent="menu_sync_define_main" sequence="1" name="通知数据"/>
+        <menuitem id="menu_poll_data_main" parent="menu_sync_define_main" sequence="2" name="轮询数据"/>
+
+        <menuitem id="menu_sync_history_data_main" parent="menu_data_sync_root" sequence="3" name="历史数据"/>
+        <menuitem id="menu_sync_business_data_history_main" parent="menu_sync_history_data_main" sequence="0" name="业务数据"/>
+
+    </data>
+</odoo>
+

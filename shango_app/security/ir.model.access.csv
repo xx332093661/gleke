@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+
+access_hrp_hr_department,access_hrp_hr_department_name,hr.model_hr_department,,1,1,1,1
+access_hrp_hr_employee,access_hrp_hr_employee_name,hr.model_hr_employee,,1,1,1,1
+access_hrp_res_users,access_hrp_res_users_name,base.model_res_users,,1,1,1,1
+access_hrp_res_partner,access_hrp_res_partner_name,base.model_res_partner,,1,1,1,1
+access_hrp_post_content_image,access_hrp_post_content_image_name,model_hrp_post_content_image,,1,1,1,1
+

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_convenient_item_medicine_tree" model="ir.ui.view">
+            <field name="name">convenience_item_tree</field>
+            <field name="model">his.convenient_item</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="category_id"/>
+                    <field name="department_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_convenient_item_medicine_form" model="ir.ui.view">
+            <field name="name">convenience_item_form</field>
+            <field name="model">his.convenient_item</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="category_id" required="1" domain="[('type', '=', 'category'), ('code', '=', 'medicine')]" options="{'no_create': True, 'no_open':True}" context="{'change_name': True}"/>
+                                <field name="is_package"/>
+                                <field name="item_price" attrs="{'invisible': [('is_package', '=', False)]}"/>
+                                <field name="discount" invisible="1"/>
+                                <field name="quantity" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="name" required="1"/>
+
+                                <field name="department_id" required="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="OTC药品" attrs="{'invisible':[('is_package','=', True)]}">
+                                <field name="item_product_ids">
+                                    <tree editable="bottom">
+                                        <field name="product_id" required="1" options="{'no_open': True, 'no_create': True}" string="药品" context="{'item_product_ids': parent.item_product_ids}"/>
+                                        <field name="uom_id" readonly="1"/>
+                                        <field name="list_price" readonly="1"/>
+                                        <button name="change_drug_manual" type="object" string="药品说明书" class="oe_highlight" context="{'product_id': id}"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="product_id" options="{'no_open': True, 'no_create': True}"/>
+                                                    <field name="list_price"/>
+                                                </group>
+                                                <group>
+                                                    <field name="uom_id"/>
+                                                </group>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="OTC药品" attrs="{'invisible':[('is_package','=', False)]}">
+                                <field name="fee_ids">
+                                    <tree editable="bottom">
+                                        <field name="product_id" required="1" options="{'no_open': True, 'no_create': True}" string="药品" context="{'fee_ids': parent.fee_ids}"/>
+                                        <field name="uom_id" readonly="1"/>
+                                        <field name="scale" required="1" string="数量"/>
+                                        <field name="list_price" readonly="1"/>
+                                        <field name="price_subtotal" string="小计" sum="Total"/>
+                                        <button name="change_drug_manual" type="object" string="药品说明书" class="oe_highlight" context="{'product_id': id}"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="product_id" options="{'no_open': True, 'no_create': True}"/>
+                                                    <field name="scale" string="数量"/>
+                                                    <field name="price_subtotal"/>
+                                                </group>
+                                                <group>
+                                                    <field name="uom_id"/>
+                                                    <field name="list_price"/>
+                                                </group>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="打包药品描述"  attrs="{'invisible': [('is_package', '=', False)]}">
+                                <field name="description" nolabel="1" placeholder="例如："/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="convenient_item_medicine_action">
+            <field name="name">药品</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">his.convenient_item</field>
+            <field name="domain">[('category_id.code', '=', 'medicine')]</field>
+            <field name="search_view_id" ref="view_convenient_item_service_filter"/>
+            <field name="context">{'category_code':'medicine'}</field>
+        </record>
+
+        <record id="convenient_item_medicine_action_tree_view" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_convenient_item_medicine_tree"/>
+            <field name="act_window_id" ref="convenient_item_medicine_action"/>
+        </record>
+
+        <record id="convenient_item_medicine_action_form_view" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_convenient_item_medicine_form"/>
+            <field name="act_window_id" ref="convenient_item_medicine_action"/>
+        </record>
+
+        <menuitem id="convenient_item_medicine_menu" parent="convenient_item_main" action="convenient_item_medicine_action" sequence="2"/>
+    </data>
+</odoo>

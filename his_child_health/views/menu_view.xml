@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <menuitem name="儿童保健" id="child_health_root" sequence="40"/>
+        <menuitem name="儿保管理" id="child_health_inspection_main" parent="child_health_root" sequence="0"/>
+        <menuitem name="配置" id="child_health_config_main" parent="child_health_root" sequence="1000"/>
+    </data>
+</odoo>

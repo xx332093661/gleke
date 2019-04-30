@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="hrp_inoculation_schedule_tree" model="ir.ui.view">
+            <field name="name">hrp_inoculation_schedule_tree</field>
+            <field name="model">hrp.inoculation_schedule</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="item_id"/>
+                    <field name="cycle_id"/>
+                    <field name="agent_count"/>
+                    <field name="necessary"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="hrp_inoculation_schedule_form" model="ir.ui.view">
+            <field name="name">hrp_inoculation_schedule_form</field>
+            <field name="model">hrp.inoculation_schedule</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="4">
+                            <field name="item_id"/>
+                            <field name="cycle_id"/>
+                            <field name="agent_count"/>
+                            <field name="necessary"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="hrp_inoculation_schedule_action">
+            <field name="name">接种计划</field>
+            <field name="res_model">hrp.inoculation_schedule</field>
+        </record>
+
+        <menuitem id="hrp_inoculation_schedule_menu" name="接种计划" parent="hrp_hospital_info_menu" action="hrp_inoculation_schedule_action"/>
+
+        <!--个人接种计划-->
+        <record id="hrp_inoculation_personal_schedule_tree" model="ir.ui.view">
+            <field name="name">hrp_inoculation_personal_schedule_tree</field>
+            <field name="model">hrp.inoculation_personal_schedule</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="partner_id"/>
+                    <field name="item_id"/>
+                    <field name="cycle_id"/>
+                    <field name="agent_count"/>
+                    <field name="necessary"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="hrp_inoculation_personal_schedule_form" model="ir.ui.view">
+            <field name="name">hrp_inoculation_personal_schedule_form</field>
+            <field name="model">hrp.inoculation_personal_schedule</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="4">
+                            <field name="partner_id"/>
+                            <field name="item_id"/>
+                            <field name="cycle_id"/>
+                            <field name="agent_count"/>
+                            <field name="necessary"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="hrp_inoculation_personal_schedule_action">
+            <field name="name">个人接种计划</field>
+            <field name="res_model">hrp.inoculation_personal_schedule</field>
+        </record>
+
+        <menuitem id="hrp_inoculation_personal_schedule_menu" name="个人接种计划" parent="patient_manage_menu" action="hrp_inoculation_personal_schedule_action" sequence="1"/>
+    </data>
+</odoo>

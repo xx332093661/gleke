@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_inoculation_item_tree" model="ir.ui.view">
+            <field name="name">inoculation_item_tree</field>
+            <field name="model">his.inoculation_item</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="short_name"/>
+                    <field name="is_private"/>
+                    <field name="times"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_inoculation_item_form" model="ir.ui.view">
+            <field name="name">inoculation_item_form</field>
+            <field name="model">his.inoculation_item</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="times" required="1"/>
+                                <field name="id" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="short_name" required="1"/>
+                                <field name="is_private"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="接种部位">
+                                <group>
+                                    <field name="part" nolabel="1"/>
+                                </group>
+                            </page>
+                            <page string="接种效果">
+                                <group>
+                                    <field name="effect" nolabel="1"/>
+                                </group>
+                            </page>
+                            <page string="注意事项">
+                                <group>
+                                    <field name="attention" nolabel="1"/>
+                                </group>
+                            </page>
+                            <page string="可能反应">
+                                <group>
+                                    <field name="reaction" nolabel="1"/>
+                                </group>
+                            </page>
+                            <page string="禁忌">
+                                <group>
+                                    <field name="taboo" nolabel="1"/>
+                                </group>
+                            </page>
+                            <page string="可以被哪些疫苗替代">
+                                <field name="replace_ids" domain="[('id', '!=', id)]">
+                                    <tree>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="可以替代哪些疫苗">
+                                <field name="replace_ids1" domain="[('id', '!=', id)]">
+                                    <tree>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="关联收费项目" attrs="{'invisible': [('is_private', '=', False)]}">
+                                <field name="product_ids" attrs="{'required': [('is_private', '=', True)]}">
+                                    <tree>
+                                        <field name="id"/>
+                                        <field name="name" string="名称"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_inoculation_item_filter" model="ir.ui.view">
+            <field name="name">his.inoculation_item.select</field>
+            <field name="model">his.inoculation_item</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="inoculation_item_action">
+            <field name="name">接种项目</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">his.inoculation_item</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_inoculation_item_filter"/>
+        </record>
+
+        <menuitem id="inoculation_item_menu" name="接种项目" parent="config_main" action="inoculation_item_action"
+                  sequence="2"/>
+
+    </data>
+</odoo>

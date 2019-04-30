@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <!--1-->
+        <record model="his.pregnant_inspection" id="pregnant_inspection1">
+            <field name="start_cycle_id" ref="cycle9"/>
+            <field name="end_cycle_id" ref="cycle12"/>
+            <field name="main_point">
+
+            </field>
+            <field name="purpose">
+
+            </field>
+            <field name="preparation">
+
+            </field>
+            <field name="precautions">
+
+            </field>
+            <field name="item_ids" eval="[(6, 0, [ref('pregnant_inspection_item1'), ref('pregnant_inspection_item2'), ref('pregnant_inspection_item3'), ref('pregnant_inspection_item4'), ref('pregnant_inspection_item5'), ref('pregnant_inspection_item6'), ref('pregnant_inspection_item7'), ref('pregnant_inspection_item8'), ref('pregnant_inspection_item9'), ref('pregnant_inspection_item10')])]"/>
+            <field name="number" eval="1"/>
+        </record>
+
+        <!--2-->
+        <record model="his.pregnant_inspection" id="pregnant_inspection2">
+            <field name="start_cycle_id" ref="cycle15"/>
+            <field name="end_cycle_id" ref="cycle16"/>
+            <field name="main_point">
+
+            </field>
+            <field name="purpose">
+
+            </field>
+            <field name="preparation">
+
+            </field>
+            <field name="precautions">
+
+            </field>
+            <field name="item_ids" eval="[(6, 0, [ref('pregnant_inspection_item11'), ref('pregnant_inspection_item9')])]"/>
+            <field name="number" eval="2"/>
+        </record>
+
+        <!--2-->
+        <record model="his.pregnant_inspection" id="pregnant_inspection3">
+            <field name="start_cycle_id" ref="cycle17"/>
+            <field name="end_cycle_id" ref="cycle20"/>
+            <field name="main_point">
+
+            </field>
+            <field name="purpose">
+
+            </field>
+            <field name="preparation">
+
+            </field>
+            <field name="precautions">
+
+            </field>
+            <field name="item_ids" eval="[(6, 0, [ref('pregnant_inspection_item9')])]"/>
+            <field name="number" eval="3"/>
+        </record>
+
+        <!--2-->
+        <record model="his.pregnant_inspection" id="pregnant_inspection4">
+            <field name="start_cycle_id" ref="cycle21"/>
+            <field name="end_cycle_id" ref="cycle24"/>
+            <field name="main_point">
+
+            </field>
+            <field name="purpose">
+
+            </field>
+            <field name="preparation">
+
+            </field>
+            <field name="precautions">
+
+            </field>
+            <field name="item_ids" eval="[(6, 0, [ref('pregnant_inspection_item12'), ref('pregnant_inspection_item9')])]"/>
+            <field name="number" eval="4"/>
+        </record>
+
+        <!--2-->
+        <record model="his.pregnant_inspection" id="pregnant_inspection5">
+            <field name="start_cycle_id" ref="cycle25"/>
+            <field name="end_cycle_id" ref="cycle28"/>
+            <field name="main_point">
+
+            </field>
+            <field name="purpose">
+
+            </field>
+            <field name="preparation">
+
+            </field>
+            <field name="precautions">
+
+            </field>
+            <field name="item_ids" eval="[(6, 0, [ref('pregnant_inspection_item13'), ref('pregnant_inspection_item9'), ref('pregnant_inspection_item14'), ref('pregnant_inspection_item10'), ref('pregnant_inspection_item7')])]"/>
+            <field name="number" eval="5"/>
+        </record>
+
+        <!--2-->
+        <record model="his.pregnant_inspection" id="pregnant_inspection6">
+            <field name="start_cycle_id" ref="cycle29"/>
+            <field name="end_cycle_id" ref="cycle30"/>
+            <field name="main_point">
+
+            </field>
+            <field name="purpose">
+
+            </field>
+            <field name="preparation">
+
+            </field>
+            <field name="precautions">
+
+            </field>
+            <field name="item_ids" eval="[(6, 0, [ref('pregnant_inspection_item10'), ref('pregnant_inspection_item7'), ref('pregnant_inspection_item9')])]"/>
+            <field name="number" eval="6"/>
+        </record>
+
+        <!--2-->
+        <record model="his.pregnant_inspection" id="pregnant_inspection7">
+            <field name="start_cycle_id" ref="cycle31"/>
+            <field name="end_cycle_id" ref="cycle32"/>
+            <field name="main_point">
+
+            </field>
+            <field name="purpose">
+
+            </field>
+            <field name="preparation">
+
+            </field>
+            <field name="precautions">
+
+            </field>
+            <field name="item_ids" eval="[(6, 0, [ref('pregnant_inspection_item9'), ref('pregnant_inspection_item7'), ref('pregnant_inspection_item15')])]"/>
+            <field name="number" eval="7"/>
+        </record>
+
+        <!--2-->
+        <record model="his.pregnant_inspection" id="pregnant_inspection8">
+            <field name="start_cycle_id" ref="cycle33"/>
+            <field name="end_cycle_id" ref="cycle34"/>
+            <field name="main_point">
+
+            </field>
+            <field name="purpose">
+
+            </field>
+            <field name="preparation">
+
+            </field>
+            <field name="precautions">
+
+            </field>
+            <field name="item_ids" eval="[(6, 0, [ref('pregnant_inspection_item8'), ref('pregnant_inspection_item9'), ref('pregnant_inspection_item10'), ref('pregnant_inspection_item7'), ref('pregnant_inspection_item2'), ref('pregnant_inspection_item15'), ref('pregnant_inspection_item14')])]"/>
+            <field name="number" eval="8"/>
+        </record>
+
+        <!--2-->
+        <record model="his.pregnant_inspection" id="pregnant_inspection9">
+            <field name="start_cycle_id" ref="cycle35"/>
+            <field name="end_cycle_id" ref="cycle36"/>
+            <field name="main_point">
+
+            </field>
+            <field name="purpose">
+
+            </field>
+            <field name="preparation">
+
+            </field>
+            <field name="precautions">
+
+            </field>
+            <field name="item_ids" eval="[(6, 0, [ref('pregnant_inspection_item16'), ref('pregnant_inspection_item5'), ref('pregnant_inspection_item17'), ref('pregnant_inspection_item9'), ref('pregnant_inspection_item7'), ref('pregnant_inspection_item15')])]"/>
+            <field name="number" eval="9"/>
+        </record>
+
+        <!--2-->
+        <record model="his.pregnant_inspection" id="pregnant_inspection10">
+            <field name="start_cycle_id" ref="cycle37"/>
+            <field name="end_cycle_id" ref="cycle37"/>
+            <field name="main_point">
+
+            </field>
+            <field name="purpose">
+
+            </field>
+            <field name="preparation">
+
+            </field>
+            <field name="precautions">
+
+            </field>
+            <field name="item_ids" eval="[(6, 0, [ref('pregnant_inspection_item7'), ref('pregnant_inspection_item9'), ref('pregnant_inspection_item15')])]"/>
+            <field name="number" eval="10"/>
+        </record>
+
+        <!--2-->
+        <record model="his.pregnant_inspection" id="pregnant_inspection11">
+            <field name="start_cycle_id" ref="cycle38"/>
+            <field name="end_cycle_id" ref="cycle38"/>
+            <field name="main_point">
+
+            </field>
+            <field name="purpose">
+
+            </field>
+            <field name="preparation">
+
+            </field>
+            <field name="precautions">
+
+            </field>
+            <field name="item_ids" eval="[(6, 0, [ref('pregnant_inspection_item7'), ref('pregnant_inspection_item9'), ref('pregnant_inspection_item15')])]"/>
+            <field name="number" eval="11"/>
+        </record>
+
+        <!--2-->
+        <record model="his.pregnant_inspection" id="pregnant_inspection12">
+            <field name="start_cycle_id" ref="cycle39"/>
+            <field name="end_cycle_id" ref="cycle39"/>
+            <field name="main_point">
+
+            </field>
+            <field name="purpose">
+
+            </field>
+            <field name="preparation">
+
+            </field>
+            <field name="precautions">
+
+            </field>
+            <field name="item_ids" eval="[(6, 0, [ref('pregnant_inspection_item9'), ref('pregnant_inspection_item15')])]"/>
+            <field name="number" eval="12"/>
+        </record>
+
+        <!--2-->
+        <record model="his.pregnant_inspection" id="pregnant_inspection13">
+            <field name="start_cycle_id" ref="cycle40"/>
+            <field name="end_cycle_id" ref="cycle40"/>
+            <field name="main_point">
+
+            </field>
+            <field name="purpose">
+
+            </field>
+            <field name="preparation">
+
+            </field>
+            <field name="precautions">
+
+            </field>
+            <field name="item_ids" eval="[(6, 0, [ref('pregnant_inspection_item9'), ref('pregnant_inspection_item15')])]"/>
+            <field name="number" eval="13"/>
+        </record>
+
+    </data>
+
+</odoo>

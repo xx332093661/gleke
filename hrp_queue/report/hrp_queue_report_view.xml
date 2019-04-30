@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <menuitem id="hrp_queue_report_root" name="报表" parent="hrp_queue_root_menu" sequence="90"/>
+
+        <!--总队列报表-->
+        <record id="hrp_total_queue_report_view_pivot" model="ir.ui.view">
+            <field name="name">hrp_total_queue_report_view_pivot</field>
+            <field name="model">hrp.total_queue_report</field>
+            <field name="arch" type="xml">
+                <pivot string="hrp_total_queue_report_view_pivot" disable_linking="True">
+                    <field name="business" type="row"/>
+                    <field name="date" interval="day" type="col"/>
+                    <field name="count" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="hrp_total_queue_report_graph" model="ir.ui.view">
+            <field name="name">hrp_total_queue_report_graph</field>
+            <field name="model">hrp.total_queue_report</field>
+            <field name="arch" type="xml">
+                <graph string="hrp_total_queue_report_graph">
+                    <field name="date" interval="day"/>
+                    <field name="count" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+
+
+        <record id="hrp_queue_report_action" model="ir.actions.act_window">
+            <field name="name">总队列报表</field>
+            <field name="res_model">hrp.queue_report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">pivot,graph</field>
+        </record>
+
+        <menuitem name="总队列报表" id="hrp_total_queue_report_menu" parent="hrp_queue_report_root"
+                  action="hrp_queue_report_action" sequence="1"/>
+
+        <!--分诊队列报表-->
+        <record id="hrp_queue_report_view_pivot" model="ir.ui.view">
+            <field name="name">hrp_queue_report_view_pivot</field>
+            <field name="model">hrp.queue_report</field>
+            <field name="arch" type="xml">
+                <pivot string="hrp_queue_report_view_pivot" disable_linking="True">
+                    <field name="date" interval="day" type="col"/>
+                    <field name="business" type="row"/>
+                    <field name="count" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="hrp_queue_report_graph" model="ir.ui.view">
+            <field name="name">hrp_queue_report_graph</field>
+            <field name="model">hrp.queue_report</field>
+            <field name="arch" type="xml">
+                <graph string="hrp_queue_report_graph">
+                    <field name="date" interval="day"/>
+                    <field name="count" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+
+
+        <record id="hrp_queue_report_action" model="ir.actions.act_window">
+            <field name="name">分诊队列报表</field>
+            <field name="res_model">hrp.queue_report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">pivot,graph</field>
+        </record>
+
+        <menuitem name="分诊队列报表" id="hrp_queue_report_menu" parent="hrp_queue_report_root"
+                  action="hrp_queue_report_action" sequence="2"/>
+        
+    </data>
+</openerp>

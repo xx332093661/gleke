@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_pregnant_personal_schedule_tree" model="ir.ui.view">
+            <field name="name">pregnant_personal_schedule_tree</field>
+            <field name="model">his.pregnant_personal_schedule</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="0" delete="0">
+                    <field name="partner_id"/>
+                    <field name="number_label"/>
+                    <field name="start_cycle_id"/>
+                    <field name="end_cycle_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pregnant_personal_schedule_form" model="ir.ui.view">
+            <field name="name">pregnant_personal_schedule_form</field>
+            <field name="model">his.pregnant_personal_schedule</field>
+            <field name="arch" type="xml">
+                <form create="0" edit="0" delete="0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_id" string="孕妇" required="1" options="{'no_create': True, 'no_open':True}"
+                                       domain="[('patient_property', '=', 'pregnant'), ('is_patient', '=', True), ('pregnant_in_self', '=', True)]"/>
+                                <label for="number"/>
+                                <div class="o_address_format">
+                                    <div class="o_form_field_many2one" style="width:15px">第</div>
+                                    <field name="number" required="1" style="width:80px"/>
+                                    <div class="o_form_field_many2one" style="width:15px">次</div>
+                                </div>
+
+                            </group>
+                            <group>
+                                <label for="start_cycle_id" string="孕周"/>
+                                <div class="o_address_format">
+                                    <div class="o_form_field_many2one" style="width:15px">从</div>
+                                    <field name="start_cycle_id" required="1" style="width:70px" options="{'no_create':True, 'no_open':True}"/>
+                                    <div class="o_form_field_many2one" style="width:20px">到</div>
+                                    <field name="end_cycle_id" required="1" style="width:70px" options="{'no_create':True, 'no_open':True}"/>
+                                </div>
+                                <field name="state" required="1"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="产检项目">
+                                <field name="item_ids" options="{'no_create':True}"/>
+                            </page>
+                            <page string="产检详情">
+                                <separator string="产检重点"/>
+                                <field name="main_point" nolabel="1" placeholder="产检重点"/>
+                                <separator string="产检目的"/>
+                                <field name="purpose" nolabel="1" placeholder="产检目的"/>
+                                <separator string="产检准备"/>
+                                <field name="preparation" nolabel="1" placeholder="产检准备"/>
+                                <separator string="注意事项"/>
+                                <field name="precautions" nolabel="1" placeholder="注意事项"/>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pregnant_personal_schedule_filter" model="ir.ui.view">
+            <field name="name">his.pregnant_personal_schedule.select</field>
+            <field name="model">his.pregnant_personal_schedule</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="partner_id"/>
+                    <filter name="group_by_partner" string="孕妇" context="{'group_by':'partner_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="pregnant_personal_schedule_action">
+            <field name="name">孕妇产检计划</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">his.pregnant_personal_schedule</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pregnant_personal_schedule_filter"/>
+            <field name="context">{'search_default_group_by_partner': 1}</field>
+        </record>
+
+        <menuitem id="pregnant_personal_schedule_menu" parent="mother_inspection_main" action="pregnant_personal_schedule_action" sequence="2"/>
+
+
+
+    </data>
+</odoo>

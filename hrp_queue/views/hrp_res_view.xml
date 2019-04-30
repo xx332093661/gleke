@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Partner -->
+        <record id="hrp_partner_tree_view" model="ir.ui.view">
+            <field name="name">hrp_partner_tree_view</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_partner_tree_view">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="phone"/>
+                    <field name="email" string="邮箱"/>
+                    <field name="outpatient_num"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hrp_partner_form_view" model="ir.ui.view">
+            <field name="name">hrp_partner_form_view</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form string="hrp_partner_form_view">
+                    <sheet>
+                        <field name="image" widget='image' class="oe_avatar"
+                               options='{"preview_image": "image_medium", "size": [90, 90]}'/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" default_focus="1" placeholder="姓名" required="1"/>
+                            </h1>
+                            <!--<label for="newborn"/>-->
+                            <!--<field name="newborn"/>-->
+                            <!--<label for="pregnant"/>-->
+                            <!--<field name="pregnant"/>-->
+                        </div>
+                        <group col="4">
+                            <field name="phone"/>
+                            <field name="email" string="邮箱"/>
+                            <field name="outpatient_num"/>
+                            <field name="topic"/>
+                        </group>
+
+                        <!--<group attrs="{'invisible': [('newborn', '=', False)]}">-->
+                            <!--<group>-->
+                                <!--<field name="birth_date"/>-->
+                            <!--</group>-->
+                            <!--<group>-->
+                                <!--<field name="inoculation_code"/>-->
+                            <!--</group>-->
+
+                        <!--</group>-->
+                        <!--<group attrs="{'invisible': [('pregnant', '=', False)]}">-->
+                            <!--<group>-->
+                                <!--<field name="pregnant_date"/>-->
+                            <!--</group>-->
+                            <!--<group>-->
+
+                            <!--</group>-->
+                        <!--</group>-->
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--<record model="ir.actions.act_window" id="hrp_partner_action">-->
+            <!--<field name="name">患者</field>-->
+            <!--<field name="res_model">res.partner</field>-->
+            <!--&lt;!&ndash;<field name="search_view_id" ref="hrp_equipment_filter"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;<field name="context">{"search_default_floor_group":1}</field>&ndash;&gt;-->
+        <!--</record>-->
+
+        <!--<record id="hrp_partner_action_view1" model="ir.actions.act_window.view">-->
+            <!--<field eval="1" name="sequence"/>-->
+            <!--<field name="view_mode">tree</field>-->
+            <!--<field name="view_id" ref="hrp_partner_tree_view"/>-->
+            <!--<field name="act_window_id" ref="hrp_partner_action"/>-->
+        <!--</record>-->
+
+        <!--<record id="hrp_partner_action_view2" model="ir.actions.act_window.view">-->
+            <!--<field eval="2" name="sequence"/>-->
+            <!--<field name="view_mode">form</field>-->
+            <!--<field name="view_id" ref="hrp_partner_form_view"/>-->
+            <!--<field name="act_window_id" ref="hrp_partner_action"/>-->
+        <!--</record>-->
+
+        <!--<menuitem id="hrp_partner_menu" name="患者" parent="patient_manage_menu" action="hrp_partner_action" sequence="0"/>-->
+
+    </data>
+</odoo>

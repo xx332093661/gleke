@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_convenient_service_category_tree" model="ir.ui.view">
+            <field name="name">view_convenient_service_category_tree</field>
+            <field name="model">his.convenient_service_category</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="type=='view'" decoration-danger="type=='category'">
+                    <field name="name"/>
+                    <field name="parent_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_convenient_service_category_form" model="ir.ui.view">
+            <field name="name">convenient_service_category_form</field>
+            <field name="model">his.convenient_service_category</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+
+                                <field name="parent_id" domain="[('type', '=', 'view')]" required="1" options="{'no_open':True,'no_create':True}"/>
+                                <label for="prescription_valid" attrs="{'invisible':[('origin_prescription', '=', False)]}"/>
+                                <div class="o_address_format" attrs="{'invisible':[('origin_prescription', '=', False)]}">
+                                    <field name="prescription_valid" style="width:80px" attrs="{'required':[('origin_prescription', '=', True)]}"/>
+                                    <div class="o_form_field_many2one" style="width:15px">天</div>
+                                </div>
+                                <field name="type" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="origin_prescription" invisible="1"/>
+                                <field name="code" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_convenient_service_category_filter" model="ir.ui.view">
+            <field name="name">his.convenient_service_category.select</field>
+            <field name="model">his.convenient_service_category</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="分类名称"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="convenient_service_category_action">
+            <field name="name">便民服务分类</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">his.convenient_service_category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_convenient_service_category_filter"/>
+            <field name="domain">[('type', '=', 'category')]</field>
+        </record>
+
+        <menuitem id="convenient_service_category_menu" parent="convenient_config_main" action="convenient_service_category_action" sequence="10"/>
+
+
+
+    </data>
+</odoo>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="pay_method_tree" model="ir.ui.view">
+            <field name="name">pay_method_tree</field>
+            <field name="model">his.pay_method</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="pay_method"/>
+                    <field name="his_card_type_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="pay_method_form" model="ir.ui.view">
+            <field name="name">pay_method_form</field>
+            <field name="model">his.pay_method</field>
+            <field name="arch" type="xml">
+                <form create="0" edit="0" delete="0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="his_card_type_id"/>
+                            </group>
+                            <group>
+                                <field name="pay_method"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    <record id="view_pay_method_filter" model="ir.ui.view">
+        <field name="name">his.pay_method.select</field>
+        <field name="model">his.pay_method</field>
+        <field name="arch" type="xml">
+            <search>
+            </search>
+        </field>
+    </record>
+
+
+
+        <record id="pay_method_action" model="ir.actions.act_window">
+        <field name="name">支付方式与中联卡类别对应</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">his.pay_method</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_pay_method_filter"/>
+    </record>
+
+
+        <menuitem id="pay_method_menu" parent="sales_team.menu_sale_config" action="pay_method_action" sequence="100"/>
+
+    </data>
+</odoo>

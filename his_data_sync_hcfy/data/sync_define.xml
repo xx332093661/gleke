@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!--部门表-->
+        <record model="his.sync_define" id="sync_define1">
+            <field name="name">部门表</field>
+            <field name="name_en">department</field>
+            <field name="subscribe_type" eval="[(4,ref('his_data_synchronization_poll.subscribe_type_insert'))]"/>
+
+            <field name="subscribe_sql">select * from 部门表</field>
+            <field name="base_sql">
+SELECT
+    T.ID his_id,
+    T.上级ID parent_id,
+    T.名称 name,
+    T.位置 location
+FROM
+    部门表 T
+WHERE T.撤档时间 IS NULL OR T.撤档时间 > TRUNC(SYSDATE)
+            </field>
+            <field name="insert_query_sql">
+SELECT
+    T.ID his_id,
+    T.上级ID parent_id,
+    T.名称 name,
+    T.位置 location
+FROM
+    部门表 T
+WHERE
+    T.ROWID in (%s)
+            </field>
+
+            <field name="insert_query_callback">department_insert</field>
+            <field name="base_query_callback">department_base</field>
+            <field name="notify_callback">on_department_notify</field>
+
+            <field name="query_sort" eval="1"/>
+            <field name="is_base" eval="True"/>
+            <field name="is_poll" eval="False"/>
+            <field name="is_notify" eval="True"/>
+
+            <field name="show_insert" eval="True"/>
+            <field name="show_update" eval="False"/>
+        </record>
+
+        <!--人员表-->
+        <record model="his.sync_define" id="sync_define2">
+            <field name="name">人员表</field>
+            <field name="name_en">employee</field>
+            <field name="subscribe_type" eval="[(4,ref('his_data_synchronization_poll.subscribe_type_insert'))]"/>
+
+            <field name="subscribe_sql">select * from 人员表</field>
+            <field name="base_sql">
+SELECT
+    T1.ID his_id,
+    T2.用户名 login,
+    T1.姓名 name,
+    T1.专业技术职务 title,
+    T1.编号 code
+FROM
+    人员表 T1,
+    (SELECT
+        用户名,
+        人员ID
+     FROM
+        上机人员表
+     WHERE
+        ROWID IN (
+            SELECT
+                MAX(ROWID)
+            FROM
+                上机人员表
+            GROUP BY 人员ID
+       )
+    ) T2
+WHERE
+    (T1.撤档时间 IS NULL OR T1.撤档时间 > TRUNC(SYSDATE)) AND
+    T1.ID = T2.人员ID(+)
+            </field>
+            <field name="insert_query_sql">
+SELECT
+    T1.ID his_id,
+    T2.用户名 login,
+    T1.姓名 name,
+    T1.专业技术职务 title,
+    T1.编号 code
+FROM
+    人员表 T1,
+    (SELECT
+        用户名,
+        人员ID
+    FROM
+        上机人员表
+    WHERE
+        ROWID IN (
+            SELECT MAX(ROWID)
+            FROM 上机人员表
+            GROUP BY 人员ID
+        )
+    ) T2
+WHERE
+    T1.ID = T2.人员ID(+) AND
+    T1.ROWID in (%s)
+            </field>
+
+            <field name="insert_query_callback">employee_insert</field>
+            <field name="base_query_callback">employee_base</field>
+            <field name="notify_callback">on_employee_notify</field>
+
+            <field name="query_sort" eval="2"/>
+            <field name="is_base" eval="True"/>
+            <field name="is_poll" eval="False"/>
+            <field name="is_notify" eval="True"/>
+
+            <field name="show_insert" eval="True"/>
+            <field name="show_update" eval="False"/>
+        </record>
+
+        <!--诊疗分类目录-->
+        <record model="his.sync_define" id="sync_define3">
+            <field name="name">诊疗分类目录</field>
+            <field name="name_en">clinic_classification_category</field>
+            <field name="subscribe_type" eval="[(4,ref('his_data_synchronization_poll.subscribe_type_insert'))]"/>
+
+            <field name="subscribe_sql">select * from 诊疗分类目录</field>
+            <field name="insert_query_sql">
+SELECT
+    T.ID his_id,
+    T.编码 code,
+    T.名称 name,
+    T.上级ID parent_id
+FROM
+    诊疗分类目录 T
+WHERE
+    T.ROWID IN (%s)
+            </field>
+            <field name="base_sql">
+SELECT
+    T.ID his_id,
+    T.编码 code,
+    T.名称 name,
+    T.上级ID parent_id
+FROM
+    诊疗分类目录 T
+WHERE
+    T.撤档时间 IS NULL OR T.撤档时间 > TRUNC(SYSDATE)
+            </field>
+
+            <field name="insert_query_callback">clinic_classification_category_insert</field>
+            <field name="base_query_callback">clinic_classification_category_base</field>
+            <field name="notify_callback">on_clinic_classification_category_notify</field>
+
+            <field name="query_sort" eval="3"/>
+            <field name="is_base" eval="True"/>
+            <field name="is_poll" eval="False"/>
+            <field name="is_notify" eval="True"/>
+
+            <field name="show_insert" eval="True"/>
+            <field name="show_update" eval="False"/>
+        </record>
+
+        <!--诊疗项目目录-->
+        <record model="his.sync_define" id="sync_define4">
+            <field name="name">诊疗项目目录</field>
+            <field name="name_en">clinic_item_category</field>
+            <field name="subscribe_type" eval="[(4,ref('his_data_synchronization_poll.subscribe_type_insert'))]"/>
+
+            <field name="subscribe_sql">select * from 诊疗项目目录</field>
+            <field name="insert_query_sql">
+SELECT
+    T.名称 name,
+    T.编码 code,
+    T.ID his_id,
+    T.计算单位 unit,
+    T.类别 type,
+    T.分类ID category_id
+FROM
+    诊疗项目目录 T
+WHERE
+    T.ROWID IN (%s)
+            </field>
+            <field name="base_sql">
+SELECT
+    T.名称 name,
+    T.编码 code,
+    T.ID his_id,
+    T.计算单位 unit,
+    T.类别 type,
+    T.分类ID category_id
+FROM
+    诊疗项目目录 T
+WHERE
+    T.撤档时间 IS NULL OR T.撤档时间 > TRUNC(SYSDATE)
+            </field>
+
+            <field name="insert_query_callback">clinic_item_category_insert</field>
+            <field name="base_query_callback">clinic_item_category_base</field>
+            <field name="notify_callback">on_clinic_item_category_notify</field>
+
+            <field name="query_sort" eval="4"/>
+            <field name="is_base" eval="True"/>
+            <field name="is_poll" eval="False"/>
+            <field name="is_notify" eval="True"/>
+
+            <field name="show_insert" eval="True"/>
+            <field name="show_update" eval="False"/>
+        </record>
+
+        <!--诊疗项目部位-->
+        <record model="his.sync_define" id="sync_define5">
+            <field name="name">诊疗项目部位</field>
+            <field name="name_en">clinic_item_part</field>
+            <field name="subscribe_type" eval="[(4,ref('his_data_synchronization_poll.subscribe_type_insert'))]"/>
+
+            <field name="subscribe_sql">select * from 诊疗项目部位</field>
+            <field name="insert_query_sql">
+SELECT
+    T.ID his_id,
+    T.项目ID item_id,
+    T.类型 type,
+    T.部位 name
+FROM
+    诊疗项目部位 T
+WHERE
+    T.ROWID IN (%s)
+            </field>
+            <field name="base_sql">
+SELECT
+    T.ID his_id,
+    T.项目ID item_id,
+    T.类型 type,
+    T.部位 name
+FROM
+    诊疗项目部位 T
+            </field>
+
+            <field name="insert_query_callback">clinic_item_part_insert</field>
+            <field name="base_query_callback">clinic_item_part_base</field>
+            <field name="notify_callback">on_clinic_item_part_notify</field>
+
+            <field name="query_sort" eval="5"/>
+            <field name="is_base" eval="True"/>
+            <field name="is_poll" eval="False"/>
+            <field name="is_notify" eval="True"/>
+
+            <field name="show_insert" eval="True"/>
+            <field name="show_update" eval="False"/>
+        </record>
+
+        <!--收费项目目录-->
+        <record model="his.sync_define" id="sync_define6">
+            <field name="name">收费项目目录</field>
+            <field name="name_en">product</field>
+            <field name="subscribe_type" eval="[(4,ref('his_data_synchronization_poll.subscribe_type_insert'))]"/>
+
+            <field name="subscribe_sql">select * from 收费项目目录</field>
+            <field name="insert_query_sql">
+SELECT
+    T2.现价 list_price,
+    T3.名称 categ_name,
+    T1.ID his_id,
+    T1.编码 code,
+    T1.名称 name,
+    NVL2(T1.计算单位,T1.计算单位,'次') unit,
+    T4.收据费目 fee_name
+FROM
+    收费项目目录 T1,
+    收费价目 T2,
+    收费项目类别 T3,
+    收入项目 T4
+WHERE
+    T1.ID = T2.收费细目ID AND
+    T1.类别 = T3.编码 AND
+    T2.收入项目ID = T4.ID AND
+    T1.ROWID IN (%s)
+            </field>
+            <field name="base_sql">
+SELECT
+    T2.现价 list_price,
+    T3.名称 categ_name,
+    T1.ID his_id,
+    T1.编码 code,
+    T1.名称 name,
+    NVL2(T1.计算单位,T1.计算单位,'次') unit,
+    T4.收据费目 fee_name
+FROM
+    收费项目目录 T1,
+    收费价目 T2,
+    收费项目类别 T3,
+    收入项目 T4
+WHERE
+    T1.ID = T2.收费细目ID AND
+    T1.类别 = T3.编码 AND
+    T2.收入项目ID = T4.ID AND
+    (T1.撤档时间 IS NULL OR T1.撤档时间 > TRUNC(SYSDATE)) AND
+    (T2.终止日期 IS NULL OR T2.终止日期 > TRUNC(SYSDATE))
+            </field>
+            <field name="insert_query_callback">product_insert</field>
+            <field name="base_query_callback">product_base</field>
+            <field name="notify_callback">on_product_notify</field>
+
+            <field name="query_sort" eval="6"/>
+            <field name="is_base" eval="True"/>
+            <field name="is_poll" eval="False"/>
+            <field name="is_notify" eval="True"/>
+
+            <field name="show_insert" eval="True"/>
+            <field name="show_update" eval="False"/>
+        </record>
+
+        <!--收费价目-->
+        <record model="his.sync_define" id="sync_define7">
+            <field name="name">收费价目</field>
+            <field name="name_en">product_price</field>
+            <field name="subscribe_type" eval="[(4,ref('his_data_synchronization_poll.subscribe_type_update'))]"/>
+
+            <field name="subscribe_sql">select * from 收费价目</field>
+            <field name="update_query_sql">
+SELECT
+    T.收费细目id his_id,
+    T.现价 list_price
+FROM
+    收费价目 T
+WHERE
+    T.ROWID IN (%s)
+            </field>
+
+            <field name="update_query_callback">product_price_update</field>
+            <field name="notify_callback">on_product_price_notify</field>
+
+            <field name="query_sort" eval="7"/>
+            <field name="is_base" eval="False"/>
+            <field name="is_poll" eval="False"/>
+            <field name="is_notify" eval="True"/>
+
+
+            <field name="show_insert" eval="False"/>
+            <field name="show_update" eval="True"/>
+        </record>
+
+        <!--病人挂号记录-->
+        <record model="his.sync_define" id="sync_define8">
+            <field name="name">病人挂号记录</field>
+            <field name="name_en">register</field>
+            <field name="poll_sql">
+SELECT
+    T.ID his_id,
+    T.NO receipt_no,
+    T.记录状态 record_state,
+    T.执行状态 exe_state,
+    T2.号类 register_type,
+    T2.医生ID employee_his_id,
+    T.执行部门ID department_his_id,
+    T.急诊 is_emerg_treat,
+    to_char(T.登记时间, 'yyyy-mm-dd hh24:mi:ss') register_datetime,
+
+    T.病人ID partner_his_id,
+    T.门诊号 outpatient_num,
+    T.姓名 name,
+    T.性别 sex,
+    T1.身份证号 id_no,
+    T1.就诊卡号 card_no,
+    T1.医保号 medical_no,
+    to_char(T1.出生日期, 'yyyy-mm-dd hh24:mi:ss') birth_date,
+    T.操作员编号 operator_code
+FROM
+    病人挂号记录 T,
+    病人信息 T1,
+    挂号安排 T2
+WHERE
+    T.病人ID = T1.病人ID AND
+    T.号别 = T2.号码 AND
+    T.登记时间 >= :0
+            </field>
+
+            <field name="poll_callback">register_poll</field>
+
+            <field name="query_sort" eval="8"/>
+            <field name="is_base" eval="False"/>
+            <field name="is_poll" eval="True"/>
+            <field name="is_notify" eval="False"/>
+
+            <field name="key_field_name">登记时间</field>
+
+            <field name="show_insert" eval="False"/>
+            <field name="show_update" eval="False"/>
+        </record>
+
+        <!--病人医嘱发送-->
+        <record model="his.sync_define" id="sync_define9">
+            <field name="name">病人医嘱发送</field>
+            <field name="name_en">dispose_send</field>
+
+            <field name="poll_sql">
+SELECT
+    T1.发送号 send_no,
+    T1.执行间 exe_room,
+    T1.执行过程 exe_process,
+    to_char(T1.报到时间, 'yyyy-mm-dd hh24:mi:ss') register_datetime,
+    to_char(T1.发送时间, 'yyyy-mm-dd hh24:mi:ss') send_datetime,
+
+    T2.挂号单 receipt_no,
+    T2.诊疗类别 clinic_type,
+    T2.诊疗项目ID item_id,
+    T2.标本部位 part,
+    T2.检查方法 method,
+    T2.执行科室ID department_id,
+    T2.病人来源 origin,
+    T1.医嘱ID dispose_id,
+    T2.相关ID relation_dispose_id,
+    to_char(T2.开嘱时间, 'yyyy-mm-dd hh24:mi:ss') dispose_datetime,
+    T2.总给予量 amount_total,
+    T2.天数 days,
+    T2.频率次数 frequency,
+    T2.频率间隔 frequency_interval,
+    T2.间隔单位 interval_unit,
+
+    T3.病人ID partner_his_id,
+    T3.性别 sex,
+    T3.姓名 name,
+    T3.门诊号 outpatient_num,
+    T3.住院号 hospitalize_no,
+    T3.就诊卡号 card_no,
+    T3.医保号 medical_no,
+    T3.身份证号 id_no,
+    to_char(T3.出生日期, 'yyyy-mm-dd hh24:mi:ss') birth_date
+FROM
+    病人医嘱发送 T1,
+    病人医嘱记录 T2,
+    病人信息 T3
+WHERE
+    T1.医嘱ID = T2.ID AND
+    T2.病人ID = T3.病人ID AND
+    T1.发送时间 >= :0
+            </field>
+
+            <field name="poll_callback">dispose_send_poll</field>
+
+            <field name="query_sort" eval="9"/>
+            <field name="is_base" eval="False"/>
+            <field name="is_poll" eval="True"/>
+            <field name="is_notify" eval="False"/>
+
+            <field name="key_field_name">发送时间</field>
+
+            <field name="show_insert" eval="False"/>
+            <field name="show_update" eval="False"/>
+        </record>
+
+        <!--门诊费用记录-->
+        <record model="his.sync_define" id="sync_define10">
+            <field name="name">门诊费用记录</field>
+            <field name="name_en">outpatient_fee</field>
+
+            <field name="poll_sql">
+SELECT
+    T1.ID his_id,
+    T1.记录性质 record_prototype,
+    --T1.NO receipt_no,
+    T2.挂号单 receipt_no,
+    T1.记录状态 record_state,
+    T1.序号 serial_number,
+    T1.病人ID partner_his_id,
+    T1.医嘱序号 dispose_id,
+    T1.发药窗口 win_num,
+    T1.执行状态 exe_state,
+    to_char(T1.执行时间, 'yyyy-mm-dd hh24:mi:ss') exe_datetime,
+    to_char(T1.登记时间, 'yyyy-mm-dd hh24:mi:ss') register_datetime
+FROM
+    门诊费用记录 T1,
+    病人医嘱记录 T2
+WHERE
+    T1.记录状态 in (0, 1, 2) AND
+    T1.医嘱序号 = T2.ID(+) AND
+    T1.登记时间 >= :0
+            </field>
+
+            <field name="poll_callback">outpatient_fee_poll</field>
+
+            <field name="query_sort" eval="10"/>
+            <field name="is_base" eval="False"/>
+            <field name="is_poll" eval="True"/>
+            <field name="is_notify" eval="False"/>
+
+            <field name="key_field_name">登记时间</field>
+
+            <field name="show_insert" eval="False"/>
+            <field name="show_update" eval="False"/>
+        </record>
+
+
+
+    </data>
+</odoo>
+

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template xml:space="preserve">
+
+    <t t-name="ShiftTypePanel">
+
+        <button class="btn btn-sm btn-primary btn-shift-recycle" style="margin-right:30px">
+            <span class="fa fa-recycle"/>
+        </button>
+
+        <button t-foreach="shift_type" t-as="shift" class="btn btn-sm btn-default btn-shift-type"
+                t-attf-style="background-color: #{shift.color}"
+                t-att-data-id="shift.id">
+            <t t-esc="shift.name"/>
+        </button>
+    </t>
+
+
+    <t t-name="ShiftCellContent">
+        <div>
+            <span t-foreach="day.shifts" t-as="shift"
+                  t-attf-style="background-color: #{shift.shift_color}">
+                <t t-esc="shift.shift_name"/>
+                <i class="fa fa-times" t-att-data-shift_id="shift.shift_id"/>
+                <i class="fa fa-gear" t-att-data-id="shift.id"/>
+            </span>
+
+        </div>
+    </t>
+
+    <t t-name="ShiftCell">
+        <td t-att-class="day.expired?'date-expired':'on-edit'" width="5%"
+            t-att-data-empl_id="day.empl_id"
+            t-att-data-date="day.date">
+            <t t-call="ShiftCellContent"/>
+        </td>
+
+    </t>
+
+    <t t-name="WorkScheduleHeader">
+        <thead>
+            <tr>
+                <th rowspan="2" width="2%"/>
+                <th t-foreach="dates" t-as="d" width="5%">
+                    <t t-esc="d.label"/>
+                </th>
+            </tr>
+            <tr>
+                <th t-foreach="week" t-as="w" width="5%">
+                    <t t-esc="w"/>
+                </th>
+            </tr>
+        </thead>
+    </t>
+
+
+    <t t-name="WorkScheduleBody">
+        <tbody>
+            <tr t-foreach="work_schedule" t-as="schedule">
+                <td width="2%"><t t-esc="schedule.empl_name"/></td>
+                <t t-foreach="schedule.days" t-as="day">
+                    <t t-call="ShiftCell"/>
+                </t>
+            </tr>
+        </tbody>
+    </t>
+
+    <t t-name="WorkScheduleDetail">
+        <t t-if="work_schedule.length == 0">
+            <div style="font-size:20px;text-align: center;padding-top:30px;">当前未安排排班人员</div>
+        </t>
+        <t t-if="work_schedule.length > 0">
+            <table>
+                <t t-call="WorkScheduleHeader"/>
+                <t t-call="WorkScheduleBody"/>
+            </table>
+        </t>
+    </t>
+
+    <t t-name="MyWorkSchedule1">
+
+        <div class="o_control_panel o_breadcrumb_full">
+            <ol class="breadcrumb"><li class="active">排班管理(<span class="start-date"/> - <span class="end-date"/>)</li></ol>
+            <div class="o_cp_left">
+                <div class="o_cp_buttons">
+                    <button class="btn btn-sm btn-primary btn-edit" style="display:none">编辑</button>
+                    <button class="btn btn-sm btn-primary btn-save" style="display:none">保存</button>
+                    <button class="btn btn-sm btn-default btn-cancel" style="display:none">放弃</button>
+                </div>
+
+                <div class="o_cp_sidebar">
+                    <div class="btn-group">
+                        <div class="btn-group o_dropdown">
+                            <button class="o_dropdown_toggler_btn btn btn-sm dropdown-toggle" data-toggle="dropdown">
+                                <span class="current-department">选择科室</span> <span class="caret"/>
+                            </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li t-foreach="departments" t-as="department" t-att-data-id="department.id" class="department">
+                                        <a>
+                                            <t t-esc="department.name"/>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="o_cp_right">
+                <div class="o_cp_pager"/>
+                <div class="o_cp_buttons">
+                        <button class="btn btn-sm btn-primary btn-prev"><span class="fa fa-arrow-left"/></button>
+                        <button class="btn btn-sm btn-default btn-current-date"/>
+                        <button class="btn btn-sm btn-primary btn-next"><span class="fa fa-arrow-right"/></button>
+
+                        <!--<div class="btn-group btn-group-sm">-->
+                            <!--<button class="o_calendar_button_day btn btn-sm btn-default btn-day">日</button>-->
+                            <!--<button class="o_calendar_button_week btn btn-sm btn-default active btn-week">周</button>-->
+                            <!--<button class="o_calendar_button_month btn btn-sm btn-default btn-month">月份</button>-->
+                        <!--</div>-->
+                        <!--<div style="display:inline-block" class="btn btn-icon fa fa-lg fa-calendar work_schedule_show_calendar">-->
+                            <!--<input type="text" style="display:none"/>-->
+                        <!--</div>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="o_content work_schedule_content">
+            <div style="font-size:20px;text-align: center;padding-top:30px;">请选择科室</div>
+        </div>
+
+        <div class="shift-type-panel">
+
+        </div>
+    </t>
+
+
+    <t t-name="TimeRange">
+        <div>
+            <div class="o_form_view o_form_editable">
+                <div class="o_form_sheet_bg">
+                    <div class="o_form_sheet">
+                        <div class="o_group">
+                            <table class="o_group o_inner_group o_group_col_6">
+                                <tbody>
+                                    <tr>
+                                        <td class="o_td_label">
+                                            <label class="o_form_label">名称</label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+
+
+
+
+</template>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_outpatient_fee_tree" model="ir.ui.view">
+        <field name="name">his.outpatient_fee.tree</field>
+        <field name="model">his.outpatient_fee</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="id"/>
+                <field name="his_id"/>
+                <field name="record_prototype"/>
+                <field name="receipt_no"/>
+                <field name="record_state"/>
+                <field name="serial_number"/>
+                <field name="partner_id"/>
+                <field name="dispose_serial_number"/>
+                <field name="win_num"/>
+                <field name="exe_state"/>
+                <field name="register_datetime"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_outpatient_fee_form" model="ir.ui.view">
+        <field name="name">his.outpatient_fee.form</field>
+        <field name="model">his.outpatient_fee</field>
+        <field name="arch" type="xml">
+            <form  string="outpatient_fee">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="his_id"/>
+                            <field name="receipt_no"/>
+                            <field name="serial_number"/>
+                            <field name="dispose_id"/>
+                            <field name="exe_state"/>
+                            <field name="register_datetime"/>
+                        </group>
+                        <group>
+                            <field name="record_prototype"/>
+                            <field name="record_state"/>
+                            <field name="partner_id"/>
+                            <field name="win_num"/>
+                            <field name="exe_datetime"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_outpatient_fee_filter" model="ir.ui.view">
+        <field name="name">his.outpatient_fee.select</field>
+        <field name="model">his.outpatient_fee</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="his_id"/>
+                <field name="partner_id"/>
+                <field name="dispose_serial_number"/>
+                <field string="创建开始时间" name="create_date" domain="[('create_date', '&gt;=', self)]"/>
+                <field string="创建截止时间" name="create_date" domain="[('create_date', '&lt;', self)]"/>
+                <separator/>
+                <filter name="not_history" string="活动记录" domain="[('is_history', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_outpatient_fee_tree" model="ir.actions.act_window">
+        <field name="name">门诊费用记录</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">his.outpatient_fee</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_outpatient_fee_filter"/>
+        <field name="context">{"search_default_not_history":1}</field>
+    </record>
+
+
+
+    <menuitem action="action_outpatient_fee_tree" id="menu_action_outpatient_fee_tree"
+              parent="his_data_synchronization_poll.menu_sync_business_data_main" sequence="3"/>
+
+</odoo>

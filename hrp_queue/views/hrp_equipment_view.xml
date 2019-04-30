@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!--获取客户端日志-->
+        <record id="hrp_equipment_get_log_action_server" model="ir.actions.server">
+            <field name="name">获取客户端日志</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_hrp_equipment"/>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    records.get_client_log()
+            </field>
+        </record>
+
+        <record id="action_hrp_equipment_get_log_action_server" model="ir.values">
+            <field name="name">action_hrp_equipment_get_log_action_server</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('hrp_equipment_get_log_action_server'))" />
+            <field name="key">action</field>
+            <field name="model_id" ref="model_hrp_equipment"/>
+            <field name="model">hrp.equipment</field>
+            <field name="key2">client_action_multi</field>
+        </record>
+
+        <!--重启设备-->
+        <record id="hrp_equipment_restart_server" model="ir.actions.server">
+            <field name="name">重启设备</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_hrp_equipment"/>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    records.equipment_restart()
+            </field>
+        </record>
+
+        <record id="action_hrp_equipment_restart_server" model="ir.values">
+            <field name="name">action_hrp_equipment_restart_server</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('hrp_equipment_restart_server'))" />
+            <field name="key">action</field>
+            <field name="model_id" ref="model_hrp_equipment"/>
+            <field name="model">hrp.equipment</field>
+            <field name="key2">client_action_multi</field>
+        </record>
+
+        <!--关闭设备-->
+        <record id="hrp_equipment_shutdown_server" model="ir.actions.server">
+            <field name="name">关闭设备</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_hrp_equipment"/>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    records.equipment_shutdown()
+            </field>
+        </record>
+
+        <record id="action_hrp_equipment_shutdown_server" model="ir.values">
+            <field name="name">action_hrp_equipment_shutdown_server</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('hrp_equipment_shutdown_server'))" />
+            <field name="key">action</field>
+            <field name="model_id" ref="model_hrp_equipment"/>
+            <field name="model">hrp.equipment</field>
+            <field name="key2">client_action_multi</field>
+        </record>
+
+        <record id="hrp_equipment_filter" model="ir.ui.view">
+            <field name="name">hrp_equipment_filter</field>
+            <field name="model">hrp.equipment</field>
+            <field name="arch" type="xml">
+                <search string="hrp_equipment_filter">
+                    <filter name="floor_group" string="楼层" context="{'group_by':'floor'}"/>
+                    <filter name="equipment_type_group" string="设备类型" context="{'group_by':'equipment_type_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="hrp_equipment_tree" model="ir.ui.view">
+            <field name="name">hrp_equipment_tree</field>
+            <field name="model">hrp.equipment</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_equipment_tree" >
+                    <field name="id"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="equipment_type_id"/>
+                    <field name="floor"/>
+                    <field name="ip"/>
+                    <field name="mac"/>
+                    <field name="version"/>
+                    <field name="user_id"/>
+                    <field name="online"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="hrp_equipment_form" model="ir.ui.view">
+            <field name="name">hrp_equipment_form</field>
+            <field name="model">hrp.equipment</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="hrp_equipment_form" >
+                    <sheet>
+                        <div class="oe_title">
+                            <label for='name' class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" required="1"/>
+                            </h1>
+                            <label for='code' class="oe_edit_only"/>
+                            <h2>
+                                <field name="code" readonly="1"/>
+                            </h2>
+                        </div>
+                        <group col="4">
+                            <field name="equipment_type_id" readonly="1"/>
+                            <field name="floor" required="1"/>
+                            <field name="ip" readonly="1"/>
+                            <field name="mac" readonly="1"/>
+                            <field name="business_ids" widget="many2many_tags"/>
+                            <field name="registered_type_ids" widget="many2many_tags"/>
+                            <field name="version" readonly="1"/>
+                            <field name="create_date" readonly="1" string="创建时间"/>
+                            <field name="user_id" readonly="1"/>
+                            <field name="employee_id" readonly="1"/>
+                            <field name="online" readonly="1"/>
+                            <field name="state" readonly="1"/>
+                        </group>
+                        <notebook>
+                            <page string="部门">
+                                <group col="4">
+                                    <field name="department_info_ids" nolabel="1">
+                                        <tree editable="top">
+                                            <field name="department_id" required="1"/>
+                                            <field name="room_ids" widget="many2many_tags"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="广告播放列表">
+                                <group col="4">
+                                    <field name="ad_play_list_ids" nolabel="1"/>
+                                </group>
+                            </page>
+                            <page string="日志">
+                                <group col="4">
+                                    <field name="log_ids" nolabel="1">
+                                        <tree>
+                                            <field name="user_id"/>
+                                            <field name="create_date" string="创建时间"/>
+                                            <field name="log_datetime"/>
+                                            <field name="log_type"/>
+                                            <field name="log_content"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <!--<page string="设备号类">-->
+                                <!--<group col="4">-->
+                                    <!--<field name="equipment_registered_type_ids" nolabel="1">-->
+                                        <!--<tree editable="top">-->
+                                            <!--<field name="employee_id" required="1"/>-->
+                                            <!--<field name="registered_type_ids" widget="many2many_tags" context="{'employee_id': employee_id}"/>-->
+                                        <!--</tree>-->
+                                        <!--<form>-->
+                                            <!--<group col="4">-->
+                                                <!--<field name="employee_id"/>-->
+                                                <!--<field name="registered_type_ids" widget="many2many_tags"/>-->
+                                            <!--</group>-->
+                                        <!--</form>-->
+                                    <!--</field>-->
+                                <!--</group>-->
+                            <!--</page>-->
+                            <page string="接诊队列">
+                                <field name="queue_ids" nolabel="1">
+                                    <tree create="0" delete="0">
+                                        <field name="outpatient_num"/>
+                                        <field name="partner_id"/>
+                                        <field name="business"/>
+                                        <field name="department_id"/>
+                                        <field name="room_id"/>
+                                        <field name="employee_id"/>
+                                        <field name="operation_room_id"/>
+                                        <field name="operation_employee_id"/>
+                                        <field name="enqueue_datetime"/>
+                                        <field name="confirm_datetime"/>
+                                        <field name="operation_time"/>
+                                        <field name="state"/>
+                                    </tree>
+                                    <form create="0" delete="0" edit="0">
+                                        <sheet>
+                                            <div class="oe_title">
+                                                <label for='partner_id' class="oe_edit_only"/>
+                                                <h1>
+                                                    <field name="partner_id" required="1" readonly="1"/>
+                                                </h1>
+                                                <label for='outpatient_num' class="oe_edit_only"/>
+                                                <h2>
+                                                    <field name="outpatient_num" required="1" readonly="1"/>
+                                                </h2>
+                                            </div>
+                                            <group col="4">
+                                                <field name="spell" readonly="1"/>
+                                                <field name="business" readonly="1"/>
+                                                <field name="department_id" readonly="1"/>
+                                                <field name="operation_room_id" readonly="1"/>
+                                                <field name="operation_equipment_id" readonly="1"/>
+                                                <field name="operation_employee_id" readonly="1"/>
+                                                <field name="return_visit" readonly="1"/>
+                                                <field name="visit_date" readonly="1"/>
+                                                <field name="enqueue_datetime" readonly="1"/>
+                                                <field name="confirm_datetime" readonly="1"/>
+                                                <field name="operation_time" readonly="1"/>
+                                                <field name="state" readonly="1"/>
+                                                <field name="stage" readonly="1"/>
+                                                <field name="origin" readonly="1"/>
+                                                <field name="date_state" readonly="1"/>
+                                            </group>
+                                            <notebook>
+                                                <page string="挂号信息">
+                                                    <group>
+                                                        <group>
+                                                            <field name="register_type" readonly="1"/>
+                                                            <field name="is_emerg_treat" readonly="1"/>
+                                                        </group>
+                                                        <group>
+                                                            <field name="employee_id" readonly="1"/>
+                                                        </group>
+                                                    </group>
+                                                </page>
+                                                <page string="检验检查">
+                                                    <group>
+                                                        <group>
+                                                            <field name="part" readonly="1"/>
+                                                        </group>
+                                                        <group>
+                                                            <field name="coll_method" readonly="1"/>
+                                                        </group>
+                                                    </group>
+                                                </page>
+                                            </notebook>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="hrp_system_setting_menu" name="运行管理" sequence="2"/>
+
+        <menuitem id="HrpEquipment_menu" name="设备管理" parent="hrp_system_setting_menu"/>
+
+        <record model="ir.actions.act_window" id="hrp_equipment_action">
+            <field name="name">设备</field>
+            <field name="res_model">hrp.equipment</field>
+            <field name="search_view_id" ref="hrp_equipment_filter"/>
+            <field name="context">{"search_default_floor_group":1, 'search_default_equipment_type_group': 1}</field>
+        </record>
+
+        <record id="hrp_equipment_action_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="hrp_equipment_tree"/>
+            <field name="act_window_id" ref="hrp_equipment_action"/>
+        </record>
+
+        <record id="hrp_equipment_action_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="hrp_equipment_form"/>
+            <field name="act_window_id" ref="hrp_equipment_action"/>
+        </record>
+
+        <menuitem id="hrp_equipment_menu" name="设备" parent="HrpEquipment_menu" action="hrp_equipment_action"/>
+
+        <!--设备日志-->
+        <record id="hrp_equipment_log_filter" model="ir.ui.view">
+            <field name="name">hrp_equipment_log_filter</field>
+            <field name="model">hrp.equipment.log</field>
+            <field name="arch" type="xml">
+                <search string="hrp_equipment_log_filter">
+                    <filter name="floor_group" string="楼层" context="{'group_by':'floor'}"/>
+                    <filter name="equipment_id_group" string="设备" domain="[]" context="{'group_by':'equipment_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="hrp_equipment_log_tree" model="ir.ui.view">
+            <field name="name">hrp_equipment_log_tree</field>
+            <field name="model">hrp.equipment.log</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_equipment_log_tree" create="0" delete="0">
+                    <field name="equipment_id"/>
+                    <field name="user_id"/>
+                    <field name="create_date" string="创建时间"/>
+                    <field name="log_datetime"/>
+                    <field name="log_type"/>
+                    <field name="log_content"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="hrp_equipment_log_form" model="ir.ui.view">
+            <field name="name">hrp_equipment_log_form</field>
+            <field name="model">hrp.equipment.log</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="hrp_equipment_log_form" create="0" delete="0" edit="0">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for='equipment_id' class="oe_edit_only"/>
+                            <h1>
+                                <field name="equipment_id"/>
+                            </h1>
+                        </div>
+                        <group col="4">
+                            <field name="create_date" string="创建时间"/>
+                            <field name="log_datetime"/>
+                            <field name="log_type"/>
+                            <field name="log_content"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hrp_equipment_log_action">
+            <field name="name">设备日志</field>
+            <field name="res_model">hrp.equipment.log</field>
+            <field name="search_view_id" ref="hrp_equipment_log_filter"/>
+            <field name="context">{"search_default_floor_group":1, "search_default_equipment_id_group":1}</field>
+        </record>
+
+        <menuitem id="hrp_equipment_log_menu" name="设备日志" parent="HrpEquipment_menu" action="hrp_equipment_log_action"/>
+
+        <!--广告-->
+        <record id="hrp_advertisement_tree" model="ir.ui.view">
+            <field name="name">hrp_advertisement_tree</field>
+            <field name="model">hrp.advertisement</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_advertisement_tree" >
+                    <field name="name"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="hrp_advertisement_form" model="ir.ui.view">
+            <field name="name">hrp_advertisement_form</field>
+            <field name="model">hrp.advertisement</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="hrp_advertisement_form" >
+                    <sheet>
+                        <div class="oe_title">
+                            <label for='name' class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" required="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="type" required="1"/>
+                            </group>
+                            <group>
+                                <field name="image" widget="image" options="{'preview_image': 'image', 'size': [200, 150]}" attrs="{'invisible': [('type', '!=', 'image')]}"/>
+                                <field name="file"  attrs="{'invisible': [('type', '!=', 'file')]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <menuitem id="advertisement_menu" name="媒体管理"/>
+
+        <record model="ir.actions.act_window" id="hrp_advertisement_action">
+            <field name="name">广告</field>
+            <field name="res_model">hrp.advertisement</field>
+        </record>
+
+        <menuitem id="hrp_advertisement_menu" name="广告管理" parent="advertisement_menu" action="hrp_advertisement_action"/>
+
+
+        <!--广告模板-->
+        <record id="hrp_advertisement_template_tree" model="ir.ui.view">
+            <field name="name">hrp_advertisement_template_tree</field>
+            <field name="model">hrp.advertisement_template</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_advertisement_template_tree" >
+                    <field name="name"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="hrp_advertisement_template_form" model="ir.ui.view">
+            <field name="name">hrp_advertisement_template_form</field>
+            <field name="model">hrp.advertisement_template</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="hrp_advertisement_template_form" >
+                    <sheet>
+                        <group col="4">
+                            <field name="name" required="1"/>
+                            <field name="type" required="1"/>
+                            <field name="interval" required="1"/>
+                        </group>
+                        <notebook>
+                            <page string="广告">
+                                <field name="template_line_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hrp_advertisement_template_form_action">
+            <field name="name">广告模板</field>
+            <field name="res_model">hrp.advertisement_template</field>
+        </record>
+
+        <menuitem id="hrp_advertisement_template_form_menu" name="广告模板" parent="advertisement_menu" action="hrp_advertisement_template_form_action"/>
+
+        <!--广告播放模板明细-->
+        <record id="hrp_advertisement_template_line_tree" model="ir.ui.view">
+            <field name="name">hrp_advertisement_template_line_tree</field>
+            <field name="model">hrp.advertisement_template_line</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_advertisement_template_line_tree" >
+                    <field name="advertisement_id"/>
+                    <field name="sequence"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="hrp_advertisement_template_line_form" model="ir.ui.view">
+            <field name="name">hrp_advertisement_template_line_form</field>
+            <field name="model">hrp.advertisement_template_line</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="hrp_advertisement_template_line_form" >
+                    <sheet>
+                        <group col="4">
+                            <field name="advertisement_id" required="1"/>
+                            <field name="sequence"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--广告播放列表-->
+        <record id="hrp_ad_play_list_tree" model="ir.ui.view">
+            <field name="name">hrp_ad_play_list_tree</field>
+            <field name="model">hrp.ad_play_list</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_ad_play_list_tree" >
+                    <field name="name"/>
+                    <field name="template_id"/>
+                    <field name="play_type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="hrp_ad_play_list_form" model="ir.ui.view">
+            <field name="name">hrp_ad_play_list_form</field>
+            <field name="model">hrp.ad_play_list</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="hrp_ad_play_list_form" >
+                    <sheet>
+                        <div class="oe_title">
+                            <label for='name' class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" required="1"/>
+                            </h1>
+                        </div>
+                        <group col="4">
+                            <field name="template_id" required="1"/>
+                            <field name="play_type" required="1"/>
+                            <field name="start" widget="float_time" attrs="{'invisible': [('play_type', '!=', 'timed')]}"/>
+                            <field name="stop" widget="float_time" attrs="{'invisible': [('play_type', '!=', 'timed')]}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hrp_ad_play_list_action">
+            <field name="name">播放列表</field>
+            <field name="res_model">hrp.ad_play_list</field>
+        </record>
+
+        <menuitem id="hrp_ad_play_list_menu" name="播放列表" parent="advertisement_menu" action="hrp_ad_play_list_action"/>
+
+
+        <!--参数-->
+        <record id="hrp_parameter_tree_view" model="ir.ui.view">
+            <field name="name">hrp_parameter_tree_view</field>
+            <field name="model">hrp.parameter</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_parameter_tree_view">
+                    <field name="name"/>
+                    <field name="remark"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hrp_parameter_form_view" model="ir.ui.view">
+            <field name="name">hrp_parameter_form_view</field>
+            <field name="model">hrp.parameter</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="hrp_parameter_form_view" >
+                    <sheet>
+                        <group col="4">
+                            <field name="name" required="1"/>
+                            <field name="remark" required="1"/>
+                            <field name="type" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!--设备类型参数-->
+        <record id="hrp_equipment_type_parameter_filter" model="ir.ui.view">
+            <field name="name">hrp_equipment_type_parameter_filter</field>
+            <field name="model">hrp.equipment_type_parameter</field>
+            <field name="arch" type="xml">
+                <search string="hrp_equipment_type_parameter_filter">
+                    <filter name="equipment_type_id_filter" string="设备类型" domain="[]" context="{'group_by':'equipment_type_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="hrp_equipment_type_parameter_tree_view" model="ir.ui.view">
+            <field name="name">hrp_equipment_type_parameter_tree_view</field>
+            <field name="model">hrp.equipment_type_parameter</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_equipment_type_parameter_tree_view">
+                    <!--<field name="equipment_type_id"/>-->
+                    <field name="parameter_id"/>
+                    <field name="value"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hrp_equipment_type_parameter_form_view" model="ir.ui.view">
+            <field name="name">hrp_equipment_type_parameter_form_view</field>
+            <field name="model">hrp.equipment_type_parameter</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="hrp_equipment_type_parameter_form_view" >
+                    <sheet>
+                        <group col="4">
+                            <field name="parameter_id" required="1"/>
+                            <field name="value" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="hrp_parameter_menu1" name="参数" parent="hrp_system_setting_menu"/>
+
+        <record model="ir.actions.act_window" id="hrp_equipment_type_parameter_action">
+            <field name="name">设备类型参数</field>
+            <field name="res_model">hrp.equipment_type_parameter</field>
+            <field name="context">{"search_default_equipment_type_id_filter":1}</field>
+            <field name="search_view_id" ref="hrp_equipment_type_parameter_filter"/>
+        </record>
+
+
+
+        <!--设备参数-->
+        <record id="hrp_equipment_parameter_filter" model="ir.ui.view">
+            <field name="name">hrp_equipment_parameter_filter</field>
+            <field name="model">hrp.equipment_parameter</field>
+            <field name="arch" type="xml">
+                <search string="hrp_equipment_parameter_filter">
+                    <field name="equipment_id"/>
+                    <filter name="equipment_id_filter" string="设备" domain="[]" context="{'group_by':'equipment_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="hrp_equipment_parameter_tree_view" model="ir.ui.view">
+            <field name="name">hrp_equipment_parameter_tree_view</field>
+            <field name="model">hrp.equipment_parameter</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_equipment_parameter_tree_view">
+                    <!--<field name="equipment_id"/>-->
+                    <field name="parameter_id"/>
+                    <field name="value"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hrp_equipment_parameter_form_view" model="ir.ui.view">
+            <field name="name">hrp_equipment_parameter_form_view</field>
+            <field name="model">hrp.equipment_parameter</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="hrp_equipment_parameter_form_view" >
+                    <sheet>
+                        <group col="4">
+                            <field name="parameter_id" required="1"/>
+                            <field name="value" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hrp_equipment_parameter_action">
+            <field name="name">设备参数</field>
+            <field name="res_model">hrp.equipment_parameter</field>
+            <field name="context">{"search_default_equipment_id_filter":1}</field>
+            <field name="search_view_id" ref="hrp_equipment_parameter_filter"/>
+        </record>
+
+
+
+        <!--设备类型-->
+        <record id="hrp_equipment_type_tree_view" model="ir.ui.view">
+            <field name="name">hrp_equipment_type_tree_view</field>
+            <field name="model">hrp.equipment_type</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_equipment_type_tree_view">
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hrp_equipment_type_form_view" model="ir.ui.view">
+            <field name="name">hrp_equipment_type_form_view</field>
+            <field name="model">hrp.equipment_type</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="hrp_equipment_type_form_view" >
+                    <sheet>
+                        <group col="4">
+                            <field name="name" required="1"/>
+                            <field name="code" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hrp_equipment_type_action">
+            <field name="name">设备类型</field>
+            <field name="res_model">hrp.equipment_type</field>
+        </record>
+
+        <menuitem id="hrp_equipment_basic" name="基础数据" parent="hrp_system_setting_menu"/>
+
+        <menuitem id="hrp_equipment_type_menu" name="设备类型" parent="hrp_equipment_basic" action="hrp_equipment_type_action"/>
+
+
+        <!--部门信息-->
+        <record id="hrp_department_info_tree_view" model="ir.ui.view">
+            <field name="name">hrp_department_info_tree_view</field>
+            <field name="model">hrp.department_info</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_department_info_tree_view">
+                    <field name="department_id"/>
+                    <field name="room_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hrp_department_info_form_view" model="ir.ui.view">
+            <field name="name">hrp_department_info_form_view</field>
+            <field name="model">hrp.department_info</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="hrp_department_info_form_view" >
+                    <sheet>
+                        <group col="4">
+                            <field name="department_id"/>
+                            <field name="room_ids" widget="many2many_tags" context="{'parent_id':department_id}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--设备参数的设备视图-->
+        <record id="hrp_equipment_tree2" model="ir.ui.view">
+            <field name="name">hrp_equipment_tree2</field>
+            <field name="model">hrp.equipment</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_equipment_tree2" create="0" delete="0">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="equipment_type_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="hrp_equipment_form2" model="ir.ui.view">
+            <field name="name">hrp_equipment_form2</field>
+            <field name="model">hrp.equipment</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="hrp_equipment_form2" create="0" delete="0">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for='name' class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                            <label for='code' class="oe_edit_only"/>
+                            <h2>
+                                <field name="code" readonly="1"/>
+                            </h2>
+                        </div>
+                        <group col="4">
+                            <field name="equipment_type_id" readonly="1"/>
+                            <field name="ip" readonly="1"/>
+                            <field name="mac" readonly="1"/>
+                        </group>
+                        <notebook>
+                            <page string="参数">
+                                <group col="4">
+                                    <field name="equipment_parameter_ids" nolabel="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hrp_equipment_action2">
+            <field name="name">设备参数</field>
+            <field name="res_model">hrp.equipment</field>
+            <field name="search_view_id" ref="hrp_equipment_filter"/>
+            <field name="context">{"search_default_floor_group":1, "search_default_equipment_type_group":1}</field>
+        </record>
+
+        <record id="hrp_equipment_action2_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="hrp_equipment_tree2"/>
+            <field name="act_window_id" ref="hrp_equipment_action2"/>
+        </record>
+
+        <record id="hrp_equipment_action2_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="hrp_equipment_form2"/>
+            <field name="act_window_id" ref="hrp_equipment_action2"/>
+        </record>
+
+        <menuitem id="hrp_equipment_menu2" name="设备参数" parent="hrp_parameter_menu1" action="hrp_equipment_action2"/>
+
+        <!--设备类型(带参数)-->
+        <record id="hrp_equipment_type_form_view2" model="ir.ui.view">
+            <field name="name">hrp_equipment_type_form_view2</field>
+            <field name="model">hrp.equipment_type</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="hrp_equipment_type_form_view2">
+                    <sheet>
+                        <group col="4">
+                            <field name="name" required="1"/>
+                            <field name="code" required="1"/>
+                        </group>
+                        <notebook>
+                            <page string="参数">
+                                <group col="4">
+                                    <field name="equipment_type_parameter_ids" nolabel="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hrp_equipment_type_action2">
+            <field name="name">设备类型</field>
+            <field name="res_model">hrp.equipment_type</field>
+        </record>
+
+        <record id="hrp_equipment_type_action2_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="hrp_equipment_type_tree_view"/>
+            <field name="act_window_id" ref="hrp_equipment_type_action2"/>
+        </record>
+
+        <record id="hrp_equipment_type_action2_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="hrp_equipment_type_form_view2"/>
+            <field name="act_window_id" ref="hrp_equipment_type_action2"/>
+        </record>
+
+        <menuitem id="hrp_equipment_type_parameter_menu" name="设备类型参数" parent="hrp_parameter_menu1" action="hrp_equipment_type_action2"/>
+
+    </data>
+</odoo>

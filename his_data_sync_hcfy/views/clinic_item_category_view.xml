@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_clinic_item_category_tree" model="ir.ui.view">
+        <field name="name">his.clinic_item_category.tree</field>
+        <field name="model">his.clinic_item_category</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="id"/>
+                <field name="his_id"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="unit"/>
+                <field name="type"/>
+                <field name="category_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_clinic_item_category_form" model="ir.ui.view">
+        <field name="name">his.clinic_item_category.form</field>
+        <field name="model">his.clinic_item_category</field>
+        <field name="arch" type="xml">
+            <form  string="clinic_item_category">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="unit"/>
+                            <field name="category_id"/>
+                            <field name="business_id"/>
+                        </group>
+                        <group>
+                            <field name="his_id"/>
+                            <field name="code"/>
+                            <field name="type"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_clinic_item_category_filter" model="ir.ui.view">
+        <field name="name">his.clinic_item_category.select</field>
+        <field name="model">his.clinic_item_category</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="his_id"/>
+                <field name="name"/>
+
+                <group expand="0" string="分组">
+                    <filter string="类别" domain="[]" context="{'group_by':'type'}"/>
+                    <filter string="诊疗分类目录" domain="[]" context="{'group_by':'category_id'}"/>
+                    <filter string="业务类别" domain="[]" context="{'group_by':'business_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_clinic_item_category_tree" model="ir.actions.act_window">
+        <field name="name">诊疗项目目录</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">his.clinic_item_category</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_clinic_item_category_filter"/>
+    </record>
+
+
+
+    <menuitem action="action_clinic_item_category_tree" id="menu_action_clinic_item_category_tree"
+              parent="his_data_synchronization_poll.menu_sync_base_data_main" sequence="1"/>
+
+
+</odoo>

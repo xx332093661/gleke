@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="hr_attendance assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/less" href="/hrp_queue/static/src/css/schedule.css"/>
+
+            <script type="text/javascript" src="/hrp_queue/static/src/js/work_schedule.js"/>
+        </xpath>
+    </template>
+</odoo>

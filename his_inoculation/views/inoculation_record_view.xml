@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="inoculation_record_tree" model="ir.ui.view">
+            <field name="name">inoculation_record_tree</field>
+            <field name="model">his.inoculation_record</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="partner_id"/>
+                    <field name="schedule_id"/>
+                    <field name="age"/>
+                    <field name="inoculate_time"/>
+                    <field name="doctor"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="inoculation_record_form" model="ir.ui.view">
+            <field name="name">inoculation_record_form</field>
+            <field name="model">his.inoculation_record</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="partner_id"
+                                       required="1"
+                                       options="{'no_create':1,'no_open':1}"
+                                       placeholder="请选择接种儿童"
+                                       domain="[('patient_property', '=', 'newborn'), ('inoculation_in_self', '=', True)]"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="schedule_id" required="1" options="{'no_open':1,'no_create':1}"/>
+                                <field name="inoculate_time" required="1"/>
+                            </group>
+                            <group>
+                                <field name="age"/>
+                                <field name="doctor"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="接种记录明细">
+                                <field name="detail_ids">
+                                    <tree>
+                                        <field name="item_id"/>
+                                        <field name="agent_count"/>
+                                        <field name="batch_number"/>
+                                        <field name="vaccine_manufacturer"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="item_id" required="1"
+                                                            options="{'no_open':1,'no_create':1}"
+                                                           context="{'schedule_id': parent.schedule_id, 'detail_ids': parent.detail_ids}"/>
+                                                    <field name="batch_number"/>
+                                                </group>
+                                                <group>
+                                                    <field name="agent_count" required="1"/>
+                                                    <field name="vaccine_manufacturer"/>
+                                                </group>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_inoculation_record_filter" model="ir.ui.view">
+            <field name="name">his.inoculation_record.select</field>
+            <field name="model">his.inoculation_record</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="partner_id"/>
+                    <filter name="group_by_partner" string="接种儿童" context="{'group_by':'partner_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="inoculation_record_action">
+            <field name="name">儿童接种记录</field>
+            <field name="res_model">his.inoculation_record</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_inoculation_record_filter"/>
+            <field name="context">{'search_default_group_by_partner': 1}</field>
+        </record>
+
+        <menuitem id="inoculation_record_menu" parent="inoculation_manager_main" action="inoculation_record_action" sequence="3"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record id="child_manage_tree" model="ir.ui.view">
+            <field name="name">child_manage_tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="gender"/>
+                    <field name="birth_date"/>
+                    <field name="month_label" string="年龄"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="child_manage_form" model="ir.ui.view">
+            <field name="name">child_manage_form</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="image" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" string="姓名" required="1" placeholder="儿童姓名" style="width:300px"/>
+                            </h1>
+                            <div class="o_address_format">
+                                <field name="card_no" placeholder="就诊卡号" style="width:200px"/>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="gender" required="1"/>
+                                <field name="note_code" placeholder="接种本条形码与儿童编码必填其一"/>
+                                <field name="month_label"/>
+                                <field name="patient_property" invisible="1"/>
+                                <field name="is_patient" invisible="1"/>
+                                <field name="id" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="birth_date" required="1"/>
+                                <field name="inoculation_code" placeholder="接种本条形码与儿童编码必填其一"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="儿保计划">
+                                <field name="child_health_schedule_ids" readonly="1">
+                                    <tree>
+                                        <field name="month_label" string="年龄"/>
+                                        <field name="state"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <label for="month"/>
+                                                    <div class="o_address_format">
+                                                        <div class="o_form_field_many2one" style="width:20px">第</div>
+                                                        <field name="month" style="width:100px" required="1"/>
+                                                        <div class="o_form_field_many2one" style="width:20px">月</div>
+                                                    </div>
+                                                </group>
+                                                <group>
+                                                    <field name="state" required="1"/>
+                                                </group>
+                                            </group>
+                                            <notebook>
+                                                <page string="儿保项目">
+                                                    <field name="item_ids"/>
+                                                </page>
+                                            </notebook>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+
+                            <page string="儿保记录">
+                                <field name="child_inspection_record_ids" readonly="1">
+                                    <tree>
+                                        <field name="inspection_date" string="儿保日期"/>
+                                        <field name="inspection_doctor"/>
+                                        <field name="age"/>
+                                        <field name="schedule_id"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="inspection_date" required="1" string="儿保日期"/>
+                                                    <field name="age" readonly="1"/>
+                                                    <field name="id" invisible="1"/>
+                                                </group>
+                                                <group>
+                                                    <field name="inspection_doctor"/>
+                                                    <field name="schedule_id" required="1"  options="{'no_open':True,'no_create':True}"/>
+                                                </group>
+                                            </group>
+                                            <notebook>
+                                                <page string="儿保明细记录">
+                                                    <field name="detail_ids">
+                                                        <tree>
+                                                            <field name="item_id"/>
+                                                            <field name="department"/>
+                                                        </tree>
+                                                        <form>
+                                                            <sheet>
+                                                                <group>
+                                                                    <group>
+                                                                        <field name="item_id" required="1" options="{'no_open':True,'no_create':True}"/>
+                                                                    </group>
+                                                                    <group>
+                                                                        <field name="department"/>
+                                                                    </group>
+                                                                </group>
+                                                                <notebook>
+                                                                    <page string="检查结果描述">
+                                                                        <field name="result_description"/>
+                                                                    </page>
+                                                                    <page string="结果图像">
+                                                                        <field name="result_image"/>
+                                                                    </page>
+                                                                    <page string="结果化验单">
+                                                                        <field name="result_assay"/>
+                                                                    </page>
+                                                                </notebook>
+
+                                                            </sheet>
+                                                        </form>
+                                                    </field>
+                                                </page>
+                                            </notebook>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_child_manage_filter" model="ir.ui.view">
+            <field name="name">view_child_manage_filter</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="child_manage_action">
+            <field name="name">儿童管理</field>
+            <field name="res_model">res.partner</field>
+            <field name="domain">[('patient_property', '=', 'newborn'), ('child_health_in_self', '=', True), ('is_patient', '=', True)]</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_child_manage_filter"/>
+            <field name="context">{'patient_property':'newborn'}</field>
+        </record>
+
+        <record id="child_manage_action_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="child_manage_tree"/>
+            <field name="act_window_id" ref="child_manage_action"/>
+        </record>
+
+        <record id="child_manage_action_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="child_manage_form"/>
+            <field name="act_window_id" ref="child_manage_action"/>
+        </record>
+
+        <menuitem id="child_manage_menu" parent="child_health_inspection_main" action="child_manage_action" sequence="1"/>
+
+
+    </data>
+</odoo>

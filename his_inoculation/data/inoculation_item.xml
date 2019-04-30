@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <!--五联疫苗-->
+        <record model="his.inoculation_item" id="inoculation_item1">
+                <field name="name">五联疫苗</field>
+                <field name="short_name">五联</field>
+                <field name="part">基础免疫3剂次建议采用大腿前外侧，加强免疫可选择上臂外侧三角肌</field>
+                <field name="effect">1、可替代脊灰(减毒或灭活)疫苗、百白破、Hib疫苗；
+2、可预防百日咳、白喉、破伤风、脊髓灰质炎和B型流感嗜血杆菌感染等五种疾病。
+                </field>
+                <field name="taboo">1、对本品任一成分或百日咳疫苗过敏，或是以前接种过含有相同成分的疫苗后出现过危及生命的不良反应者；
+2、患有进行性脑病者；
+3、发热或者急性疾病期间必须推迟接种本品。
+                </field>
+                <field name="attention">可能出现发热，注射部位触痛、红斑和硬结，呕吐、腹泻、食欲不振，易激怒、异常器闹和睡眠障碍。</field>
+                <field name="reaction">1、接种后在接种单位停留观察30分钟，无异常后离开。
+2、接种后适当休息，多饮开水，注意保暧，避免进行剧烈的活动。
+                </field>
+                <field name="is_private" eval="True"/>
+                <field name="times" eval="5"/>
+        </record>
+
+        <!--脊灰灭活疫苗-->
+        <record model="his.inoculation_item" id="inoculation_item2">
+                <field name="name">脊灰灭活疫苗</field>
+                <field name="short_name">脊灰</field>
+                <field name="part">2岁以下婴幼儿首选股外侧肌(肌内注射)，2岁以上可在上臂三角肌(肌内注射)</field>
+                <field name="effect">可替代口服脊灰减毒活疫苗，预防脊髓灰质炎。</field>
+                <field name="taboo">1、对新霉素、链霉素和多粘菌B等过敏者；
+2、以前接种IPV过敏者；
+3、发热或急性疾病期患者，应推迟接种；
+4、严禁血管内注射。
+                </field>
+                <field name="attention">患免疫缺陷症、接受免疫抑制剂治疗和患肛周脓肿的儿童，建议接种IPV。</field>
+                <field name="reaction">1、注射部位的局部疼痛、发红、硬结等。
+2、一过性发热。
+                </field>
+                <field name="replace_ids" eval="[(6, 0, [ref('inoculation_item1')])]"/>
+                <field name="is_private" eval="True"/>
+                <field name="times" eval="4"/>
+        </record>
+
+        <!--Hib疫苗-->
+        <record model="his.inoculation_item" id="inoculation_item3">
+                <field name="name">Hib疫苗</field>
+                <field name="short_name">Hib</field>
+                <field name="part">上臂外侧三角肌(肌内注射)或大腿前外侧(肌内注射)</field>
+                <field name="effect">用于预防由b型流感嗜血杆菌感染引起的侵袭性感染（包括脑膜炎、肺炎、败血症、蜂窝组织炎、关节炎、会厌炎等）。完成基础免疫后，几乎100%的婴儿可产生抗体反应。95%的婴儿达到了保护性抗体水平，临床效果估计为95~100%。</field>
+                <field name="taboo">1、已知对本疫苗的任何成分过敏，尤其是对破伤风类毒素过敏者；
+2、对以前接种Hib疫苗后发生过敏反应者；
+3、发热者、急性疾病或慢性疾病活载期暂缓注射。
+                </field>
+                <field name="attention">1、一般反应轻微，接种部位可出现红肿、硬结、压痛，偶有局部瘙痒感，一般不需要特殊处理，必要时可对症治疗。
+2、全身症状发热（多在39℃以下），哭闹最为常见。极为少见的病例会出现下肢水肿，常伴随出现一过性紫癜，会在面颊或咽喉部位处出现类风湿样皮疹、瘙痒和水肿。
+				</field>
+                <field name="reaction">1、接种后在接种单位停留观察30分钟，无异常后离开。
+2、接种后适当休息，多饮开水，注意保暧，避免进行剧烈的活动。
+                </field>
+                <field name="is_private" eval="True"/>
+                <field name="times" eval="4"/>
+        </record>
+
+        <!--A+C流脑疫苗(结合)-->
+        <record model="his.inoculation_item" id="inoculation_item4">
+                <field name="name">A+C流脑疫苗(结合)</field>
+                <field name="short_name">A+C流脑</field>
+                <field name="part">上臂外侧三角肌附着处（皮下注射）</field>
+                <field name="effect">用于预防A群和C群脑膜炎球菌引起的流行性脑脊髓膜炎。</field>
+                <field name="taboo">1、发热者暂缓注射；
+2、有过敏史者和急、慢性疾病患者；
+3、癫痫、癔症、抽搐、脑炎后遗症等神经系统疾患者。
+                </field>
+                <field name="attention">一般接种后，儿童及成人均会出现较轻微反应，局部有些红晕和压痛，24小时内会自行消退。偶尔有人出现短暂的发热，无需特殊处理。如发热超过38℃以上者，可给予退热和对症处理。偶见有过敏反应。
+				</field>
+                <field name="reaction">1、接种后在接种单位停留观察30分钟，无异常后离开。
+2、接种后适当休息，多饮开水，注意保暧，避免进行剧烈的活动。
+                </field>
+                <field name="is_private" eval="True"/>
+                <field name="times" eval="2"/>
+        </record>
+
+        <!--轮状病毒疫苗-->
+        <record model="his.inoculation_item" id="inoculation_item5">
+                <field name="name">轮状病毒疫苗</field>
+                <field name="short_name">轮状</field>
+                <field name="part">口服</field>
+                <field name="effect">可预防小儿轮状病毒引起的腹泻。服用口服轮状病毒活疫苗有效保护率可达73.72%。口服轮状病毒活疫苗接种后保护器一般为一年。</field>
+                <field name="taboo">1、患急性或慢性严重疾病者；
+2、每天腹泻≥3次的腹泻患者和发热者暂缓接种；
+                </field>
+                <field name="attention">个别人可有轻微发热、呕吐、腹泻，一般不需要特殊处理，可自行缓解，必要时应及时与接种单位联系，由后者给予处置指导。</field>
+                <field name="reaction">1、接种后在接种单位停留观察30分钟，无异常后离开。
+2、使用免疫球蛋白后3个月内避免接种，以免影响效果。
+3、本疫苗不能与预防轮病以外因素引起的腹泻；服用疫苗后半小时内勿热饮
+                </field>
+                <field name="is_private" eval="True"/>
+                <field name="times" eval="1"/>
+        </record>
+
+        <!--水痘疫苗-->
+        <record model="his.inoculation_item" id="inoculation_item6">
+                <field name="name">水痘疫苗</field>
+                <field name="short_name">水痘</field>
+                <field name="part">上臂外侧三角肌下缘附着处（皮下注射）</field>
+                <field name="effect">可刺激机体产生抗水痘-带状疱疹病毒的免疫力。首次接种疫苗后，97%的1-12岁的儿童可以检测抗体。接种后免疫力持久，并且大多数人可能是终身免疫。但有近1%的免疫接种者发生免疫后感染，临床表现轻微，大多数不发烧也没有并发症。
+				</field>
+                <field name="taboo">1、过敏体质、对新霉素严重过敏者禁用；
+2、孕妇禁用，育龄妇女免疫后三个月内避免怀孕；
+3、发热者、急慢性疾病患者推迟接种；
+4、免疫缺陷或免疫功能不全者；
+                </field>
+                <field name="attention">1、注射部位如出现红肿、硬结需热敷，一天3~5次，坚持到消肿为止；
+2、减毒水痘疫苗在所有年龄组均有很低的综合反应原性，注射部位的反应通常是轻微和暂时的，个别人在接种部位可出现疼痛，偶有发热及伴有一过性皮疹，一般不超过3天
+                </field>
+                <field name="reaction">1、接种后在接种单位停留观察30分钟，无异常后离开。
+2、接种后适当休息，多饮开水，注意保暧，避免进行剧烈的活动。
+                </field>
+                <field name="is_private" eval="True"/>
+                <field name="times" eval="1"/>
+        </record>
+
+        <!--甲肝灭活疫苗-->
+        <record model="his.inoculation_item" id="inoculation_item7">
+                <field name="name">甲肝灭活疫苗</field>
+                <field name="short_name">甲肝</field>
+                <field name="part">上臂三角肌(肌内注射)</field>
+                <field name="effect">1、可代替甲肝减毒活疫苗；
+2、用于预防甲型病毒性肝炎。
+3、甲肝灭活疫苗全程免疫后疫苗滴度高，保护性抗体持续，可有效保护20年以上。
+                </field>
+                <field name="taboo">1、患病毒性肝炎及急性传染病的恢复期病人；
+2、有发热或有严重的心脏病、肾脏病、活动性结核病、重度高血压人；
+3、有免疫缺陷和正在应用肾上腺皮质激素等免疫抑制剂病人；
+4、孕妇或过敏体质者；
+                </field>
+                <field name="attention">少数人可在接种部位发生轻度的红肿或轻微疼痛，不良反应一般在24-72小时内消退，属于正常不良反应。极少数人可出现乏力、发热、厌食、腹泻、恶心、呕吐过敏性皮疹等症状，大多在24小时内可自行缓解。</field>
+                <field name="reaction">1、接种后在接种单位停留观察30分钟，无异常后离开。
+2、接种后适当休息，多饮开水，注意保暧，避免进行剧烈的活动。
+                </field>
+                <field name="is_private" eval="True"/>
+                <field name="times" eval="2"/>
+        </record>
+
+        <!--23价肺炎球菌疫苗-->
+        <record model="his.inoculation_item" id="inoculation_item8">
+                <field name="name">23价肺炎球菌疫苗</field>
+                <field name="short_name">23价肺炎</field>
+                <field name="part">上臂外侧三角肌(皮下或肌内注射)</field>
+                <field name="effect">抗体可有效地预防肺炎球菌的感染，对23种荚膜型的每一种都可产生免疫力。在接种后的第三周，保护性荚膜型特异抗体的水平将升高。</field>
+                <field name="taboo">1、对疫苗中任何成分过敏者；
+2、正在进行免疫抑制剂治疗者；
+3、具有严重的心脏病或肺功能障碍的病人；
+4、妊娠期和哺乳期的妇女；
+5、发热、急性感染、慢性病急性发作者缓种；
+                </field>
+                <field name="attention">接种后少数人可能出现局部反应：红肿、痛、硬结；偶然全身反应：低热小于38.3℃；罕见全身反应：头痛、发热>38.9℃、身体不适、过敏反应、血清病、关节痛、肌痛、关节炎、皮疹、荨麻疹。</field>
+                <field name="reaction">1、接种后在接种单位停留观察30分钟，无异常后离开。
+2、接种后适当休息，多饮开水，注意保暧，避免进行剧烈的活动。
+3、可与其他疫苗同时进行免疫，尤其是流感疫苗和免疫规划的疫苗进行联合免疫，但要求在不同的部位同时进行。
+                </field>
+                <field name="is_private" eval="True"/>
+                <field name="times" eval="2"/>
+        </record>
+
+        <!--ACYW135流脑疫苗-->
+        <record model="his.inoculation_item" id="inoculation_item9">
+                <field name="name">ACYW135流脑疫苗</field>
+                <field name="short_name">ACYW135流脑</field>
+                <field name="part">上臂外侧三角肌附着处（皮下注射）</field>
+                <field name="effect">1、可代替A+C群流脑疫苗。
+2、用于预防A、C、Y及W135群脑膜炎球菌引起的流行性脑脊髓膜炎。
+				</field>
+                <field name="taboo">1、对疫苗中的任何成分过敏者；
+2、肾脏病、心脏病、活动性结核病患者及HIV感染者；
+3、癫痫、抽风、脑部疾病患者；
+4、患有任何发热性呼吸道疾病或者其他急性感染时应缓种
+                </field>
+                <field name="attention">接种部位可能出现红肿、疼痛和硬结，1-2天可自行缓解。偶有短暂低热。</field>
+                <field name="reaction">1、接种后在接种单位停留观察30分钟，无异常后离开。
+2、接种后适当休息，多饮开水，注意保暧，避免进行剧烈的活动。
+                </field>
+                <field name="is_private" eval="True"/>
+                <field name="times" eval="2"/>
+        </record>
+
+
+
+        <!--乙肝疫苗-->
+        <record model="his.inoculation_item" id="inoculation_item101">
+                <field name="name">乙肝疫苗</field>
+                <field name="short_name">乙肝</field>
+                <field name="part">上臂三角肌(肌内注射)</field>
+                <field name="effect">凡按规定程序注射3针乙肝疫苗的人，95%能产生保护作用，可以产生抵抗乙肝病毒的抗体。但有5%的人注射3针后仍不产生抗体，出现免疫无应答或低应答状态。</field>
+                <field name="taboo">1、发执者暂缓注射；
+2、患有争性或慢性严重疾病者；
+3、对疫苗已知的任何成分过敏者。
+                </field>
+                <field name="attention">接种乙肝疫苗很少有不良反应。极个别人可能有中、低度发热，或注射部位微痛，这些轻微反应一般在24小时内消失。极少数人可能会出现荨麻疹等过敏反应，可请医生给予对症治疗。</field>
+                <field name="reaction">1、接种后在接种单位停留30分钟，观察无异常后离开。
+2、接种后适当休息，多饮开水，注意保暧，避免进行剧烈的活动。
+                </field>
+                <field name="is_private" eval="False"/>
+                <field name="times" eval="3"/>
+        </record>
+
+        <!--二价脊灰疫苗-->
+        <record model="his.inoculation_item" id="inoculation_item102">
+                <field name="name">二价脊灰疫苗</field>
+                <field name="short_name">二价</field>
+                <field name="part">口服</field>
+                <field name="effect">服用本疫苗后可刺激机体产生抗I型和III型脊髓灰质炎病毒免疫力。预防脊髓灰质炎（又称小儿麻痹症）可代替三价脊灰减毒活疫苗（糖丸）。</field>
+                <field name="taboo">1、已知对该疫苗的任何组分，包含辅料及硫酸庆大霉素过敏者；
+2、患急性疾病，严慢性疾病，慢性疾控的急性发作期，发热者；
+3、免疫缺陷，免疫功能低下或者正在接受免疫抑制剂治疗者；
+4、妊娠期妇女；
+5、患未控制的癫痫和其他进行性神经疾病者；
+                </field>
+                <field name="attention">口服一般无副反应，个别人有发热、恶心、呕吐、腹泻和皮疹，一般不需要特殊处理，必要时对症治疗。</field>
+                <field name="reaction">1、本品仅供口服，禁止注射。
+2、本品是活疫苗，应该使用37℃以下温水送服，勿用热水送服。
+3、本品为减毒活疫苗，不推荐在该疾病流行季使用。
+4、吃药半小时前和半小时后禁止进食或水。
+                </field>
+                <field name="replace_ids" eval="[(6, 0, [ref('inoculation_item1'), ref('inoculation_item2')])]"/>
+                <field name="is_private" eval="False"/>
+                <field name="times" eval="3"/>
+        </record>
+
+        <!--百白破疫苗-->
+        <record model="his.inoculation_item" id="inoculation_item103">
+                <field name="name">百白破疫苗</field>
+                <field name="short_name">百白破</field>
+                <field name="part">臀部或上臂外侧三角肌深部（肌内注射）</field>
+                <field name="effect">用于预防百日咳、白喉、破伤风。全程接种无细胞百白破疫苗后预防效果可达90%以上。进口无细胞百白破疫苗含有百日咳杆菌粘附素，可以增强百日咳免疫保护。</field>
+                <field name="taboo">1、有癫痫、神经系统疾患者、急、慢性疾患及对疫苗过敏者；
+2、发执者暂缓注射；
+                </field>
+                <field name="attention">1、局部可能出现红肿、疼痛、发痒、硬结或有低热、疲倦、头痛等。一般不需特殊处理即自行消退。
+2、偶见过敏性皮疹、血管神经性水肿，无菌性化脓等，若局部或全身反应较重，应及时到医院进行诊治。
+                </field>
+                <field name="reaction">1、接种后在接种单位停留30分钟，观察无异常后离开。
+2、接种后适当休息，多饮开水，注意保暧，避免进行剧烈的活动。
+3、儿童6岁时接种白破二联疫苗或进口青少年百白破疫苗。
+                </field>
+                <field name="replace_ids" eval="[(6, 0, [ref('inoculation_item1')])]"/>
+                <field name="is_private" eval="False"/>
+                <field name="times" eval="4"/>
+        </record>
+
+        <!--A群流脑疫苗-->
+        <record model="his.inoculation_item" id="inoculation_item104">
+                <field name="name">A群流脑疫苗</field>
+                <field name="short_name">A群流脑</field>
+                <field name="part">上臂外侧三角肌附着处（皮下注射）</field>
+                <field name="effect">可预防A群脑膜炎球菌引起的流行性脑脊髓膜炎。</field>
+                <field name="taboo">1、发执者暂缓注射；
+2、有过敏史者和急、慢性疾病患者；
+3、癫痫、癔症、抽搐、脑炎后遗症等神经系统疾患者；
+                </field>
+                <field name="attention">一般接种后，儿童及成人均会出现较轻微反应，局部有些红晕和压痛，24小时内会自行消退。偶尔有人出现短暂的发热，无需特殊处理。如发热超过38℃以上者，可给予退热和对症处理。偶见有过敏反应。</field>
+                <field name="reaction">1、接种后在接种单位停留30分钟，观察无异常后离开。
+2、接种后适当休息，多饮开水，注意保暧，避免进行剧烈的活动。
+                </field>
+                <field name="replace_ids" eval="[(6, 0, [ref('inoculation_item4')])]"/>
+                <field name="is_private" eval="False"/>
+                <field name="times" eval="2"/>
+        </record>
+
+        <!--乙脑减毒活疫苗-->
+        <record model="his.inoculation_item" id="inoculation_item105">
+                <field name="name">乙脑减毒活疫苗</field>
+                <field name="short_name">乙脑</field>
+                <field name="part">上臂外侧三角肌下缘附着处（皮下注射）</field>
+                <field name="effect">用于预防流行性乙型脑炎。乙脑减毒活疫苗经一针基础免疫后，中和抗体阳转率在80%以上。</field>
+                <field name="taboo">1、有神经系统疾病、过敏体质和急、慢性疾病患者；
+2、有免疫缺陷、近期进行免疫抑制剂治疗者和孕妇不能接种；
+3、发热者暂缓注射；
+                </field>
+                <field name="attention">注射疫苗后，局部和全身反应均较轻微。个别人在注射部位可能有轻度疼痛，红肿，有的人会有低热。一般不需要处理，2~3天后会自行恢复。还有极少数人可能有皮疹，经对症治疗也会很快痊愈。</field>
+                <field name="reaction">1、接种后在接种单位停留30分钟，观察无异常后离开。
+2、接种后适当休息，多饮开水，注意保暧，避免进行剧烈的活动。
+                </field>
+                <!--<field name="replace_ids" eval="[(6, 0, [ref('inoculation_item4')])]"/>-->
+                <field name="is_private" eval="False"/>
+                <field name="times" eval="2"/>
+        </record>
+
+        <!--麻风疫苗-->
+        <record model="his.inoculation_item" id="inoculation_item106">
+                <field name="name">麻风疫苗</field>
+                <field name="short_name">麻风</field>
+                <field name="part">上臂外侧三角肌下缘附着处（皮下注射）</field>
+                <field name="effect">用于预防麻疹和风疹。全程接种后，麻疹血凝抑制抗体的阳转率可在95%以上，风疹血凝抑制抗体阳转率可达95%~100%。</field>
+                <field name="taboo">1、已知对该疫苗的任何组分，包含辅料及硫酸庆大霉素过敏者；
+2、患急性疾病，严慢性疾病，慢性疾控的急性发作期，发热者；
+3、免疫缺陷，免疫功能低下或者正在接受免疫抑制剂治疗者；
+4、患脑病、未控制的癫痫和其他进行性神经系统疾病者；
+5、妊娠期妇女；
+                </field>
+                <field name="attention">注射后一般无局部反应。在6-11天内，少数儿童可能出现一过性发热反应和轻微皮疹，一般不超过2天可自行缓解，通常不需特殊处理，必要时可对症治疗。</field>
+                <field name="reaction">1、接种后在接种单位停留30分钟，观察无异常后离开。
+2、接种后适当休息，多饮开水，注意保暧，避免进行剧烈的活动。
+                </field>
+                <!--<field name="replace_ids" eval="[(6, 0, [ref('inoculation_item4')])]"/>-->
+                <field name="is_private" eval="False"/>
+                <field name="times" eval="2"/>
+        </record>
+
+        <!--甲肝减毒活疫苗-->
+        <record model="his.inoculation_item" id="inoculation_item107">
+                <field name="name">甲肝减毒活疫苗</field>
+                <field name="short_name">甲肝</field>
+                <field name="part">上臂外侧（皮下注射）</field>
+                <field name="effect">用于预防甲型肝炎</field>
+                <field name="taboo">1、身体不适、发热者应推迟接种；
+2、患急性疾病，严慢性疾病，慢性疾控的急性发作期患者；
+3、免疫缺陷，免疫功能低下或者正在接受免疫抑制剂治疗者；
+4、孕妇和已知对本疫苗任何一种成分过敏者；
+                </field>
+                <field name="attention">通常有接种部位疼痛，偶有红肿、硬结；极少数有头痛、发热、恶心等，持续时间不超过24小时，一般可自行缓解；出现过敏反应，应及时对症治疗。</field>
+                <field name="reaction">1、接种后在接种单位停留30分钟，观察无异常后离开。
+2、接种后适当休息，多饮开水，注意保暧，避免进行剧烈的活动。
+                </field>
+                <field name="replace_ids" eval="[(6, 0, [ref('inoculation_item7')])]"/>
+                <field name="is_private" eval="False"/>
+                <field name="times" eval="2"/>
+        </record>
+
+        <!--A+C群流脑疫苗-->
+        <record model="his.inoculation_item" id="inoculation_item108">
+                <field name="name">A+C群流脑疫苗</field>
+                <field name="short_name">A+C群流脑</field>
+                <field name="part">上臂外侧三角肌附着处（皮下注射）</field>
+                <field name="effect">用于预防A群和C群脑膜炎球菌引起的流行性脑脊髓膜炎。</field>
+                <field name="taboo">1、发执者暂缓注射；
+2、有过敏史者和急、慢性疾病患者；
+3、癫痫、癔症、抽搐、脑炎后遗症等神经系统疾患者；
+                </field>
+                <field name="attention">一般接种后，儿童及成人均会出现轻微的反应，局部有些红晕和压痛，24小时内会自行消退。偶尔有人出现短暂的发热，无需特殊处理。如发热超过38℃以上者，可给予退热和对症处理。偶见有过敏反应。</field>
+                <field name="reaction">1、接种后在接种单位停留30分钟，观察无异常后离开。
+2、接种后适当休息，多饮开水，注意保暧，避免进行剧烈的活动。
+                </field>
+                <field name="replace_ids" eval="[(6, 0, [ref('inoculation_item9')])]"/>
+                <field name="is_private" eval="False"/>
+                <field name="times" eval="2"/>
+        </record>
+
+        <!--卡介苗-->
+        <record model="his.inoculation_item" id="inoculation_item109">
+                <field name="name">卡介苗</field>
+                <field name="short_name">卡介</field>
+                <field name="part">上臂三角肌肌下缘(皮内注射)</field>
+                <field name="effect">新生儿出生后24小时内接种卡介苗，可提高儿童对结核病的抵抗力，降低结核病的发病和死亡，尤其是大大降低了粟粒性结核病和结核性脑膜炎的发病率。</field>
+                <field name="taboo">1、对该疫苗所含任何成人过敏者；
+2、患急性疾病，严慢性疾病，慢性疾控的急性发作期，发热者；
+免疫缺陷，免疫功能低下或者正在接受免疫抑制剂治疗者；
+4、患脑病、未控制的癫痫和其他进行性神经系统疾病者；
+5、妊娠期妇女；
+6、患湿疹或其他皮肤病患者；
+                </field>
+                <field name="attention">1、常见不良反应：一过性发热、红肿、化脓、溃疡、淋巴肿大；
+2、罕见不良反应：严重淋巴结反应。
+3、极罕见不良反应：骨髓炎、过敏性皮疹、过敏性紫癜、播散性卡介苗感染。</field>
+                <field name="reaction">1、接种后在接种单位停留30分钟，观察无异常后离开。
+2、接种后适当休息，多饮开水，注意保暧，避免进行剧烈的活动。
+                </field>
+                <field name="is_private" eval="False"/>
+                <field name="times" eval="1"/>
+        </record>
+
+        <!--麻腮风疫苗-->
+        <record model="his.inoculation_item" id="inoculation_item110">
+                <field name="name">麻腮风疫苗</field>
+                <field name="short_name">麻腮风</field>
+                <field name="part">上臂外侧三角肌下缘附着处（皮下注射）</field>
+                <field name="effect">用于预防麻疹、腮腺炎和风疹。全程接种后麻疹抗体阳转率为98%以上，流行性腮腺炎抗体阳转率为96.1%以上，风疹抗体阳转率为99.3%以上。</field>
+                <field name="taboo">1、妊娠期妇女；
+2、已知对本疫苗任何成分过敏者；
+3、患急性疾病、严重慢性疾病、慢性疾病的急性发作期和发热者；
+4、免疫缺陷、免疫功能地下或正在接受免疫抑制剂治疗者。
+5、患脑病、未控制的癫痫和其他进行性神经系统疾病者。
+                </field>
+                <field name="attention">注射后一般无局部反应。在6-11天内，少数儿童可能出现一过性发热反应和轻微皮疹，一般不超过2天可自行缓解，通常不需特殊处理，必要时可对症治疗。</field>
+                <field name="reaction">1、接种后在接种单位停留30分钟，观察无异常后离开。
+2、接种后适当休息，多饮开水，注意保暧，避免进行剧烈的活动。
+                </field>
+                <field name="is_private" eval="False"/>
+                <field name="times" eval="1"/>
+        </record>
+
+        <!--白破疫苗-->
+        <record model="his.inoculation_item" id="inoculation_item111">
+                <field name="name">白破疫苗</field>
+                <field name="short_name">白破</field>
+                <field name="part">上臂外侧三角肌下缘附着处（皮下注射）</field>
+                <field name="effect">用于预防麻疹、腮腺炎和风疹。全程接种后麻疹抗体阳转率为98%以上，流行性腮腺炎抗体阳转率为96.1%以上，风疹抗体阳转率为99.3%以上。</field>
+                <field name="taboo">1、妊娠期妇女；
+2、已知对本疫苗任何成分过敏者；
+3、患急性疾病、严重慢性疾病、慢性疾病的急性发作期和发热者；
+4、免疫缺陷、免疫功能地下或正在接受免疫抑制剂治疗者。
+5、患脑病、未控制的癫痫和其他进行性神经系统疾病者。
+                </field>
+                <field name="attention">注射后一般无局部反应。在6-11天内，少数儿童可能出现一过性发热反应和轻微皮疹，一般不超过2天可自行缓解，通常不需特殊处理，必要时可对症治疗。</field>
+                <field name="reaction">1、接种后在接种单位停留30分钟，观察无异常后离开。
+2、接种后适当休息，多饮开水，注意保暧，避免进行剧烈的活动。
+                </field>
+                <field name="is_private" eval="False"/>
+                <field name="times" eval="1"/>
+        </record>
+    </data>
+</odoo>

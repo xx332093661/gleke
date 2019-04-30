@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_department_inherit_tree" model="ir.ui.view">
+        <field name="name">hr.department.tree</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="before">
+                <field name="is_shift"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_department_inherit_form" model="ir.ui.view">
+        <field name="name">hr.department.form</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="is_shift"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
+
+    <record id="view_department_tree" model="ir.ui.view">
+        <field name="name">hr.department.tree</field>
+        <field name="model">hr.department</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <tree create="false" delete="false">
+                <field name="id"/>
+                <field name="name" string="科室"/>
+                <field name="is_outpatient"/>
+                <field name="is_shift"/>
+                <field name="category_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_department_form" model="ir.ui.view">
+        <field name="name">hr.department.form</field>
+        <field name="model">hr.department</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form  string="department" create="false" delete="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1" string="科室"/>
+                            <field name="is_outpatient" attrs="{'invisible': [('is_shift', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="is_shift"/>
+                            <field name="category_id" attrs="{'invisible': ['|', ('is_outpatient','=',False), ('is_shift','=',False)]}" options="{'no_create':1, 'no_open':1}"/>
+                            <field name="id" invisible="1"/>
+                        </group>
+                    </group>
+
+                    <notebook attrs="{'invisible': [('is_shift','=',False)]}">
+                        <page string="人员" attrs="{'invisible': [('is_outpatient','=',False)]}">
+                            <field name="employees">
+                                <tree>
+                                    <field name="id"/>
+                                    <field name="employee_id" string="医生"/>
+                                    <field name="register_type"/>
+                                    <field name="as_rowid"/>
+                                    <field name="register_time_interval"/>
+                                    <field name="room_id"/>
+                                    <field name="queue_prefix"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="employee_id" options="{'no_create':1, 'no_open':1}" string="医生"/>
+                                            <field name="register_type"/>
+                                            <label for="register_time_interval"/>
+                                            <div class="o_address_format">
+                                                <field name="register_time_interval" required="1" style="width:80px"/>
+                                                <div class="o_form_field_many2one" style="width:auto">(以英文逗号间隔的数字)</div>
+                                                <p>例：值为"3,5"，从8点排排，则结果为：</p>
+                                                <p>08:00, 08:03, 08:08, 08:11, 08:16...</p>
+                                            </div>
+                                            <field name="allow_free"/>
+                                        </group>
+                                        <group>
+                                            <field name="room_id" domain="[('parent_id', '=', parent.id)]" options="{'no_create':1, 'no_open':1}"/>
+                                            <field name="as_rowid"/>
+                                            <field name="queue_prefix" required="0"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <group>
+                                            <field name="free_as_rowid" attrs="{'invisible': [('allow_free','=',False)]}"/>
+                                        </group>
+                                        <group>
+                                            <field name="free_register_type" attrs="{'invisible': [('allow_free','=',False)]}"/>
+                                        </group>
+                                    </group>
+                                    <notebook>
+                                        <page string="限号设置">
+                                            <field name="employee_register_limit" context="{'employee_id': employee_id, 'department_id': parent.id, 'employee_register_limit': employee_register_limit}">
+                                                <tree>
+                                                    <field name="id"/>
+                                                    <field name="limit_type"/>
+                                                    <field name="shift_type_id"/>
+                                                    <field name="limit"/>
+                                                </tree>
+                                                <form>
+                                                    <group>
+                                                        <group>
+                                                            <field name="limit_type"/>
+                                                            <field name="limit"/>
+                                                        </group>
+                                                        <group>
+                                                            <field name="shift_type_id" attrs="{'readonly': [('limit_type', '=', 'all')], 'required': [('limit_type', '=', 'shift')]}" domain="[('department_id', '=', department_id)]" options="{'no_create':1, 'no_open':1}"/>
+                                                            <field name="department_id" invisible="1"/>
+                                                        </group>
+                                                    </group>
+
+                                                </form>
+                                            </field>
+                                        </page>
+
+                                        <page string="挂号收费">
+                                            <field name="product_ids"/>
+                                        </page>
+                                    </notebook>
+                                </form>
+                            </field>
+                        </page>
+
+                        <page string="排班">
+                            <group attrs="{'invisible': [('is_outpatient','=',False)]}">
+                                <button name="set_default_shift_type" string="使用默认班次" type="object" class="btn btn-sm btn-primary"/>
+                            </group>
+                            <group>
+                                <field name="shift_type_ids" nolabel="1" context="{'is_outpatient': is_outpatient, 'department_id': id, 'shift_type_ids': shift_type_ids}">
+                                    <tree editable="bottom">
+                                        <field name="id"/>
+                                        <field name="week_name"/>
+                                        <field name="name" required="1"/>
+                                        <field name="label" required="1"/>
+                                        <field name="start_time" widget="float_time" required="1"/>
+                                        <field name="end_time" widget="float_time" required="1"/>
+                                        <field name="max_execute_count"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_department_filter" model="ir.ui.view">
+        <field name="name">hr.department.select</field>
+        <field name="model">hr.department</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <filter name="is_shift" string="参与排班科室" domain="[('is_shift', '=', True)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_department_tree" model="ir.actions.act_window">
+        <field name="name">排班科室</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.department</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_department_filter"/>
+        <field name="context">{'search_default_is_shift':1}</field>
+    </record>
+
+        <record id="action_department_tree_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_department_tree"/>
+            <field name="act_window_id" ref="action_department_tree"/>
+        </record>
+
+        <record id="action_department_tree_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_department_form"/>
+            <field name="act_window_id" ref="action_department_tree"/>
+        </record>
+
+    <menuitem action="action_department_tree" id="menu_department_tree"
+              parent="menu_work_schedule_setting_main" sequence="0"/>
+
+
+
+</odoo>

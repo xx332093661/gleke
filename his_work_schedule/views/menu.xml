@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem name="排班" id="menu_work_schedule_root" sequence="40"/>
+        <menuitem name="配置" id="menu_work_schedule_setting_main" parent="menu_work_schedule_root" sequence="1000"/>
+
+        <menuitem id="menu_work_schedule_main" name="排班管理" parent="menu_work_schedule_root" sequence="0"/>
+
+    </data>
+</odoo>

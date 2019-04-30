@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_shift_type_default_tree" model="ir.ui.view">
+        <field name="name">his.shift_type_default.tree</field>
+        <field name="model">his.shift_type_default</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="label"/>
+                <field name="start_time" widget="float_time"/>
+                <field name="end_time" widget="float_time"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_shift_type_default_form" model="ir.ui.view">
+        <field name="name">his.shift_type_default.form</field>
+        <field name="model">his.shift_type_default</field>
+        <field name="arch" type="xml">
+            <form  string="shift_type_default">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="start_time" widget="float_time"/>
+                            <field name="color" widget="color"/>
+
+                        </group>
+                        <group>
+                            <field name="label" required="1"/>
+                            <field name="end_time" widget="float_time"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_shift_type_default_filter" model="ir.ui.view">
+        <field name="name">his.shift_type_default.select</field>
+        <field name="model">his.shift_type_default</field>
+        <field name="arch" type="xml">
+            <search>
+            </search>
+        </field>
+    </record>
+    
+    <record id="action_shift_type_default_tree" model="ir.actions.act_window">
+        <field name="name">默认班次</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">his.shift_type_default</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_shift_type_default_filter"/>
+    </record>
+
+        <menuitem action="action_shift_type_default_tree" id="menu_shift_type_default_tree"
+              parent="menu_work_schedule_setting_main" sequence="1000"/>
+
+
+
+</odoo>

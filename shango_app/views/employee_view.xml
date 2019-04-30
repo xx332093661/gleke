@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_employee_tree" model="ir.ui.view">
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <field name="work_phone" position="replace"/>
+                <field name="work_email" position="replace"/>
+                <field name="job_id" position="replace"/>
+                <field name="parent_id" position="replace"/>
+                <field name="name" position="before">
+                    <field name="id"/>
+                    <field name="internal_id"/>
+                    <field name="his_id" string="HISID"/>
+
+                </field>
+                <field name="department_id" position="after">
+                    <field name="title"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_employee_form" model="ir.ui.view">
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="notes" position="replace">
+                    <group string="简介">
+                        <field name="introduction" nolabel="1"/>
+                    </group>
+                    <group string="擅长">
+                        <field name="good_at" nolabel="1"/>
+                    </group>
+                </field>
+            </field>
+        </record>
+
+        <!--员工过滤器-->
+        <record id="hr_employee_filter" model="ir.ui.view">
+            <field name="name">hr_employee_filter</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <search string="hr_employee_filter">
+                    <field name="name"/>
+                    <field name="department_id"/>
+                    <filter name="company_filter" string="医院" domain="[]" context="{'group_by':'company_id'}"/>
+                    <filter name="department_filter" string="科室" domain="[]" context="{'group_by':'department_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <!--员工窗口动作-->
+        <record id="hr.open_view_employee_list_my" model="ir.actions.act_window">
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="search_view_id" ref="hr_employee_filter"/>
+            <field name="context">{'search_default_company_filter': 1,'search_default_department_filter': 1}</field>
+        </record>
+
+    </data>
+</odoo>

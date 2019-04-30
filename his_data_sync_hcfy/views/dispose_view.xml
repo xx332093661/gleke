@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_dispose_tree" model="ir.ui.view">
+        <field name="name">his.dispose.tree</field>
+        <field name="model">his.dispose</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="id"/>
+                <field name="partner_id"/>
+                <field name="his_id" string="医嘱ID"/>
+                <field name="relation_dispose_id"/>
+                <field name="receipt_no"/>
+                <field name="clinic_type"/>
+                <field name="item_id"/>
+                <field name="part"/>
+                <field name="method"/>
+                <field name="department_id"/>
+                <field name="origin"/>
+                <field name="dispose_datetime"/>
+                <field name="create_date"/>
+                <field name="amount_total"/>
+                <field name="total_queue_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_dispose_form" model="ir.ui.view">
+        <field name="name">his.dispose.form</field>
+        <field name="model">his.dispose</field>
+        <field name="arch" type="xml">
+            <form  string="dispose">
+                <sheet>
+                    <group>
+
+                        <group>
+                            <field name="his_id"/>
+                            <field name="clinic_type"/>
+                            <field name="part"/>
+                            <field name="department_id"/>
+                            <field name="dispose_datetime"/>
+                            <field name="total_queue_id"/>
+                            <field name="amount_total"/>
+                            <field name="frequency"/>
+                            <field name="interval_unit"/>
+                        </group>
+                        <group>
+                            <field name="relation_dispose_id"/>
+                            <field name="item_id"/>
+                            <field name="method"/>
+                            <field name="origin"/>
+                            <field name="partner_id"/>
+                            <field name="receipt_no"/>
+                            <field name="days"/>
+                            <field name="frequency_interval"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_dispose_filter" model="ir.ui.view">
+        <field name="name">his.dispose.select</field>
+        <field name="model">his.dispose</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="his_id" string="医嘱ID"/>
+                <field name="partner_id"/>
+                <field name="dispose_date"/>
+                <field string="创建开始时间" name="create_date" domain="[('create_date', '&gt;=', self)]"/>
+                <field string="创建截止时间" name="create_date" domain="[('create_date', '&lt;', self)]"/>
+                <separator/>
+                <filter name="not_history" string="活动记录" domain="[('is_history', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_dispose_tree" model="ir.actions.act_window">
+        <field name="name">病人医嘱记录</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">his.dispose</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_dispose_filter"/>
+        <field name="context">{"search_default_not_history":1}</field>
+    </record>
+
+
+
+    <menuitem action="action_dispose_tree" id="menu_action_dispose_tree"
+              parent="his_data_synchronization_poll.menu_sync_business_data_main" sequence="1"/>
+
+</odoo>

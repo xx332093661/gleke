@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--sale.order-->
+        <record id="product_template_tree_view" model="ir.ui.view">
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="visit_partner_id"/>
+                </field>
+                <xpath expr="//notebook" position="inside">
+                    <page string="微信支付记录">
+                        <field name="weixin_pay_ids"/>
+                    </page>
+                    <page string="支付宝支付记录">
+                        <field name="alipay_ids"/>
+                    </page>
+                    <page string="龙支付记录">
+                        <field name="long_pay_record_ids"/>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="replace"/>
+                <xpath expr="//field[@name='team_id']" position="replace"/>
+                <xpath expr="//group[@name='technical']" position="after">
+                    <group string="支付信息">
+                        <field name="pay_method"/>
+                        <field name="order_type"/>
+                        <field name="recharge_type"/>
+                        <field name="receipt_no"/>
+                        <field name="commit_his_state"/>
+                    </group>
+                    <group string="退款信息">
+                        <field name="is_refund"/>
+                        <field name="refund_time"/>
+                    </group>
+
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_sync_define_tree" model="ir.ui.view">
+        <field name="name">his.sync_define.tree</field>
+        <field name="model">his.sync_define</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="name_en"/>
+                <field name="query_sort"/>
+                <field name="is_base"/>
+                <field name="is_poll"/>
+                <field name="is_notify"/>
+
+                <!--<field name="subscribe_date"/>-->
+                <!--<field name="last_poll_date"/>-->
+                <field name="key_field_name"/>
+                <field name="key_field_last_value"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_sync_define_form" model="ir.ui.view">
+        <field name="name">his.sync_define.form</field>
+        <field name="model">his.sync_define</field>
+        <field name="arch" type="xml">
+            <form  string="sync_define">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options="{'terminology': 'archive'}"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="is_notify"/>
+                            <field name="is_base"/>
+
+                        </group>
+                        <group>
+                            <field name="name_en"/>
+                            <field name="query_sort"/>
+                            <field name="is_poll"/>
+                        </group>
+                    </group>
+
+
+                    <notebook>
+                        <page string="轮询定义" attrs="{'invisible': [('is_poll','=',False)]}">
+                            <group>
+                                <group>
+                                    <!--<field name="last_poll_date"/>-->
+                                    <field name="key_field_name"/>
+                                    <field name="poll_interval"/>
+                                    <field name="rollback_value"/>
+                                </group>
+                                <group>
+                                    <field name="poll_callback"/>
+                                    <field name="key_field_last_value"/>
+                                </group>
+                            </group>
+                            <separator string="轮询SQL"/>
+                            <group cols="4">
+                                <field name="poll_sql" nolabel="1"/>
+                            </group>
+                        </page>
+                        <page string="数据改变通知定义" attrs="{'invisible': [('is_notify','=',False)]}">
+                            <group>
+                                <group>
+                                    <field name="subscribe_sql"/>
+                                    <field name="notify_callback"/>
+                                    <field name="insert_query_callback" attrs="{'invisible': [('show_insert','=',False)]}"/>
+                                    <field name="show_insert" invisible="1"/>
+                                </group>
+                                <group>
+                                    <field name="subscribe_type"  widget="many2many_tags" options="{'no_create': True}"/>
+                                    <!--<field name="subscribe_date"/>-->
+                                    <field name="update_query_callback" attrs="{'invisible': [('show_update','=',False)]}"/>
+                                    <field name="show_update" invisible="1"/>
+                                </group>
+                            </group>
+
+                            <separator string="Insert查询SQL" attrs="{'invisible': [('show_insert','=',False)]}"/>
+                            <group cols="4" attrs="{'invisible': [('show_insert','=',False)]}">
+                                <field name="insert_query_sql" nolabel="1"/>
+                            </group>
+                            <separator string="Update查询SQL" attrs="{'invisible': [('show_update','=',False)]}"/>
+                            <group cols="4" attrs="{'invisible': [('show_update','=',False)]}">
+                                <field name="update_query_sql" nolabel="1"/>
+                            </group>
+
+
+
+                        </page>
+
+                        <page string="同步基础数据" attrs="{'invisible': [('is_base','=',False)]}">
+                            <group>
+                                <group>
+                                    <field name="base_query_callback"/>
+                                </group>
+                                <group>
+
+                                </group>
+                            </group>
+                            <separator string="同步基础数据SQL"/>
+                            <group cols="4">
+                                <field name="base_sql" nolabel="1" attrs="{'required': [('is_base','=',True)]}"/>
+                            </group>
+                        </page>
+
+                        <page string="轮询数据" attrs="{'invisible': [('is_poll','=',False)]}">
+                            <field name="poll_data" domain="[('is_history', '=', False)]"/>
+                        </page>
+                        <page string="通知数据" attrs="{'invisible': [('is_notify','=',False)]}">
+                            <field name="notify_data" domain="[('is_history', '=', False)]"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_sync_define_filter" model="ir.ui.view">
+        <field name="name">his.sync_define.select</field>
+        <field name="model">his.sync_define</field>
+        <field name="arch" type="xml">
+            <search>
+
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sync_define_tree" model="ir.actions.act_window">
+        <field name="name">同步定义</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">his.sync_define</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_sync_define_filter"/>
+    </record>
+
+
+
+    <menuitem action="action_sync_define_tree" id="menu_action_sync_define_tree"
+              parent="menu_sync_define_main" sequence="0"/>
+
+
+</odoo>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="his_weixin_pay_record_tree" model="ir.ui.view">
+            <field name="name">his_weixin_pay_record_tree</field>
+            <field name="model">his.weixin_pay_record</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="out_trade_no"/>
+                    <field name="transaction_id"/>
+                    <field name="total_fee"/>
+                    <field name="cash_fee"/>
+                    <field name="time_end"/>
+                    <field name="result_code"/>
+                    <field name="err_code"/>
+                    <field name="err_code_des"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="his_weixin_pay_record_form" model="ir.ui.view">
+            <field name="name">his_weixin_pay_record_form</field>
+            <field name="model">his.weixin_pay_record</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="4">
+                            <field name="return_code"/>
+                            <field name="return_msg"/>
+                            <field name="time_end"/>
+                        </group>
+                        <notebook>
+                            <page string="客户信息">
+                                <group col="4">
+                                    <field name="openid"/>
+                                    <field name="appid"/>
+                                    <field name="mch_id"/>
+                                    <field name="device_info"/>
+                                    <field name="nonce_str"/>
+                                    <field name="sign"/>
+                                    <field name="is_subscribe"/>
+                                </group>
+                            </page>
+                            <page string="结果详情">
+                                <group col="4">
+                                    <field name="result_code"/>
+                                    <field name="err_code"/>
+                                    <field name="err_code_des"/>
+                                </group>
+                            </page>
+                            <page string="交易详情">
+                                <group col="4">
+                                    <field name="trade_type"/>
+                                    <field name="bank_type"/>
+                                    <field name="total_fee"/>
+                                    <field name="fee_type"/>
+                                    <field name="cash_fee"/>
+                                    <field name="cash_fee_type"/>
+                                    <!--<field name="coupon_fee"/>-->
+                                    <!--<field name="coupon_count"/>-->
+                                    <!--<field name="coupon_id_n"/>-->
+                                    <!--<field name="coupon_fee_n"/>-->
+                                    <field name="transaction_id"/>
+                                    <field name="out_trade_no"/>
+                                    <field name="attach"/>
+                                </group>
+                            </page>
+                            <page string="医院信息">
+                                <group col="4">
+                                    <field name="company_id"/>
+                                    <field name="internal_id"/>
+                                </group>
+
+                            </page>
+                            <page string="订单">
+                                <field name="order_ids"/>
+                            </page>
+                            <page string="退款信息">
+                                <group>
+                                    <group>
+                                        <field name="is_refund"/>
+                                        <field name="refund_code"/>
+                                    </group>
+                                    <group>
+                                        <field name="refund_time"/>
+                                        <field name="refund_msg"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_weixin_pay_record_filter" model="ir.ui.view">
+            <field name="name">his.weixin_pay_record.select</field>
+            <field name="model">his.weixin_pay_record</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="out_trade_no"/>
+                    <field name="transaction_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="his_weixin_pay_record_action">
+            <field name="name">微信支付记录</field>
+            <field name="res_model">his.weixin_pay_record</field>
+            <field name="view_type">form</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_weixin_pay_record_filter"/>
+        </record>
+
+        <menuitem id="his_weixin_pay_record_menu" name="微信支付记录" parent="shango_app_pay_record_menu" action="his_weixin_pay_record_action" sequence="2"/>
+
+    </data>
+</odoo>

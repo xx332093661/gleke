@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--联系人-->
+        <record model="ir.ui.view" id="view_app_contact_form">
+            <field name="name">view_app_contact_form</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="image" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" string="姓名" required="1"/>
+                            </h1>
+                            <div>
+                                <field name="code" required="1" placeholder="GLEKE码"/>
+                            </div>
+                            <div>
+                                <field name="is_patient"/>
+                                <label for="is_patient"/>
+                                <field name="is_doctor"/>
+                                <label for="is_doctor"/>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="gender" required="1"/>
+                                <field name="address"/>
+                                <field name="phone" widget="phone" attrs="{'invisible': [('patient_property', '=', 'newborn')]}"/>
+                                <field name="medical_card"
+                                   attrs="{'invisible': ['|', ('is_patient', '=', False), ('patient_property', '=', 'newborn')]}"/>
+                            </group>
+                            <group>
+                                <field name="patient_property" attrs="{'invisible': [('is_patient', '=', False)], 'required': [('is_patient', '=', True)]}"/>
+                                <field name="identity_no" attrs="{'required': [('patient_property', '!=', 'newborn')], 'invisible': [('patient_property', '=', 'newborn')]}"/>
+                                <field name="work_company" attrs="{'invisible': [('patient_property', '=', 'newborn')]}"/>
+                                <field name="birth_date" attrs="{'required': [('is_patient', '=', True), ('patient_property', '=', 'newborn')]}"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="就诊医院" attrs="{'invisible': [('is_patient', '=', False)]}">
+                                <field name="patient_ids">
+                                    <tree>
+                                        <field name="company_id"/>
+                                        <field name="card_no"/>
+                                    </tree>
+                                    <form>
+                                        <group col="4">
+                                            <field name="company_id" required="1"
+                                                   domain="[('id', '!=', 1)]" widget="selection"/>
+                                            <field name="internal_id" required="1"/>
+                                            <field name="card_no"/>
+                                            <field name="openid"/>
+                                        </group>
+
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="患者基础信息"
+                                  attrs="{'invisible': ['|', ('is_patient', '=', False), ('patient_property', '=', 'newborn')]}" >
+                                <group col="4">
+                                    <field name="marriage"/>
+                                    <field name="married_age"
+                                           attrs="{'invisible': [('marriage', '!=', '1')]}"/>
+                                    <field name="bear"/>
+                                    <field name="bear_age"
+                                           attrs="{'invisible': [('bear', '!=', '1')]}"/>
+                                    <field name="boy_count"
+                                           attrs="{'invisible': [('bear', '!=', '1')]}"/>
+                                    <field name="girl_count"
+                                           attrs="{'invisible': [('bear', '!=', '1')]}"/>
+                                    <field name="hypertension"/>
+                                    <field name="hepatitis"/>
+                                    <field name="coronary_heart"/>
+                                    <field name="tuberculosis"/>
+                                    <field name="diabetes"/>
+                                    <field name="operation"/>
+                                    <field name="allergy"/>
+                                    <field name="smoke"/>
+                                    <field name="drink"/>
+                                    <field name="menstruation"/>
+                                    <field name="inheritance"/>
+                                </group>
+                            </page>
+                            <!--<page string="医院信息" attrs="{'invisible': [('is_doctor', '=', False)]}">-->
+                                <!--<group col="4">-->
+                                    <!--<field name="company_id" string="医院"/>-->
+                                <!--</group>-->
+                            <!--</page>-->
+                            <page string="医生" attrs="{'invisible': [('is_doctor', '=', False)]}">
+                                <field name="employee_ids" domain="[('id', '!=', 1)]">
+                                    <tree>
+                                        <field name="company_id" string="医院"/>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!--客户-->
+        <record model="ir.ui.view" id="app_partner_kanban_view">
+            <field name="name">app_partner_kanban_view</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <kanban class="o_res_partner_kanban">
+                    <field name="name"/>
+                    <field name="phone"/>
+                    <field name="image_small"/>
+                    <field name="type"/>
+                    <field name="is_company"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_res_partner_kanban">
+                                <div class="o_kanban_tags_section oe_kanban_partner_categories"/>
+                                <div class="o_kanban_image">
+                                    <t t-if="record.image_small.raw_value">
+                                        <img t-att-src="kanban_image('res.partner', 'image_small', record.id.value)"/>
+                                    </t>
+                                    <t t-if="!record.image_small.raw_value">
+                                        <t t-if="record.type.raw_value === 'delivery'">
+                                            <img t-att-src="_s + &quot;/base/static/src/img/truck.png&quot;" class="o_kanban_image oe_kanban_avatar_smallbox"/>
+                                        </t>
+                                        <t t-if="record.type.raw_value === 'invoice'">
+                                            <img t-att-src="_s + &quot;/base/static/src/img/money.png&quot;" class="o_kanban_image oe_kanban_avatar_smallbox"/>
+                                         </t>
+                                        <t t-if="record.type.raw_value != 'invoice' &amp;&amp; record.type.raw_value != 'delivery'">
+                                            <t t-if="record.is_company.raw_value === true">
+                                                <img t-att-src="_s + &quot;/base/static/src/img/company_image.png&quot;"/>
+                                            </t>
+                                            <t t-if="record.is_company.raw_value === false">
+                                                <img t-att-src="_s + &quot;/base/static/src/img/avatar.png&quot;"/>
+                                            </t>
+                                        </t>
+                                    </t>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <strong class="oe_partner_heading">
+                                        <field name="name"/>
+                                    </strong>
+                                    <ul>
+                                        <li t-if="record.phone.raw_value">
+                                            <field name="phone"/>
+                                        </li>
+                                    </ul>
+                                    <div class="oe_kanban_partner_links"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="app_partner_tree_view">
+            <field name="name">app_partner_tree_view</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" string="名字"/>
+                    <field name="code"/>
+                    <field name="phone"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="app_partner_form_view">
+            <field name="name">app_partner_form_view</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="id" invisible="1"/>
+
+                        <field name="image" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <div class="o_address_format">
+                                <label for="customer" string="客户"/>
+                                <field name="customer"/>
+                                <div style="display:inline-block;width:20px"/>
+                                <label for="is_patient"/>
+                                <field name="is_patient"/>
+                                <div style="display:inline-block;width:20px"/>
+                                <label for="is_doctor"/>
+                                <field name="is_doctor"/>
+                            </div>
+
+                            <h2>
+                                <field name="name" placeholder="姓名" required="1" style="width:300px"/>
+                            </h2>
+                            <field name="code" required="1" placeholder="GLEKE码" style="width:200px"/>
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="gender" required="1"/>
+                                <field name="phone" widget="phone"/>
+                                <field name="address"/>
+                                <field name="medical_card" attrs="{'invisible': ['|', ('is_patient', '!=', True), ('patient_property', '=', 'newborn')]}"/>
+                            </group>
+                            <group>
+                                <field name="patient_property" attrs="{'invisible': [('is_patient', '!=', True)], 'required': [('is_patient', '=', True)]}"/>
+                                <field name="identity_no" attrs="{'required': [('is_patient', '=', True), ('patient_property', '!=', 'newborn')], 'invisible': [('is_patient', '=', True), ('patient_property', '=', 'newborn')]}"/>
+                                <field name="work_company" attrs="{'invisible': [('is_patient', '=', True), ('patient_property', '=', 'newborn')]}"/>
+                                <field name="birth_date" attrs="{'required': [('is_patient', '=', True), ('patient_property', '=', 'newborn')]}"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="联系人" attrs="{'invisible': [('customer', '!=', True)]}">
+                                <field name="relationship_ids" context="{'relation_parent_id': id}">
+                                    <tree>
+                                        <field name="partner_id"/>
+                                        <field name="relationship"/>
+
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="relationship" required="1"/>
+                                            </group>
+                                            <group>
+                                                <field name="partner_id" required="1" context="{'app_contact': 1, 'is_patient': True, 'relation_parent_id': relation_parent_id, 'relationship': relationship}"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="登陆用户" attrs="{'invisible': [('customer', '!=', True)]}">
+                                <field name="user_ids" context="{'add_user': 1}">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="login" string="用户名"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="name" required="1" string="姓名"/>
+                                                <field name="origin" invisible="1" string="用户名"/>
+                                            </group>
+                                            <group>
+                                                <field name="login" required="1" string="用户名"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="医生" attrs="{'invisible': [('is_doctor', '!=', True)]}">
+                                <field name="employee_ids" domain="[('id', '!=', 1)]">
+                                    <tree>
+                                        <field name="company_id" string="医院"/>
+                                        <field name="name"/>
+                                        <field name="code" string="工号"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="就诊医院" attrs="{'invisible': [('is_patient', '!=', True)]}">
+                                <field name="patient_ids">
+                                    <tree>
+                                        <field name="company_id"/>
+                                        <field name="card_no"/>
+                                    </tree>
+                                    <form>
+                                        <group col="4">
+                                            <field name="company_id" required="1" domain="[('id', '!=', 1)]"
+                                                   widget="selection"/>
+                                            <field name="internal_id" required="1"/>
+                                            <field name="card_no"/>
+                                            <field name="openid"/>
+                                        </group>
+
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="患者基础信息" attrs="{'invisible': ['|', ('is_patient', '!=', True), ('patient_property', '=', 'newborn')]}">
+                                <group col="4">
+                                    <field name="marriage"/>
+                                    <field name="married_age"
+                                           attrs="{'invisible': [('marriage', '!=', '1')]}"/>
+                                    <field name="bear"/>
+                                    <field name="bear_age" attrs="{'invisible': [('bear', '!=', '1')]}"/>
+                                    <field name="boy_count" attrs="{'invisible': [('bear', '!=', '1')]}"/>
+                                    <field name="girl_count" attrs="{'invisible': [('bear', '!=', '1')]}"/>
+                                    <field name="hypertension"/>
+                                    <field name="hepatitis"/>
+                                    <field name="coronary_heart"/>
+                                    <field name="tuberculosis"/>
+                                    <field name="diabetes"/>
+                                    <field name="operation"/>
+                                    <field name="allergy"/>
+                                    <field name="smoke"/>
+                                    <field name="drink"/>
+                                    <field name="menstruation"/>
+                                    <field name="inheritance"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="app_partner_action">
+            <field name="name">客户</field>
+            <field name="res_model">res.partner</field>
+            <field name="domain">[('customer', '=', True), ('parent_id', '=', False)]</field>
+            <field name="context">{'customer': True}</field>
+        </record>
+
+        <record id="app_partner_action_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="app_partner_kanban_view"/>
+            <field name="act_window_id" ref="app_partner_action"/>
+        </record>
+
+        <record id="app_partner_action_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="app_partner_tree_view"/>
+            <field name="act_window_id" ref="app_partner_action"/>
+        </record>
+
+        <record id="app_partner_action_view3" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="app_partner_form_view"/>
+            <field name="act_window_id" ref="app_partner_action"/>
+        </record>
+
+        <menuitem id="app_partner_menu" parent="app_partner_manager_menu" action="app_partner_action" sequence="1"/>
+
+
+        <!--患者-->
+        <!--<record model="ir.ui.view" id="app_patient_kanban_view">-->
+            <!--<field name="name">app_patient_kanban_view</field>-->
+            <!--<field name="model">res.partner</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<kanban class="o_res_partner_kanban">-->
+                    <!--<field name="name"/>-->
+                    <!--<field name="phone"/>-->
+                    <!--<field name="image_small"/>-->
+                    <!--<templates>-->
+                        <!--<t t-name="kanban-box">-->
+                            <!--<div class="oe_kanban_global_click o_res_partner_kanban">-->
+                                <!--<div class="o_kanban_tags_section oe_kanban_partner_categories"/>-->
+                                <!--<div class="o_kanban_image">-->
+                                    <!--<t t-if="record.image_small.raw_value">-->
+                                        <!--<img t-att-src="kanban_image('res.partner', 'image_small', record.id.value)"/>-->
+                                    <!--</t>-->
+                                <!--</div>-->
+                                <!--<div class="oe_kanban_details">-->
+                                    <!--<strong class="oe_partner_heading">-->
+                                        <!--<field name="name"/>-->
+                                    <!--</strong>-->
+                                    <!--<ul>-->
+                                        <!--<li t-if="record.phone.raw_value">-->
+                                            <!--<field name="phone"/>-->
+                                        <!--</li>-->
+                                    <!--</ul>-->
+                                    <!--<div class="oe_kanban_partner_links"/>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</t>-->
+                    <!--</templates>-->
+                <!--</kanban>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record model="ir.ui.view" id="app_patient_tree_view">-->
+            <!--<field name="name">app_patient_tree_view</field>-->
+            <!--<field name="model">res.partner</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree>-->
+                    <!--<field name="name" string="名字"/>-->
+                    <!--<field name="phone"/>-->
+                    <!--<field name="code"/>-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record model="ir.ui.view" id="app_patient_form_view">-->
+            <!--<field name="name">app_patient_form_view</field>-->
+            <!--<field name="model">res.partner</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form>-->
+                    <!--<sheet>-->
+                        <!--<field name="image" widget="image" class="oe_avatar"/>-->
+                        <!--<div class="oe_title">-->
+                            <!--<div class="row" style="height:21px;width:500px;">-->
+                                <!--<div class="col-md-2">-->
+                                    <!--<label for="customer" string="客户"/>-->
+                                    <!--<field name="customer"/>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-2">-->
+                                    <!--<label for="is_patient"/>-->
+                                    <!--<field name="is_patient"/>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-2">-->
+                                    <!--<label for="is_doctor"/>-->
+                                    <!--<field name="is_doctor"/>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<h1>-->
+                                <!--<field name="name" placeholder="姓名" required="1" style="width:300px"/>-->
+                            <!--</h1>-->
+                            <!--<field name="code" required="1" placeholder="GLEKE码" style="width:200px"/>-->
+                        <!--</div>-->
+                        <!--<group>-->
+                            <!--<group>-->
+                                <!--<field name="relation_partner_id"/>-->
+                                <!--<field name="gender" required="1"/>-->
+                                <!--<field name="address"/>-->
+                                <!--<field name="phone" widget="phone" attrs="{'invisible': [('patient_property', '=', 'newborn')]}"/>-->
+                                <!--<field name="medical_card"-->
+                                   <!--attrs="{'invisible': [('patient_property', '=', 'newborn')]}"/>-->
+                            <!--</group>-->
+                            <!--<group>-->
+                                <!--<field name="relationship"/>-->
+                                <!--<field name="patient_property" required="1"/>-->
+                                <!--<field name="work_company" attrs="{'invisible': [('patient_property', '=', 'newborn')]}"/>-->
+                                <!--<field name="identity_no" attrs="{'required': [('patient_property', '!=', 'newborn')], 'invisible': [('patient_property', '=', 'newborn')]}"/>-->
+                            <!--</group>-->
+                        <!--</group>-->
+                        <!--<notebook>-->
+                            <!--<page string="就诊医院">-->
+                                <!--<field name="patient_ids">-->
+                                    <!--<tree>-->
+                                        <!--<field name="company_id"/>-->
+                                        <!--<field name="medical_card"/>-->
+                                    <!--</tree>-->
+                                    <!--<form>-->
+                                        <!--<group col="4">-->
+                                            <!--<field name="company_id" required="1" domain="[('id', '!=', 1)]"-->
+                                                   <!--widget="selection"/>-->
+                                            <!--<field name="internal_id" required="1"/>-->
+                                            <!--<field name="medical_card"/>-->
+                                            <!--<field name="openid"/>-->
+                                        <!--</group>-->
+
+                                    <!--</form>-->
+                                <!--</field>-->
+                            <!--</page>-->
+                            <!--<page string="患者基础信息" attrs="{'invisible': [('patient_property', '=', 'newborn')]}">-->
+                                <!--<group col="4">-->
+                                    <!--<field name="marriage"/>-->
+                                    <!--<field name="married_age"-->
+                                           <!--attrs="{'invisible': [('marriage', '!=', '1')]}"/>-->
+                                    <!--<field name="bear"/>-->
+                                    <!--<field name="bear_age" attrs="{'invisible': [('bear', '!=', '1')]}"/>-->
+                                    <!--<field name="boy_count" attrs="{'invisible': [('bear', '!=', '1')]}"/>-->
+                                    <!--<field name="girl_count" attrs="{'invisible': [('bear', '!=', '1')]}"/>-->
+                                    <!--<field name="hypertension"/>-->
+                                    <!--<field name="hepatitis"/>-->
+                                    <!--<field name="coronary_heart"/>-->
+                                    <!--<field name="tuberculosis"/>-->
+                                    <!--<field name="diabetes"/>-->
+                                    <!--<field name="operation"/>-->
+                                    <!--<field name="allergy"/>-->
+                                    <!--<field name="smoke"/>-->
+                                    <!--<field name="drink"/>-->
+                                    <!--<field name="menstruation"/>-->
+                                    <!--<field name="inheritance"/>-->
+                                <!--</group>-->
+                            <!--</page>-->
+                        <!--</notebook>-->
+                    <!--</sheet>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record model="ir.actions.act_window" id="app_patient_action">
+            <field name="name">患者</field>
+            <field name="res_model">res.partner</field>
+            <field name="domain">[('is_patient', '=', True)]</field>
+            <field name="context">{'is_patient': True}</field>
+        </record>
+
+        <record id="app_patient_action_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="app_partner_kanban_view"/>
+            <field name="act_window_id" ref="app_patient_action"/>
+        </record>
+
+        <record id="app_patient_action_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="app_partner_tree_view"/>
+            <field name="act_window_id" ref="app_patient_action"/>
+        </record>
+
+        <record id="app_patient_action_view3" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="app_partner_form_view"/>
+            <field name="act_window_id" ref="app_patient_action"/>
+        </record>
+
+        <menuitem id="app_patient_menu" parent="app_partner_manager_menu" action="app_patient_action" sequence="2"/>
+
+        <!--医生-->
+        <!--<record model="ir.ui.view" id="app_doctor_kanban_view">-->
+            <!--<field name="name">app_doctor_kanban_view</field>-->
+            <!--<field name="model">res.partner</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<kanban class="o_res_partner_kanban">-->
+                    <!--<field name="name"/>-->
+                    <!--<field name="phone"/>-->
+                    <!--<field name="image_small"/>-->
+                    <!--<templates>-->
+                        <!--<t t-name="kanban-box">-->
+                            <!--<div class="oe_kanban_global_click o_res_partner_kanban">-->
+                                <!--<div class="o_kanban_tags_section oe_kanban_partner_categories"/>-->
+                                <!--<div class="o_kanban_image">-->
+                                    <!--<t t-if="record.image_small.raw_value">-->
+                                        <!--<img t-att-src="kanban_image('res.partner', 'image_small', record.id.value)"/>-->
+                                    <!--</t>-->
+                                <!--</div>-->
+                                <!--<div class="oe_kanban_details">-->
+                                    <!--<strong class="oe_partner_heading">-->
+                                        <!--<field name="name"/>-->
+                                    <!--</strong>-->
+                                    <!--<ul>-->
+                                        <!--<li t-if="record.phone.raw_value">-->
+                                            <!--<field name="phone"/>-->
+                                        <!--</li>-->
+                                    <!--</ul>-->
+                                    <!--<div class="oe_kanban_partner_links"/>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</t>-->
+                    <!--</templates>-->
+                <!--</kanban>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record model="ir.ui.view" id="app_doctor_tree_view">-->
+            <!--<field name="name">app_doctor_tree_view</field>-->
+            <!--<field name="model">res.partner</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree>-->
+                    <!--<field name="name" string="名字"/>-->
+                    <!--<field name="phone"/>-->
+                    <!--<field name="code"/>-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record model="ir.ui.view" id="app_doctor_form_view">-->
+            <!--<field name="name">app_doctor_form_view</field>-->
+            <!--<field name="model">res.partner</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form>-->
+                    <!--<sheet>-->
+                        <!--<field name="image" widget="image" class="oe_avatar"/>-->
+                        <!--<div class="oe_title">-->
+                            <!--<div class="row" style="height:21px;width:500px;">-->
+                                <!--<div class="col-md-2">-->
+                                    <!--<label for="customer" string="客户"/>-->
+                                    <!--<field name="customer"/>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-2">-->
+                                    <!--<label for="is_patient"/>-->
+                                    <!--<field name="is_patient"/>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-2">-->
+                                    <!--<label for="is_doctor"/>-->
+                                    <!--<field name="is_doctor"/>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<h1>-->
+                                <!--<field name="name" placeholder="姓名" required="1" style="width:300px"/>-->
+                            <!--</h1>-->
+                            <!--<field name="code" required="1" placeholder="GLEKE码" style="width:200px"/>-->
+                        <!--</div>-->
+
+                        <!--<group col="4">-->
+                            <!--<field name="relation_partner_id"/>-->
+                            <!--<field name="relationship"/>-->
+                            <!--<field name="gender" required="1"/>-->
+                            <!--<field name="phone" widget="phone"/>-->
+                            <!--<field name="identity_no"/>-->
+                        <!--</group>-->
+                        <!--<notebook>-->
+                            <!--<page string="医生">-->
+                                <!--<field name="employee_ids" domain="[('id', '!=', 1)]">-->
+                                    <!--<tree>-->
+                                        <!--<field name="company_id" string="医院"/>-->
+                                        <!--<field name="name"/>-->
+                                    <!--</tree>-->
+                                <!--</field>-->
+                            <!--</page>-->
+                        <!--</notebook>-->
+                    <!--</sheet>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record model="ir.actions.act_window" id="app_doctor_action">
+            <field name="name">医生</field>
+            <field name="res_model">res.partner</field>
+            <field name="domain">[('is_doctor', '=', True)]</field>
+            <field name="context">{'is_doctor': True}</field>
+        </record>
+
+        <record id="app_doctor_action_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="app_partner_kanban_view"/>
+            <field name="act_window_id" ref="app_doctor_action"/>
+        </record>
+
+        <record id="app_doctor_action_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="app_partner_tree_view"/>
+            <field name="act_window_id" ref="app_doctor_action"/>
+        </record>
+
+        <record id="app_doctor_action_view3" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="app_partner_form_view"/>
+            <field name="act_window_id" ref="app_doctor_action"/>
+        </record>
+
+        <menuitem id="app_doctor_menu" parent="app_partner_manager_menu" action="app_doctor_action" sequence="3"/>
+
+    </data>
+</odoo>

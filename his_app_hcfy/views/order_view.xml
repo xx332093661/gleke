@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_quotation_tree" model="ir.ui.view">
+        <field name="name">sale.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="replace">
+                <field name="pay_method"/>
+                <field name="order_type"/>
+                <field name="commit_his_state"/>
+                <field name="is_refund"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_tree" model="ir.ui.view">
+        <field name="name">sale.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="replace"/>
+            <xpath expr="//field[@name='invoice_status']" position="before">
+                <field name="pay_method"/>
+                <field name="order_type"/>
+                <field name="commit_his_state"/>
+                <field name="is_refund"/>
+            </xpath>
+            <xpath expr="//field[@name='invoice_status']" position="attributes">
+                <attribute name="string">订单状态</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="string">患者</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="pay_method"/>
+                <field name="order_type"/>
+                <field name="is_refund"/>
+                <field name="refund_time"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="微信支付">
+                    <field name="weixin_pay_ids"/>
+                </page>
+                <page string="支付宝支付">
+                    <field name="alipay_ids"/>
+                </page>
+                <page string="龙支付记录">
+                    <field name="long_pay_record_ids"/>
+                </page>
+                <page string="预约记录">
+                    <field name="reserve_record_ids"/>
+                </page>
+                <page string="提交HIS错误信息">
+                    <field name="commit_his_error_msg"/>
+                </page>
+            </xpath>
+            <field name="payment_term_id" position="after">
+                <field name="recharge_type"/>
+                <field name="receipt_no"/>
+                <field name="tran_flow"/>
+                <field name="commit_his_state"/>
+            </field>
+        </field>
+    </record>
+
+
+</odoo>

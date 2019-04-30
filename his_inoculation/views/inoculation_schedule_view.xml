@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="inoculation_schedule_tree" model="ir.ui.view">
+            <field name="name">inoculation_schedule_tree</field>
+            <field name="model">his.inoculation_schedule</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="cycle_id" string="接种年龄"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="inoculation_schedule_form" model="ir.ui.view">
+            <field name="name">inoculation_schedule_form</field>
+            <field name="model">his.inoculation_schedule</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="cycle_id" required="1" options="{'no_create': 1,'no_open':1}" string="接种年龄"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="计划明细">
+                                <field name="detail_ids">
+                                    <tree>
+                                        <field name="item_id"/>
+                                        <field name="agent_count"/>
+                                        <field name="necessary"/>
+                                        <field name="is_private"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="item_id" required="1" options="{'no_create': 1,'no_open':1}"/>
+                                                    <field name="necessary"/>
+                                                </group>
+                                                <group>
+                                                    <field name="agent_count" required="1"/>
+                                                    <field name="is_private" readonly="1"/>
+                                                </group>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_inoculation_schedule_filter" model="ir.ui.view">
+            <field name="name">his.inoculation_schedule.select</field>
+            <field name="model">his.inoculation_schedule</field>
+            <field name="arch" type="xml">
+                <search>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="inoculation_schedule_action">
+            <field name="name">接种计划</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">his.inoculation_schedule</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_inoculation_schedule_filter"/>
+            <field name="context">{'search_default_group_by_cycle': 1}</field>
+        </record>
+
+
+        <menuitem id="inoculation_schedule_menu" name="接种计划" parent="config_main" action="inoculation_schedule_action" sequence="3"/>
+
+    </data>
+</odoo>

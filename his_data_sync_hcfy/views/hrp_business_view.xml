@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+        <record id="hrp_business_form_view" model="ir.ui.view">
+            <field name="name">hrp.business.form</field>
+            <field name="model">hrp.business</field>
+            <field name="inherit_id" ref="hrp_queue.hrp_business_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="诊疗项目目录">
+                        <field name="clinic_item_ids" widget="many2many"/>
+                    </page>
+
+                </xpath>
+            </field>
+        </record>
+</odoo>

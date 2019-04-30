@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record id="his_pregnant_register_tree" model="ir.ui.view">
+            <field name="name">his_pregnant_register_tree</field>
+            <field name="model">his.pregnant_register</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="pregnant_identity_no"/>
+                    <field name="last_menstruation_day"/>
+                    <field name="plan_born_day"/>
+                    <field name="pregnant_count"/>
+                    <field name="childbirth_count"/>
+                    <field name="person_liable"/>
+                    <field name="register_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="his_pregnant_register_form" model="ir.ui.view">
+            <field name="name">his_pregnant_register_form</field>
+            <field name="model">his.pregnant_register</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="pregnant_identity_no" required="1"/>
+                                <field name="address"/>
+                                <field name="community"/>
+                                <field name="birth_date" readonly="1"/>
+
+                            </group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="permanent_address"/>
+                                <field name="phone"/>
+                                <field name="age"/>
+
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="last_menstruation_day" required="1"/>
+                                <field name="pregnant_count"/>
+                            </group>
+                            <group>
+                                <field name="plan_born_day"/>
+                                <field name="childbirth_count"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="document_no"/>
+                                <field name="register_date" required="1"/>
+                            </group>
+                            <group>
+                                <field name="person_liable"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_pregnant_register_filter" model="ir.ui.view">
+            <field name="name">view_pregnant_register_filter</field>
+            <field name="model">his.pregnant_register</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="pregnant_identity_no"/>
+                    <field name="phone"/>
+                    <field name="person_liable"/>
+                    <filter string="头胎" domain="[('childbirth_count', '=', '0')]"/>
+                    <filter string="2胎" domain="[('childbirth_count', '=', '1')]"/>
+                    <filter string="3胎" domain="[('childbirth_count', '=', '3')]"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="his_pregnant_register_action">
+            <field name="name">产检登记表</field>
+            <field name="res_model">his.pregnant_register</field>
+            <field name="search_view_id" ref="view_pregnant_register_filter"/>
+        </record>
+
+        <menuitem id="his_pregnant_register_menu" parent="config_main" action="his_pregnant_register_action" sequence="4"/>
+
+
+
+    </data>
+</odoo>

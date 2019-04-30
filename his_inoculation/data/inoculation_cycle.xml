@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="his.inoculation_cycle" id="cycle1">
+            <field name="name">0月龄</field>
+            <field name="value" eval="0"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle2">
+            <field name="name">1月龄</field>
+            <field name="value" eval="1"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle3">
+            <field name="name">2月龄</field>
+            <field name="value" eval="2"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle4">
+            <field name="name">3月龄</field>
+            <field name="value" eval="3"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle5">
+            <field name="name">4月龄</field>
+            <field name="value" eval="4"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle6">
+            <field name="name">5月龄</field>
+            <field name="value" eval="5"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle7">
+            <field name="name">6月龄</field>
+            <field name="value" eval="6"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle20">
+            <field name="name">7月龄</field>
+            <field name="value" eval="7"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle8">
+            <field name="name">8月龄</field>
+            <field name="value" eval="8"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle9">
+            <field name="name">9月龄</field>
+            <field name="value" eval="9"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle21">
+            <field name="name">10月龄</field>
+            <field name="value" eval="10"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle10">
+            <field name="name">11月龄</field>
+            <field name="value" eval="11"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle11">
+            <field name="name">1周岁</field>
+            <field name="value" eval="12"/>
+        </record>
+         <record model="his.inoculation_cycle" id="cycle22">
+            <field name="name">1岁1月</field>
+            <field name="value" eval="13"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle12">
+            <field name="name">1岁半</field>
+            <field name="value" eval="18"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle23">
+            <field name="name">1岁7月</field>
+            <field name="value" eval="19"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle13">
+            <field name="name">2周岁</field>
+            <field name="value" eval="24"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle24">
+            <field name="name">2岁1月</field>
+            <field name="value" eval="25"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle14">
+            <field name="name">3周岁</field>
+            <field name="value" eval="36"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle25">
+            <field name="name">3岁1月</field>
+            <field name="value" eval="37"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle15">
+            <field name="name">4周岁</field>
+            <field name="value" eval="48"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle26">
+            <field name="name">4周岁1月</field>
+            <field name="value" eval="49"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle16">
+            <field name="name">6周岁</field>
+            <field name="value" eval="72"/>
+        </record>
+        <record model="his.inoculation_cycle" id="cycle27">
+            <field name="name">6岁1月</field>
+            <field name="value" eval="73"/>
+        </record>
+
+
+    </data>
+</odoo>
+

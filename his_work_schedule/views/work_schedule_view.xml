@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="weixin_action_my_work_schedule" model="ir.actions.client">
+        <field name="name">排班</field>
+        <field name="tag">work_schedule_manager_default</field>
+        <field name="target">main</field>
+    </record>
+
+
+
+
+    <menuitem id="menu_my_work_schedule" name="门诊排班" parent="menu_work_schedule_main" sequence="0" action="weixin_action_my_work_schedule"/>
+
+
+
+    <record id="view_work_schedule_tree" model="ir.ui.view">
+        <field name="name">his.work_schedule.tree</field>
+        <field name="model">his.work_schedule</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="id"/>
+                <field name="department_id"/>
+                <field name="employee_id"/>
+                <field name="date"/>
+                <field name="is_generate_register_plan"/>
+                <field name="is_outpatient"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_work_schedule_form" model="ir.ui.view">
+        <field name="name">his.work_schedule.form</field>
+        <field name="model">his.work_schedule</field>
+        <field name="arch" type="xml">
+            <form  string="work_schedule" create="false" edit="false">
+                <sheet>
+                    <group>
+                        <group>
+
+                            <field name="department_id" readonly="1" options="{'no_create':1,'no_open':1}"/>
+                            <field name="date" readonly="1"/>
+                            <field name="is_generate_register_plan" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="employee_id" readonly="1" options="{'no_create':1,'no_open':1}"/>
+                            <field name="is_outpatient" readonly="1"/>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="班次">
+                            <field name="shifts"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_work_schedule_filter" model="ir.ui.view">
+        <field name="name">his.work_schedule.select</field>
+        <field name="model">his.work_schedule</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="date"/>
+                <field name="department_id"/>
+                <field name="employee_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="科室" name="group_by_department" context="{'group_by':'department_id'}"/>
+                    <filter string="医生" name="group_by_employee" context="{'group_by':'employee_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_work_schedule_tree" model="ir.actions.act_window">
+        <field name="name">排班结果</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">his.work_schedule</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_work_schedule_filter"/>
+        <field name="context">{
+            'search_default_group_by_department': 1,
+            'search_default_group_by_employee': 1,
+        }
+        </field>
+    </record>
+
+
+    <menuitem id="menu_work_schedule_tree" name="排班结果" parent="menu_work_schedule_main" sequence="1" action="action_work_schedule_tree"/>
+
+
+</odoo>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<template xml:space="preserve">
+    <t t-call-assets="web.assets_backend" t-css="false"/>
+
+    <t t-name="MyWorkSchedule">
+        <div id="edit" style="display: none;"><t t-esc="edit"/> </div>
+
+        <div id="paiban_toolbar_container" class="paiban_xia_toolbar paiban_toolbar_container" style="position: absolute; display: none; z-index:999;">
+            <button class="btn btn-success" type="button">
+                白班
+            </button>
+            <button class="btn btn-success" type="button">
+                夜班
+            </button>
+            <!--<span class="paiban_seperator"></span>-->
+            <!--<span class=" delete_btn" title="清除选中排班" disabled="disabled"></span>-->
+        </div>
+
+        <div class="o_control_panel">
+            <ol class="breadcrumb"><li class="active">工作计划(2016-12-17)</li></ol>
+            <div class="o_cp_searchview"/>
+            <div class="">
+                <t t-if="!edit">
+                    <button type="button" class="edit btn btn-primary">编辑</button>
+                </t>
+                <t t-if="edit">
+                    <button type="button" class="save btn btn-primary">保存</button>
+                    <button type="button" class="cancel btn btn-default">取消</button>
+                </t>
+
+            </div>
+            <div class="o_cp_right">
+            </div>
+        </div>
+
+        <div class="o_content">
+            <table class="table table-bordered" style="background-color:white">
+                <tr>
+                    <th></th>
+                    <th><center>星期一</center></th>
+                    <th><center>星期二</center></th>
+                    <th><center>星期三</center></th>
+                    <th><center>星期四</center></th>
+                    <th><center>星期五</center></th>
+                    <th><center>星期六</center></th>
+                    <th><center>星期日</center></th>
+                </tr>
+                <t t-foreach="schedule_results" t-as="employee_info">
+                    <tr>
+                        <td>
+                            <center>
+                            <t t-esc="employee_info[0][1]"/>
+                            </center>
+                        </td>
+                        <td>
+                                <t t-if="1 in employee_info[1]">
+                                    <t t-foreach="employee_info[1][1]" t-as="schedule_type">
+                                        <div t-attf-style="background-color: #{schedule_type.color};" class="scheduleitem">
+                                            <div style="text-align:center;"><t t-esc="schedule_type.schedule_type_name"/></div>
+                                            <t t-if="edit">
+                                                <a class="schedule_cancel_button"><span class="glyphicon glyphicon-remove"></span></a>
+                                            </t>
+                                        </div>
+                                    </t>
+                                </t>
+                        </td>
+                        <td>
+                            <t t-if="2 in employee_info[1]">
+                                <t t-foreach="employee_info[1][2]" t-as="schedule_type">
+                                    <div t-attf-style="background-color: #{schedule_type.color};" class="scheduleitem">
+                                        <div style="text-align:center;"><t t-esc="schedule_type.schedule_type_name"/></div>
+                                        <t t-if="edit">
+                                            <a class="schedule_cancel_button"><span class="glyphicon glyphicon-remove"></span></a>
+                                        </t>
+                                    </div>
+                                </t>
+                            </t>
+                        </td>
+                        <td>
+                            <t t-if="3 in employee_info[1]">
+                                <t t-foreach="employee_info[1][3]" t-as="schedule_type">
+                                    <div t-attf-style="background-color: #{schedule_type.color};" class="scheduleitem">
+                                        <div style="text-align:center;"><t t-esc="schedule_type.schedule_type_name"/></div>
+                                        <t t-if="edit">
+                                            <a class="schedule_cancel_button"><span class="glyphicon glyphicon-remove"></span></a>
+                                        </t>
+                                    </div>
+                                </t>
+                            </t>
+                        </td>
+                        <td>
+                            <t t-if="4 in employee_info[1]">
+                                <t t-foreach="employee_info[1][4]" t-as="schedule_type">
+                                    <div t-attf-style="background-color: #{schedule_type.color};" class="scheduleitem">
+                                        <div style="text-align:center;"><t t-esc="schedule_type.schedule_type_name"/></div>
+                                        <t t-if="edit">
+                                            <a class="schedule_cancel_button"><span class="glyphicon glyphicon-remove"></span></a>
+                                        </t>
+                                    </div>
+                                </t>
+                            </t>
+                        </td>
+                        <td>
+                            <t t-if="5 in employee_info[1]">
+                                <t t-foreach="employee_info[1][5]" t-as="schedule_type">
+                                    <div t-attf-style="background-color: #{schedule_type.color};" class="scheduleitem">
+                                        <div style="text-align:center;"><t t-esc="schedule_type.schedule_type_name"/></div>
+                                        <t t-if="edit">
+                                            <a class="schedule_cancel_button"><span class="glyphicon glyphicon-remove"></span></a>
+                                        </t>
+                                    </div>
+                                </t>
+                            </t>
+                        </td>
+                        <td>
+                            <t t-if="6 in employee_info[1]">
+                                <t t-foreach="employee_info[1][6]" t-as="schedule_type">
+                                    <div t-attf-style="background-color: #{schedule_type.color};" class="scheduleitem">
+                                        <div style="text-align:center;"><t t-esc="schedule_type.schedule_type_name"/></div>
+                                        <t t-if="edit">
+                                            <a class="schedule_cancel_button"><span class="glyphicon glyphicon-remove"></span></a>
+                                        </t>
+                                    </div>
+                                </t>
+                            </t>
+                        </td>
+                        <td>
+                            <t t-if="7 in employee_info[1]">
+                                <t t-foreach="employee_info[1][7]" t-as="schedule_type">
+                                    <div t-attf-style="background-color: #{schedule_type.color};" class="scheduleitem">
+                                        <div style="text-align:center;"><t t-esc="schedule_type.schedule_type_name"/></div>
+                                        <t t-if="edit">
+                                            <a class="schedule_cancel_button"><span class="glyphicon glyphicon-remove"></span></a>
+                                        </t>
+                                    </div>
+                                </t>
+                            </t>
+                        </td>
+                    </tr>
+                </t>
+            </table>
+
+
+        </div>
+
+
+    </t>
+
+
+
+</template>

@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <menuitem id="treatment_manage_menu" name="就诊管理" parent="hrp_visit_root_menu" sequence="10"/>
+
+        <!--就医流程-->
+        <record id="view_hrp_treatment_process_tree" model="ir.ui.view">
+            <field name="name">view_hrp_treatment_process_tree</field>
+            <field name="model">hrp.treatment_process</field>
+            <field name="arch" type="xml">
+                <tree string="view_hrp_treatment_process_tree">
+                    <field name="partner_id"/>
+                    <field name="visit_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hrp_treatment_process_form" model="ir.ui.view">
+            <field name="name">view_hrp_treatment_process_form</field>
+            <field name="model">hrp.treatment_process</field>
+            <field name="arch" type="xml">
+                <form string="view_hrp_treatment_process_form">
+                    <sheet>
+                        <group col="4">
+                            <field name="partner_id"/>
+                            <field name="visit_date"/>
+                            <field name="state"/>
+                        </group>
+                        <notebook>
+                            <page string="详情">
+                                <field name="line_ids">
+                                    <tree>
+                                        <field name="id"/>
+                                        <field name="process_type"/>
+                                        <field name="name"/>
+                                        <field name="code"/>
+                                        <field name="queue_id"/>
+                                        <field name="business"/>
+                                        <field name="department_id"/>
+                                        <field name="employee_id"/>
+                                        <field name="order_num"/>
+                                        <field name="queue_state"/>
+                                        <field name="location"/>
+                                        <field name="clinic_item"/>
+                                        <field name="reserve_department_id"/>
+                                        <field name="receipt_no"/>
+                                        <field name="reserve_id"/>
+                                        <field name="pay_time"/>
+                                        <field name="update_time"/>
+                                        <field name="state"/>
+                                    </tree>
+                                    <form>
+                                        <group col="4">
+                                            <field name="process_type"/>
+                                            <field name="name"/>
+                                            <field name="code"/>
+                                            <field name="queue_id"/>
+                                            <field name="business"/>
+                                            <field name="department_id"/>
+                                            <field name="employee_id"/>
+                                            <field name="order_num"/>
+                                            <field name="queue_state"/>
+                                            <field name="location"/>
+                                            <field name="duration"/>
+                                            <field name="clinic_item"/>
+                                            <field name="reserve_department_id"/>
+                                            <field name="receipt_no"/>
+                                            <field name="reserve_id"/>
+                                            <field name="pay_time"/>
+                                            <field name="state"/>
+                                            <field name="message"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--<record id="view_hrp_treatment_process_search" model="ir.ui.view">-->
+            <!--<field name="name">view_hrp_treatment_process_search</field>-->
+            <!--<field name="model">hrp.treatment_process</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<search string="view_hrp_treatment_process_search">-->
+                    <!--<filter string="父流程" name="parent_filter" domain="[('parent_id', '=', False)]"/>-->
+                <!--</search>-->
+            <!--</field>-->
+        <!--</record>-->
+
+
+        <record model="ir.actions.act_window" id="hrp_treatment_process_action">
+            <field name="name">就医流程</field>
+            <field name="res_model">hrp.treatment_process</field>
+            <!--<field name="search_view_id" ref="view_hrp_treatment_process_search"/>-->
+            <!--<field name="context">{'search_default_parent_filter':1}</field>-->
+        </record>
+
+        <menuitem id="hrp_treatment_process_menu" name="就医流程" parent="treatment_manage_menu" sequence="1"
+                  action="hrp_treatment_process_action"/>
+
+
+    </data>
+</odoo>

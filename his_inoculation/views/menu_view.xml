@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <menuitem id="inoculation_manage_menu_root" name="预防接种"  sequence="40"/>
+        <menuitem id="inoculation_manager_main" name="接种管理" parent="inoculation_manage_menu_root" sequence="0"/>
+
+        <menuitem id="config_main" name="配置" parent="inoculation_manage_menu_root" sequence="1000"/>
+    </data>
+</odoo>

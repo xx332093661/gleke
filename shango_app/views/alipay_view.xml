@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="his_alipay_record_tree" model="ir.ui.view">
+            <field name="name">his_alipay_record_tree</field>
+            <field name="model">his.alipay_record</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="out_trade_no"/>
+                    <field name="trade_no"/>
+                    <field name="total_amount"/>
+                    <field name="buyer_pay_amount"/>
+                    <field name="gmt_create"/>
+                    <field name="gmt_payment"/>
+                    <field name="gmt_close"/>
+                    <field name="trade_status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="his_alipay_record_form" model="ir.ui.view">
+            <field name="name">his_alipay_record_form</field>
+            <field name="model">his.alipay_record</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="notify_time"/>
+                                <field name="notify_id"/>
+                            </group>
+                            <group>
+                                <field name="notify_type"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="app_id"/>
+                                <field name="trade_status"/>
+                                <field name="trade_no"/>
+                            </group>
+                            <group>
+                                <field name="out_trade_no"/>
+                               <field name="gmt_close"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="total_amount"/>
+                            </group>
+                            <group>
+                                <field name="buyer_pay_amount"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="gmt_create"/>
+                                <field name="gmt_close"/>
+                            </group>
+                            <group>
+                                <field name="gmt_payment"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="charset"/>
+                                <field name="sign_type"/>
+                                <field name="gmt_close"/>
+                            </group>
+                            <group>
+                                <field name="version"/>
+                                <field name="sign"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="医院信息">
+                                <group col="4">
+                                    <field name="company_id"/>
+                                    <field name="internal_id"/>
+                                </group>
+                            </page>
+                            <page string="回传参数">
+                                <group>
+                                    <group>
+                                        <field name="passback_params"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="订单">
+                                <field name="order_ids"/>
+                            </page>
+                            <page string="退款信息">
+                                <group>
+                                    <group>
+                                        <field name="is_refund"/>
+                                        <field name="refund_code"/>
+                                    </group>
+                                    <group>
+                                        <field name="refund_time"/>
+                                        <field name="refund_msg"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="view_alipay_record_filter" model="ir.ui.view">
+            <field name="name">his.alipay_record.select</field>
+            <field name="model">his.alipay_record</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="out_trade_no"/>
+                    <field name="trade_no"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="his_alipay_record_action">
+            <field name="name">支付宝支付记录</field>
+            <field name="res_model">his.alipay_record</field>
+            <field name="view_type">form</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_alipay_record_filter"/>
+        </record>
+
+        <menuitem id="his_alipay_record_menu" name="支付宝支付记录" parent="shango_app_pay_record_menu" action="his_alipay_record_action"  sequence="1"/>
+
+    </data>
+</odoo>

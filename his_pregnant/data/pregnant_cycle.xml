@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record model="his.pregnant_cycle" id="cycle1">
+            <field name="name">第1周</field>
+            <field name="value" eval="1"/>
+        </record>
+        <record model="his.pregnant_cycle" id="cycle2">
+            <field name="name">第2周</field>
+            <field name="value" eval="2"/>
+        </record>
+        <record model="his.pregnant_cycle" id="cycle3">
+            <field name="name">第3周</field>
+            <field name="value" eval="3"/>
+        </record>
+        <record model="his.pregnant_cycle" id="cycle4">
+            <field name="name">第4周</field>
+            <field name="value" eval="4"/>
+        </record>
+        <record model="his.pregnant_cycle" id="cycle5">
+            <field name="name">第5周</field>
+            <field name="value" eval="5"/>
+        </record>
+        <record model="his.pregnant_cycle" id="cycle6">
+            <field name="name">第6周</field>
+            <field name="value" eval="6"/>
+        </record>
+        <record model="his.pregnant_cycle" id="cycle7">
+            <field name="name">第7周</field>
+            <field name="value" eval="7"/>
+        </record>
+        <record model="his.pregnant_cycle" id="cycle8">
+            <field name="name">第8周</field>
+            <field name="value" eval="8"/>
+        </record>
+        <record model="his.pregnant_cycle" id="cycle9">
+            <field name="name">第9周</field>
+            <field name="value" eval="9"/>
+        </record>
+        <record model="his.pregnant_cycle" id="cycle10">
+            <field name="name">第10周</field>
+            <field name="value" eval="10"/>
+        </record>
+        <record model="his.pregnant_cycle" id="cycle11">
+            <field name="name">第11周</field>
+            <field name="value" eval="11"/>
+        </record>  
+        <record model="his.pregnant_cycle" id="cycle12">
+            <field name="name">第12周</field>
+            <field name="value" eval="12"/>
+        </record>
+        <record model="his.pregnant_cycle" id="cycle13">
+            <field name="name">第13周</field>
+            <field name="value" eval="13"/>
+        </record>        
+        <record model="his.pregnant_cycle" id="cycle14">
+            <field name="name">第14周</field>
+            <field name="value" eval="14"/>
+        </record>
+        <record model="his.pregnant_cycle" id="cycle15">
+            <field name="name">第15周</field>
+            <field name="value" eval="15"/>
+        </record>  
+        <record model="his.pregnant_cycle" id="cycle16">
+            <field name="name">第16周</field>
+            <field name="value" eval="16"/>
+        </record>
+        <record model="his.pregnant_cycle" id="cycle17">
+            <field name="name">第17周</field>
+            <field name="value" eval="17"/>
+        </record>  
+        <record model="his.pregnant_cycle" id="cycle18">
+            <field name="name">第18周</field>
+            <field name="value" eval="18"/>
+        </record>  
+        <record model="his.pregnant_cycle" id="cycle19">
+            <field name="name">第19周</field>
+            <field name="value" eval="19"/>
+        </record>
+        <record model="his.pregnant_cycle" id="cycle20">
+            <field name="name">第20周</field>
+            <field name="value" eval="20"/>
+        </record>       
+        <record model="his.pregnant_cycle" id="cycle21">
+            <field name="name">第21周</field>
+            <field name="value" eval="21"/>
+        </record>   
+        <record model="his.pregnant_cycle" id="cycle22">
+            <field name="name">第22周</field>
+            <field name="value" eval="22"/>
+        </record>       
+        <record model="his.pregnant_cycle" id="cycle23">
+            <field name="name">第23周</field>
+            <field name="value" eval="23"/>
+        </record>   
+        <record model="his.pregnant_cycle" id="cycle24">
+            <field name="name">第24周</field>
+            <field name="value" eval="24"/>
+        </record>       
+        <record model="his.pregnant_cycle" id="cycle25">
+            <field name="name">第25周</field>
+            <field name="value" eval="25"/>
+        </record>   
+        <record model="his.pregnant_cycle" id="cycle26">
+            <field name="name">第26周</field>
+            <field name="value" eval="26"/>
+        </record>       
+        <record model="his.pregnant_cycle" id="cycle27">
+            <field name="name">第27周</field>
+            <field name="value" eval="27"/>
+        </record>  
+        <record model="his.pregnant_cycle" id="cycle28">
+            <field name="name">第28周</field>
+            <field name="value" eval="28"/>
+        </record>   
+        <record model="his.pregnant_cycle" id="cycle29">
+            <field name="name">第29周</field>
+            <field name="value" eval="29"/>
+        </record>       
+        <record model="his.pregnant_cycle" id="cycle30">
+            <field name="name">第30周</field>
+            <field name="value" eval="30"/>
+        </record>     
+        <record model="his.pregnant_cycle" id="cycle31">
+            <field name="name">第31周</field>
+            <field name="value" eval="31"/>
+        </record>     
+        <record model="his.pregnant_cycle" id="cycle32">
+            <field name="name">第32周</field>
+            <field name="value" eval="32"/>
+        </record>     
+        <record model="his.pregnant_cycle" id="cycle33">
+            <field name="name">第33周</field>
+            <field name="value" eval="33"/>
+        </record>
+        <record model="his.pregnant_cycle" id="cycle34">
+            <field name="name">第34周</field>
+            <field name="value" eval="34"/>
+        </record>     
+        <record model="his.pregnant_cycle" id="cycle35">
+            <field name="name">第35周</field>
+            <field name="value" eval="35"/>
+        </record>     
+        <record model="his.pregnant_cycle" id="cycle36">
+            <field name="name">第36周</field>
+            <field name="value" eval="36"/>
+        </record>     
+        <record model="his.pregnant_cycle" id="cycle37">
+            <field name="name">第37周</field>
+            <field name="value" eval="37"/>
+        </record>
+        <record model="his.pregnant_cycle" id="cycle38">
+            <field name="name">第38周</field>
+            <field name="value" eval="38"/>
+        </record>     
+        <record model="his.pregnant_cycle" id="cycle39">
+            <field name="name">第39周</field>
+            <field name="value" eval="39"/>
+        </record>     
+        <record model="his.pregnant_cycle" id="cycle40">
+            <field name="name">第40周</field>
+            <field name="value" eval="40"/>
+        </record>        
+    </data>
+</odoo>

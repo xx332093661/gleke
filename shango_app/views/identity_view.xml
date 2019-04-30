@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="hrp_identity_tree" model="ir.ui.view">
+            <field name="name">hrp_identity_tree</field>
+            <field name="model">hrp.identity</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_identity_tree" >
+                    <field name="identity_num"/>
+                    <field name="name"/>
+                    <field name="gender"/>
+                    <field name="nation"/>
+                    <field name="birth_date"/>
+                    <field name="address"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="hrp_identity_form" model="ir.ui.view">
+            <field name="name">hrp_identity_form</field>
+            <field name="model">hrp.identity</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="hrp_identity_form" >
+                    <sheet>
+                        <group col="4">
+                            <field name="identity_num"/>
+                            <field name="name"/>
+                            <field name="gender"/>
+                            <field name="nation"/>
+                            <field name="birth_date"/>
+                            <field name="address"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

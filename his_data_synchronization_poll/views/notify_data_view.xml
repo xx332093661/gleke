@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_notify_data_tree" model="ir.ui.view">
+        <field name="name">his.notify_data.tree</field>
+        <field name="model">his.notify_data</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="id" string="ID"/>
+                <field name="sync_id"/>
+                <field name="operation"/>
+                <field name="create_date" string="通知时间"/>
+                <!--<field name="query_date"/>-->
+                <!--<field name="process_date"/>-->
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_notify_data_form" model="ir.ui.view">
+        <field name="name">his.notify_data.form</field>
+        <field name="model">his.notify_data</field>
+        <field name="arch" type="xml">
+            <form  string="notify_data">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="sync_id"/>
+                            <field name="create_date" string="通知时间"/>
+                            <!--<field name="process_date"/>-->
+                            <!--<field name="parent_id"/>-->
+                        </group>
+                        <group>
+                            <field name="operation"/>
+                            <!--<field name="query_date"/>-->
+                            <field name="state"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="row_ids"/>
+                    </group>
+                    <group>
+                        <field name="query_result"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_notify_data_filter" model="ir.ui.view">
+        <field name="name">his.notify_data.select</field>
+        <field name="model">his.notify_data</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="sync_id"/>
+                <field string="通知开始时间" name="create_date" domain="[('create_date', '&gt;=', self)]"/>
+                <field string="通知截止时间" name="create_date" domain="[('create_date', '&lt;', self)]"/>
+                <separator/>
+                <filter string="通知" domain="[('state', '=', 'draft')]"/>
+                <filter string="完成" domain="[('state', '=', 'done')]"/>
+                <separator/>
+                <filter name="not_history" string="活动记录" domain="[('is_history', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+    
+    <record id="action_notify_data_tree" model="ir.actions.act_window">
+        <field name="name">通知数据</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">his.notify_data</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_notify_data_filter"/>
+        <field name="context">{"search_default_not_history":1}</field>
+    </record>
+
+        <menuitem action="action_notify_data_tree" id="menu_notify_data_tree"
+              parent="menu_notify_data_main" sequence="0"/>
+
+
+
+</odoo>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_drug_dispense_tree" model="ir.ui.view">
+        <field name="name">his.drug_dispense.tree</field>
+        <field name="model">his.drug_dispense</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="id"/>
+                <field name="his_id"/>
+                <field name="record_state"/>
+                <field name="fee_id"/>
+                <field name="dispose_id"/>
+                <field name="create_date"/>
+                <field name="check_date"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_drug_dispense_form" model="ir.ui.view">
+        <field name="name">his.drug_dispense.form</field>
+        <field name="model">his.drug_dispense</field>
+        <field name="arch" type="xml">
+            <form  string="drug_dispense">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="his_id"/>
+                            <field name="check_date"/>
+                            <field name="dispose_id"/>
+                        </group>
+                        <group>
+                            <field name="record_state"/>
+                            <field name="fee_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_drug_dispense_filter" model="ir.ui.view">
+        <field name="name">his.drug_dispense.select</field>
+        <field name="model">his.drug_dispense</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="his_id"/>
+                <field name="dispose_id"/>
+                <field name="fee_id"/>
+                <field string="创建开始时间" name="create_date" domain="[('create_date', '&gt;=', self)]"/>
+                <field string="创建截止时间" name="create_date" domain="[('create_date', '&lt;', self)]"/>
+                <separator/>
+                <filter name="not_history" string="活动记录" domain="[('is_history', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_drug_dispense_tree" model="ir.actions.act_window">
+        <field name="name">药品收发记录</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">his.drug_dispense</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_drug_dispense_filter"/>
+        <field name="context">{"search_default_not_history":1}</field>
+    </record>
+
+
+
+    <menuitem action="action_drug_dispense_tree" id="menu_action_drug_dispense_tree"
+              parent="his_data_synchronization_poll.menu_sync_business_data_main" sequence="4"/>
+
+</odoo>

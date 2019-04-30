@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="his_reserve_record_tree" model="ir.ui.view">
+            <field name="name">his_reserve_record_tree</field>
+            <field name="model">his.reserve_record</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="0" delete="0">
+                    <field name="partner_id"/>
+                    <field name="create_date"/>
+                    <field name="reserve_date"/>
+                    <field name="department_id"/>
+                    <field name="employee_id"/>
+                    <field name="shift_type_id"/>
+                    <field name="register_source_id"/>
+                    <field name="reserve_sort"/>
+                    <field name="tran_flow"/>
+                    <field name="receipt_no"/>
+                    <field name="type"/>
+                    <field name="commit_his_state"/>
+                    <field name="cancel_type"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="his_reserve_record_form" model="ir.ui.view">
+            <field name="name">his_reserve_record_form</field>
+            <field name="model">his.reserve_record</field>
+            <field name="arch" type="xml">
+                <form create="0" edit="0" delete="0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="department_id"/>
+                                <field name="shift_type_id"/>
+                                <field name="reserve_sort"/>
+                                <field name="register_id"/>
+                                <field name="type"/>
+                                <field name="tran_flow"/>
+                                <field name="cancel_type"/>
+                            </group>
+                            <group>
+                                <field name="reserve_date"/>
+                                <field name="employee_id"/>
+                                <field name="register_source_id"/>
+                                <field name="order_id"/>
+                                <field name="state"/>
+                                <field name="receipt_no"/>
+                                <field name="commit_his_state"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+            <record id="view_reserve_record_filter" model="ir.ui.view">
+        <field name="name">his.reserve_record.select</field>
+        <field name="model">his.reserve_record</field>
+        <field name="arch" type="xml">
+            <search>
+            </search>
+        </field>
+    </record>
+
+    <record id="his_reserve_record_action" model="ir.actions.act_window">
+        <field name="name">预约记录</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">his.reserve_record</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_reserve_record_filter"/>
+    </record>
+
+        <menuitem id="his_reserve_record_menu" name="预约记录" parent="register_plan_main" action="his_reserve_record_action" sequence="1"/>
+
+    </data>
+</odoo>

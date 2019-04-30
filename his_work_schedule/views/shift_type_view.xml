@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_shift_type_tree" model="ir.ui.view">
+        <field name="name">his.shift_type.tree</field>
+        <field name="model">his.shift_type</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false">
+                <field name="id"/>
+                <field name="department_id"/>
+                <field name="week_name"/>
+                <field name="name"/>
+                <field name="start_time" widget="float_time"/>
+                <field name="end_time" widget="float_time"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_shift_type_form" model="ir.ui.view">
+        <field name="name">his.shift_type.form</field>
+        <field name="model">his.shift_type</field>
+        <field name="arch" type="xml">
+            <form  string="shift_type" create="false" edit="false" >
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="department_id"/>
+                        </group>
+                        <group>
+
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="start_time" widget="float_time" required="1"/>
+                            <field name="week_name"/>
+                        </group>
+                        <group>
+                            <field name="label" required="1"/>
+                            <field name="end_time" widget="float_time" required="1"/>
+                            <!--<field name="color" widget="color" required="1"/>-->
+                            <field name="max_execute_count"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_shift_type_filter" model="ir.ui.view">
+        <field name="name">his.shift_type.select</field>
+        <field name="model">his.shift_type</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="0" string="Group By">
+                    <filter string="科室" name="group_by_department" context="{'group_by':'department_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <record id="action_shift_type_tree" model="ir.actions.act_window">
+        <field name="name">科室班次</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">his.shift_type</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_shift_type_filter"/>
+        <field name="context">{
+            'search_default_group_by_department': 1,
+        }
+        </field>
+    </record>
+
+    <menuitem action="action_shift_type_tree" id="menu_shift_type_tree"
+              parent="menu_work_schedule_main" sequence="2"/>
+
+
+
+</odoo>

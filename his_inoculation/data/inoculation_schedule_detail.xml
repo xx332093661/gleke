@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <!--0月龄-乙肝疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail21">
+            <field name="schedule_id" ref="inoculation_schedule1"/>
+            <field name="item_id" ref="inoculation_item101"/>
+            <field name="agent_count" eval="1"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+        <!--0月龄-卡介苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail2">
+            <field name="schedule_id" ref="inoculation_schedule1"/>
+            <field name="item_id" ref="inoculation_item109"/>
+            <field name="agent_count" eval="1"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+        <!--1月龄-乙肝疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail3">
+            <field name="schedule_id" ref="inoculation_schedule2"/>
+            <field name="item_id" ref="inoculation_item101"/>
+            <field name="agent_count" eval="2"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+        <!--2月龄-脊灰灭活疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail4">
+            <field name="schedule_id" ref="inoculation_schedule3"/>
+            <field name="item_id" ref="inoculation_item2"/>
+            <field name="agent_count" eval="1"/>
+            <field name="necessary" eval="False"/>
+        </record>
+
+        <!--2月龄-Hib疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail5">
+            <field name="schedule_id" ref="inoculation_schedule3"/>
+            <field name="item_id" ref="inoculation_item3"/>
+            <field name="agent_count" eval="1"/>
+            <field name="necessary" eval="False"/>
+        </record>
+
+        <!--3月龄-二价脊灰疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail6">
+            <field name="schedule_id" ref="inoculation_schedule4"/>
+            <field name="item_id" ref="inoculation_item102"/>
+            <field name="agent_count" eval="2"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+        <!--3月龄-百白破疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail7">
+            <field name="schedule_id" ref="inoculation_schedule4"/>
+            <field name="item_id" ref="inoculation_item103"/>
+            <field name="agent_count" eval="1"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+        <!--3月龄-Hib疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail8">
+            <field name="schedule_id" ref="inoculation_schedule4"/>
+            <field name="item_id" ref="inoculation_item3"/>
+            <field name="agent_count" eval="2"/>
+            <field name="necessary" eval="False"/>
+        </record>
+
+        <!--4月龄-百白破疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail9">
+            <field name="schedule_id" ref="inoculation_schedule5"/>
+            <field name="item_id" ref="inoculation_item103"/>
+            <field name="agent_count" eval="2"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+        <!--4月龄-二价脊灰疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail10">
+            <field name="schedule_id" ref="inoculation_schedule5"/>
+            <field name="item_id" ref="inoculation_item102"/>
+            <field name="agent_count" eval="3"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+        <!--4月龄-Hib疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail11">
+            <field name="schedule_id" ref="inoculation_schedule5"/>
+            <field name="item_id" ref="inoculation_item3"/>
+            <field name="agent_count" eval="3"/>
+            <field name="necessary" eval="False"/>
+        </record>
+
+        <!--5月龄-百白破疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail12">
+            <field name="schedule_id" ref="inoculation_schedule6"/>
+            <field name="item_id" ref="inoculation_item103"/>
+            <field name="agent_count" eval="3"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+        <!--6月龄-A群流脑疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail13">
+            <field name="schedule_id" ref="inoculation_schedule7"/>
+            <field name="item_id" ref="inoculation_item104"/>
+            <field name="agent_count" eval="1"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+        <!--6月龄-乙肝疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail14">
+            <field name="schedule_id" ref="inoculation_schedule7"/>
+            <field name="item_id" ref="inoculation_item101"/>
+            <field name="agent_count" eval="3"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+        <!--8月龄-乙脑减毒活疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail15">
+            <field name="schedule_id" ref="inoculation_schedule8"/>
+            <field name="item_id" ref="inoculation_item105"/>
+            <field name="agent_count" eval="1"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+        <!--8月龄-麻风疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail16">
+            <field name="schedule_id" ref="inoculation_schedule8"/>
+            <field name="item_id" ref="inoculation_item110"/>
+            <field name="agent_count" eval="1"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+        <!--9月龄-A群流脑疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail17">
+            <field name="schedule_id" ref="inoculation_schedule9"/>
+            <field name="item_id" ref="inoculation_item104"/>
+            <field name="agent_count" eval="2"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+        <!--11月龄-轮状病毒疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail18">
+            <field name="schedule_id" ref="inoculation_schedule10"/>
+            <field name="item_id" ref="inoculation_item5"/>
+            <field name="agent_count" eval="1"/>
+            <field name="necessary" eval="False"/>
+        </record>
+
+        <!--1周岁-水痘疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail19">
+            <field name="schedule_id" ref="inoculation_schedule11"/>
+            <field name="item_id" ref="inoculation_item6"/>
+            <field name="agent_count" eval="1"/>
+            <field name="necessary" eval="False"/>
+        </record>
+
+        <!--1岁半-百白破疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail20">
+            <field name="schedule_id" ref="inoculation_schedule12"/>
+            <field name="item_id" ref="inoculation_item103"/>
+            <field name="agent_count" eval="4"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+        <!--1岁半-麻腮风疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail21">
+            <field name="schedule_id" ref="inoculation_schedule12"/>
+            <field name="item_id" ref="inoculation_item110"/>
+            <field name="agent_count" eval="1"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+        <!--1岁半-甲肝减毒活疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail22">
+            <field name="schedule_id" ref="inoculation_schedule12"/>
+            <field name="item_id" ref="inoculation_item107"/>
+            <field name="agent_count" eval="1"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+        <!--1岁半-脊灰灭活疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail23">
+            <field name="schedule_id" ref="inoculation_schedule12"/>
+            <field name="item_id" ref="inoculation_item2"/>
+            <field name="agent_count" eval="4"/>
+            <field name="necessary" eval="False"/>
+        </record>
+
+
+        <!--1岁半-Hib疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail23">
+            <field name="schedule_id" ref="inoculation_schedule12"/>
+            <field name="item_id" ref="inoculation_item3"/>
+            <field name="agent_count" eval="4"/>
+            <field name="necessary" eval="False"/>
+        </record>
+
+        <!--2岁-乙脑减毒活疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail24">
+            <field name="schedule_id" ref="inoculation_schedule13"/>
+            <field name="item_id" ref="inoculation_item105"/>
+            <field name="agent_count" eval="2"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+        <!--2岁-甲肝灭活疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail25">
+            <field name="schedule_id" ref="inoculation_schedule13"/>
+            <field name="item_id" ref="inoculation_item7"/>
+            <field name="agent_count" eval="2"/>
+            <field name="necessary" eval="False"/>
+        </record>
+
+        <!--2岁-甲肝灭活疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail26">
+            <field name="schedule_id" ref="inoculation_schedule13"/>
+            <field name="item_id" ref="inoculation_item8"/>
+            <field name="agent_count" eval="1"/>
+            <field name="necessary" eval="False"/>
+        </record>
+
+        <!--3岁-A+C群流脑疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail27">
+            <field name="schedule_id" ref="inoculation_schedule14"/>
+            <field name="item_id" ref="inoculation_item108"/>
+            <field name="agent_count" eval="1"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+        <!--4岁-二价脊灰疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail28">
+            <field name="schedule_id" ref="inoculation_schedule15"/>
+            <field name="item_id" ref="inoculation_item102"/>
+            <field name="agent_count" eval="4"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+        <!--6岁-白破疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail29">
+            <field name="schedule_id" ref="inoculation_schedule16"/>
+            <field name="item_id" ref="inoculation_item111"/>
+            <field name="agent_count" eval="1"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+        <!--6岁-A+C群流脑疫苗-->
+        <record model="his.inoculation_schedule_detail" id="inoculation_schedule_detail30">
+            <field name="schedule_id" ref="inoculation_schedule16"/>
+            <field name="item_id" ref="inoculation_item108"/>
+            <field name="agent_count" eval="2"/>
+            <field name="necessary" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

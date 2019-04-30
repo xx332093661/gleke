@@ -1,0 +1,116 @@
+<odoo>
+    <record id="view_company_settings" model="ir.ui.view">
+            <field name="name">company_settings</field>
+            <field name="model">his.company_settings</field>
+            <field name="arch" type="xml">
+                <form class="oe_form_configuration">
+                    <header>
+                        <button string="应用" type="object" name="execute" class="oe_highlight"/>
+                        <button string="取消" type="object" name="cancel" class="oe_link"/>
+                    </header>
+                    <group string="医院信息设置">
+                        <label for="name" string="医院名称"/>
+                        <div>
+                            <div>
+                                <field name="name" class="oe_inline"  required="1"/>
+                            </div>
+                        </div>
+
+                        <label for="topic" string="订阅主题"/>
+                        <div>
+                            <div>
+                                <field name="topic" class="oe_inline"  required="1"/>
+                            </div>
+                        </div>
+
+                        <label for="longitude" string="经度"/>
+                        <div>
+                            <div>
+                                <field name="longitude" class="oe_inline"  required="1"/>
+                            </div>
+                        </div>
+
+                        <label for="latitude" string="纬度"/>
+                        <div>
+                            <div>
+                                <field name="latitude" class="oe_inline"  required="1"/>
+                            </div>
+                        </div>
+
+                        <label for="range" string="定位精度(米)"/>
+                        <div>
+                            <div>
+                                <field name="range" class="oe_inline"  required="1"/>
+                            </div>
+                        </div>
+
+                        <label for="appoint_day" string="预约挂号天数"/>
+                        <div>
+                            <div>
+                                <field name="appoint_day" class="oe_inline"  required="1"/>
+                            </div>
+                        </div>
+
+                        <label for="inoculation_appoint_day" string="预防接种预约天数"/>
+                        <div>
+                            <div>
+                                <field name="inoculation_appoint_day" class="oe_inline"  required="1"/>
+                            </div>
+                        </div>
+
+                        <label for="his_user_id" string="HIS用户ID"/>
+                        <div>
+                            <div>
+                                <field name="his_user_id" class="oe_inline"  required="1"/>
+                            </div>
+                        </div>
+
+                        <label for="inoculation_department_id" string="预防接种科室"/>
+                        <div>
+                            <div>
+                                <field name="inoculation_department_id" class="oe_inline"/>
+                            </div>
+                        </div>
+
+                        <label for="pregnant_department_id" string="产检预约科室"/>
+                        <div>
+                            <div>
+                                <field name="pregnant_department_id" class="oe_inline"/>
+                            </div>
+                        </div>
+                        <label for="pregnant_department_id" string="儿保预约科室"/>
+                        <div>
+                            <div>
+                                <field name="child_health_department_id" class="oe_inline"/>
+                            </div>
+                        </div>
+                    </group>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="view_company_settings_filter" model="ir.ui.view">
+            <field name="name">company_settings.select</field>
+            <field name="model">his.company_settings</field>
+            <field name="arch" type="xml">
+                <search>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_company_settings" model="ir.actions.act_window">
+            <field name="name">company_settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">his.company_settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+
+
+    <menuitem id="company_settings_menu" name="医院设置" parent="app_config_main"
+            sequence="0" action="action_company_settings"/>
+
+
+</odoo>

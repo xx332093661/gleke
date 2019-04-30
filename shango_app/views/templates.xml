@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="shango_layout" inherit_id="web.layout">
+        <xpath expr="//title" position="replace">
+           <title t-esc="title or 'GLEKE'"/>
+        </xpath>
+    </template>
+
+    <template id="shango_login_layout" inherit_id="web.login_layout">
+        <xpath expr="//div[@class='col-md-6 col-md-offset-3 o_database_list']//div[@class='text-center'][2]" position="replace">
+        </xpath>
+    </template>
+
+    <template id="shango_menu_secondary" inherit_id="web.menu_secondary">
+        <xpath expr="//div[@class='o_sub_menu_footer']" position="replace">
+        </xpath>
+    </template>
+
+</odoo>

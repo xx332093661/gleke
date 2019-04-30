@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <!--0月龄-->
+        <record model="his.inoculation_schedule" id="inoculation_schedule1">
+            <field name="cycle_id" ref="cycle1"/>
+        </record>
+        <!--1月龄-->
+        <record model="his.inoculation_schedule" id="inoculation_schedule2">
+            <field name="cycle_id" ref="cycle2"/>
+        </record>
+        <!--2月龄-->
+        <record model="his.inoculation_schedule" id="inoculation_schedule3">
+            <field name="cycle_id" ref="cycle3"/>
+        </record>
+        <!--3月龄-->
+        <record model="his.inoculation_schedule" id="inoculation_schedule4">
+            <field name="cycle_id" ref="cycle4"/>
+        </record>
+        <!--4月龄-->
+        <record model="his.inoculation_schedule" id="inoculation_schedule5">
+            <field name="cycle_id" ref="cycle5"/>
+        </record>
+        <!--5月龄-->
+        <record model="his.inoculation_schedule" id="inoculation_schedule6">
+            <field name="cycle_id" ref="cycle6"/>
+        </record>
+        <!--6月龄-->
+        <record model="his.inoculation_schedule" id="inoculation_schedule7">
+            <field name="cycle_id" ref="cycle7"/>
+        </record>
+        <!--8月龄-->
+        <record model="his.inoculation_schedule" id="inoculation_schedule8">
+            <field name="cycle_id" ref="cycle8"/>
+        </record>
+        <!--9月龄-->
+        <record model="his.inoculation_schedule" id="inoculation_schedule9">
+            <field name="cycle_id" ref="cycle9"/>
+        </record>
+        <!--11月龄-->
+        <record model="his.inoculation_schedule" id="inoculation_schedule10">
+            <field name="cycle_id" ref="cycle10"/>
+        </record>
+        <!--1周岁-->
+        <record model="his.inoculation_schedule" id="inoculation_schedule11">
+            <field name="cycle_id" ref="cycle11"/>
+        </record>
+        <!--1岁半-->
+        <record model="his.inoculation_schedule" id="inoculation_schedule12">
+            <field name="cycle_id" ref="cycle12"/>
+        </record>
+        <!--2岁-->
+        <record model="his.inoculation_schedule" id="inoculation_schedule13">
+            <field name="cycle_id" ref="cycle13"/>
+        </record>
+        <!--3岁-->
+        <record model="his.inoculation_schedule" id="inoculation_schedule14">
+            <field name="cycle_id" ref="cycle14"/>
+        </record>
+        <!--4岁-->
+        <record model="his.inoculation_schedule" id="inoculation_schedule15">
+            <field name="cycle_id" ref="cycle15"/>
+        </record>
+        <!--6岁-->
+        <record model="his.inoculation_schedule" id="inoculation_schedule16">
+            <field name="cycle_id" ref="cycle16"/>
+        </record>
+    </data>
+</odoo>

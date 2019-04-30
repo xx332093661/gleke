@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_inoculation_register_tree" model="ir.ui.view">
+            <field name="name">inoculation_register_tree</field>
+            <field name="model">his.inoculation_register</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="note_code"/>
+                    <field name="inoculation_identity_no"/>
+                    <field name="register_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_inoculation_register_form" model="ir.ui.view">
+            <field name="name">inoculation_register_form</field>
+            <field name="model">his.inoculation_register</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="birth_date" required="1"/>
+                                <field name="code" required="1"/>
+                                <field name="birth_code" required="1"/>
+                            </group>
+                            <group>
+                                <field name="gender" required="1"/>
+                                <field name="register_date" required="1"/>
+                                <field name="note_code" required="1"/>
+                                <field name="birth_weight" required="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="guardian" required="1"/>
+                                <field name="address" required="0"/>
+                                <field name="guardian_relationship" required="1"/>
+                            </group>
+                            <group>
+                                <field name="inoculation_identity_no" required="1"/>
+                                <field name="permanent_address" required="0"/>
+                            </group>
+                        </group>
+                         <group>
+                            <group>
+                                <field name="allergic_history"/>
+                            </group>
+                            <group>
+                                <field name="inoculation_taboo" />
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="birth_hospital" required="1"/>
+                            </group>
+                            <group>
+                                <field name="phone" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_inoculation_register_filter" model="ir.ui.view">
+            <field name="name">his.inoculation_register.select</field>
+            <field name="model">his.inoculation_register</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="inoculation_register_action">
+            <field name="name">接种登记表</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">his.inoculation_register</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_inoculation_register_filter"/>
+        </record>
+
+        <menuitem id="inoculation_register_menu" parent="config_main" action="inoculation_register_action" sequence="4"/>
+
+    </data>
+</odoo>

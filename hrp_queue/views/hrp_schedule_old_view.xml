@@ -1,0 +1,318 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <menuitem id="hrp_schedule_root" name="排班" sequence="20"/>
+
+        <menuitem id="hrp_schedule_set_menu" name="排班设置" parent="hrp_schedule_root" sequence="6"/>
+
+        <!--人员分组-->
+        <record id="view_hrp_schedule_group_tree" model="ir.ui.view">
+            <field name="name">view_hrp_schedule_group_tree</field>
+            <field name="model">hrp.schedule_group</field>
+            <field name="arch" type="xml">
+                <tree string="view_hrp_schedule_group_tree">
+                    <field name="name"/>
+                    <field name="department_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hrp_schedule_group_form" model="ir.ui.view">
+            <field name="name">view_hrp_schedule_group_form</field>
+            <field name="model">hrp.schedule_group</field>
+            <field name="arch" type="xml">
+                <form string="view_hrp_schedule_group_form">
+                    <sheet>
+                        <group col="4">
+                            <field name="name" required="1"/>
+                            <field name="department_id" required="1"/>
+                        </group>
+                        <notebook>
+                            <page string="人员">
+                                <field name="employee_ids">
+                                    <tree>
+                                        <field name="id"/>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hrp_schedule_group_search" model="ir.ui.view">
+            <field name="name">view_hrp_schedule_group_search</field>
+            <field name="model">hrp.schedule_group</field>
+            <field name="arch" type="xml">
+                <search string="view_hrp_schedule_group_search">
+                    <field name="department_id"/>
+                    <filter string="科室" name="department_group" context="{'group_by':'department_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hrp_schedule_group_action">
+            <field name="name">人员分组</field>
+            <field name="res_model">hrp.schedule_group</field>
+            <field name="search_view_id" ref="view_hrp_schedule_group_search"/>
+            <field name="context">{'search_default_department_group':1}</field>
+        </record>
+
+        <menuitem id="hrp_schedule_group_menu" name="人员分组" parent="hrp_schedule_root" sequence="5"
+                  action="hrp_schedule_group_action"/>
+
+        <!--班次设置-->
+        <record id="view_hrp_schedule_type_tree" model="ir.ui.view">
+            <field name="name">view_hrp_schedule_type_tree</field>
+            <field name="model">hrp.schedule_type</field>
+            <field name="arch" type="xml">
+                <tree string="view_hrp_schedule_type_tree">
+                    <field name="name"/>
+                    <field name="department_id"/>
+                    <field name="start"/>
+                    <field name="stop"/>
+                    <field name="total"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hrp_schedule_type_form" model="ir.ui.view">
+            <field name="name">view_hrp_schedule_type_form</field>
+            <field name="model">hrp.schedule_type</field>
+            <field name="arch" type="xml">
+                <form string="view_hrp_schedule_type_form">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for='name' class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" required="1"/>
+                            </h1>
+                        </div>
+                        <group col="4">
+                            <field name="department_id" required="1"/>
+                            <field name="weekday_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="start" widget="float_time"/>
+                            <field name="stop" widget="float_time"/>
+                            <field name="total" widget="float_time"/>
+                            <field name="type"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hrp_schedule_type_search" model="ir.ui.view">
+            <field name="name">view_hrp_schedule_type_search</field>
+            <field name="model">hrp.schedule_type</field>
+            <field name="arch" type="xml">
+                <search string="view_hrp_schedule_type_search">
+                    <field name="name"/>
+                    <field name="department_id"/>
+                    <filter string="科室" name="department_group" context="{'group_by':'department_id'}"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="hrp_schedule_type_action">
+            <field name="name">班次设置</field>
+            <field name="res_model">hrp.schedule_type</field>
+            <field name="search_view_id" ref="view_hrp_schedule_type_search"/>
+            <field name="context">{'search_default_department_group':1}</field>
+        </record>
+
+        <menuitem id="hrp_schedule_type_menu" name="班次设置" parent="hrp_schedule_set_menu" sequence="1"
+                  action="hrp_schedule_type_action"/>
+
+        <!--排班规则-->
+        <record id="view_schedule_department_tree" model="ir.ui.view">
+            <field name="name">view_schedule_department_tree</field>
+            <field name="model">hr.department</field>
+            <field name="arch" type="xml">
+                <tree string="view_schedule_department_tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_schedule_department_form" model="ir.ui.view">
+            <field name="name">view_schedule_department_form</field>
+            <field name="model">hr.department</field>
+            <field name="arch" type="xml">
+                <form string="view_schedule_department_form">
+                    <header>
+                            <button name="%(action_hrp_generate_schedule)d" type="action"  string="生成排班" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for='name' class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <notebook>
+                            <page string="班次">
+                                <field name="schedule_type_ids">
+                                    <tree editable="top" create="0" delete="0">
+                                        <field name="id"/>
+                                        <field name="name" readonly="1"/>
+                                        <field name="per_count"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="分组">
+                                <field name="schedule_group_ids">
+                                    <tree editable="top" create="0" delete="0">
+                                        <field name="name" readonly="1"/>
+                                        <field name="department_id" invisible="1"/>
+                                        <field name="schedule_type_ids" widget="many2many_tags" context="{'department_id': department_id}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hrp_schedule_department_action">
+            <field name="name">排班规则</field>
+            <field name="res_model">hr.department</field>
+            <field name="domain">[('schedule_type_ids', '!=', False)]</field>
+        </record>
+
+        <record id="schedule_department_action_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_schedule_department_tree"/>
+            <field name="act_window_id" ref="hrp_schedule_department_action"/>
+        </record>
+
+        <record id="schedule_department_action_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_schedule_department_form"/>
+            <field name="act_window_id" ref="hrp_schedule_department_action"/>
+        </record>
+
+        <menuitem id="hrp_schedule_department_menu" name="排班规则" parent="hrp_schedule_set_menu" sequence="2"
+                  action="hrp_schedule_department_action"/>
+
+
+        <!--排班管理-->
+        <record id="view_hrp_schedule_manage_tree" model="ir.ui.view">
+            <field name="name">view_hrp_schedule_manage_tree</field>
+            <field name="model">hrp.schedule_manage</field>
+            <field name="arch" type="xml">
+                <tree string="view_hrp_schedule_manage_tree">
+                    <field name="start"/>
+                    <field name="stop"/>
+                    <field name="department_id"/>
+                    <field name="employee_id"/>
+                    <field name="schedule_type_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hrp_schedule_manage_form" model="ir.ui.view">
+            <field name="name">view_hrp_schedule_manage_form</field>
+            <field name="model">hrp.schedule_manage</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <form string="view_hrp_schedule_manage_form">
+                    <sheet>
+                        <group col="4">
+                            <field name="start"/>
+                            <field name="stop"/>
+                            <field name="department_id"/>
+                            <field name="employee_id"/>
+                            <field name="schedule_type_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hrp_schedule_manage_calendar" model="ir.ui.view">
+            <field name="name">view_hrp_schedule_manage_calendar</field>
+            <field name="model">hrp.schedule_manage</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar string="view_hrp_schedule_manage_calendar" date_start="start" date_stop="stop"
+                          color="employee_id" event_open_popup="%(hrp_queue.view_hrp_schedule_manage_form)s">
+                    <!--<field name="department_id"/>-->
+                    <field name="employee_id"/>
+                    <field name="schedule_type_id"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="view_hrp_schedule_manage_search" model="ir.ui.view">
+            <field name="name">view_hrp_schedule_manage_search</field>
+            <field name="model">hrp.schedule_manage</field>
+            <field name="arch" type="xml">
+                <search string="view_hrp_schedule_manage_search">
+                    <field name="department_id"/>
+                    <field name="employee_id"/>
+                    <field name="schedule_type_id"/>
+                    <filter string="科室" name="department_group" context="{'group_by':'department_id'}"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="hrp_schedule_manage_action">
+            <field name="name">排班管理</field>
+            <field name="res_model">hrp.schedule_manage</field>
+            <field name="view_mode">calendar,tree,form</field>
+            <field name="view_id" ref="view_hrp_schedule_manage_calendar"/>
+            <field name="search_view_id" ref="view_hrp_schedule_manage_search"/>
+        </record>
+
+        <menuitem id="hrp_schedule_manage_menu" name="排班管理" parent="hrp_schedule_root" sequence="10"
+                  action="hrp_schedule_manage_action"/>
+    </data>
+
+    <data>
+        <record id="schedule_weekday1" model="hrp.schedule_weekday">
+            <field name="name">星期一</field>
+            <field name="code">monday</field>
+        </record>
+
+        <record id="schedule_weekday2" model="hrp.schedule_weekday">
+            <field name="name">星期二</field>
+            <field name="code">tuesday</field>
+        </record>
+
+        <record id="schedule_weekday3" model="hrp.schedule_weekday">
+            <field name="name">星期三</field>
+            <field name="code">wednesday</field>
+        </record>
+
+        <record id="schedule_weekday4" model="hrp.schedule_weekday">
+            <field name="name">星期四</field>
+            <field name="code">thursday</field>
+        </record>
+
+        <record id="schedule_weekday5" model="hrp.schedule_weekday">
+            <field name="name">星期五</field>
+            <field name="code">friday</field>
+        </record>
+
+        <record id="schedule_weekday6" model="hrp.schedule_weekday">
+            <field name="name">星期六</field>
+            <field name="code">saturday</field>
+
+        </record>
+
+        <record id="schedule_weekday7" model="hrp.schedule_weekday">
+            <field name="name">星期天</field>
+            <field name="code">sunday</field>
+        </record>
+
+    </data>
+</odoo>

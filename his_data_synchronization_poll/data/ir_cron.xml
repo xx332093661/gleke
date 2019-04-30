@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="ir_cron_sync_base_data" model="ir.cron">
+            <field name="name">同步基础数据</field>
+            <field name="priority">1</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">1</field>
+            <field name="doall" eval="False"/>
+            <field name="model">his.sync_define</field>
+            <field name="function">sync_base_data</field>
+            <field name="args">()</field>
+        </record>
+
+        <record id="ir_cron_start_sync_thread" model="ir.cron">
+            <field name="name">开启同步线程</field>
+            <field name="priority">4</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model">his.sync_define</field>
+            <field name="function">start_sync</field>
+            <field name="active" eval="True"/>
+            <field name="args">()</field>
+        </record>
+
+        <record id="ir_cron_sync_data_history_thread" model="ir.cron">
+            <field name="name">同步数据标记为历史</field>
+            <field name="priority">4</field>
+            <field name="interval_number">120</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model">his.sync_define</field>
+            <field name="function">sync_data_history</field>
+            <field name="args">()</field>
+        </record>
+
+    </data>
+</odoo>
+

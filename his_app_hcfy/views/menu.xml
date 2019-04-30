@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem name="APP" id="app_root" sequence="40"/>
+
+        <menuitem id="payment_main" name="支付管理" parent="sales_team.menu_base_partner" sequence="6"/>
+        <menuitem id="register_plan_main" name="队列计划管理" parent="his_work_schedule.menu_work_schedule_root" sequence="800"/>
+
+        <menuitem id="app_config_main" name="配置" parent="app_root" sequence="1000"/>
+        <menuitem id="his_base_data_message_main" name="系统日志" parent="app_root" sequence="900"/>
+
+    </data>
+</odoo>

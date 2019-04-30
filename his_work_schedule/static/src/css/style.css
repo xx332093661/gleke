@@ -1,0 +1,139 @@
+.work_schedule_main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.work_schedule_content {
+  padding: 10px;
+  background: url(/web/static/src/img/form_sheetbg.png);
+}
+.work_schedule_content table {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  background-color: white;
+}
+.work_schedule_content table thead {
+  background-color: #f3f5f9;
+}
+.work_schedule_content table th,
+.work_schedule_content table td {
+  border: 1px solid #dddddd;
+}
+.work_schedule_content table tbody tr td:first-child {
+  width: 80px;
+  background-color: #f3f5f9;
+  text-align: center;
+}
+.work_schedule_content table thead tr th {
+  height: 30px;
+  text-align: center;
+}
+.work_schedule_content table tbody tr td {
+  height: 49px;
+  padding: 4px;
+}
+.work_schedule_content table tbody tr td div {
+  width: 100%;
+  text-align: center;
+  display: flex;
+}
+.on-edit-highlight {
+  background-color: #feca40;
+  animation: myfirst 0.2s;
+}
+.work_schedule_content table tbody tr td div span {
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 4px;
+  border: solid 1px #ccc;
+  position: relative;
+  flex: 1 1 auto;
+  margin-right: 2px;
+}
+.work_schedule_content table tbody tr td div span:last-child {
+  margin-right: 0;
+}
+.work_schedule_content table tbody tr td div span i {
+  position: absolute;
+  display: none;
+}
+.work_schedule_content table tbody tr td div span i.fa-gear {
+  right: 2px;
+  bottom: 2px;
+}
+.work_schedule_content table tbody tr td div span i.fa-times {
+  top: 2px;
+  right: 2px;
+}
+.work_schedule_content table tbody tr td.on-edit-highlight span:hover i.fa-times {
+  display: inline-block;
+}
+.work_schedule_content table tbody tr td span.saved:hover i.fa-gear {
+  display: inline-block;
+}
+.work_schedule_content table tbody tr td.on-edit {
+  cursor: pointer;
+}
+@keyframes myfirst {
+  from {
+    background: #ffffff;
+  }
+  to {
+    background: #feca40;
+  }
+}
+.work_schedule_content table tbody tr td.date-expired {
+  background-color: #f8f8f8;
+  cursor: auto;
+}
+.shift-type-panel {
+  position: absolute;
+  width: auto;
+  height: auto;
+  display: none;
+  background-color: #feca40;
+  padding: 10px 0 10px 10px;
+  border-left: solid 1px #dddddd;
+  border-right: solid 1px #dddddd;
+  border-radius: 0;
+  transition: 0.1s ease all;
+}
+.shift-type-panel-bottom-border {
+  border-bottom: solid 1px #dddddd;
+}
+.shift-type-panel-top-border {
+  border-top: solid 1px #dddddd;
+}
+.shift-type-panel button {
+  margin-right: 10px;
+  font-size: 15px;
+}
+.register_source {
+  border: solid 1px #eee;
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 2px;
+  background-color: beige;
+  box-shadow: 1px 1px #ccc;
+  position: relative;
+}
+.register_source i {
+  position: absolute;
+}
+.register_source i.fa-times {
+  top: -6px;
+  right: -6px;
+  display: none;
+}
+.register_source i.fa-check {
+  bottom: -1px;
+  right: -1px;
+  font-size: 12px;
+  display: inline-block;
+}
+.register_source:hover i.fa-times {
+  display: inline-block;
+}

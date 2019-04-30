@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record model="his.child_health_cycle" id="cycle1">
+            <field name="month" eval="1"/>
+        </record>
+        <record model="his.child_health_cycle" id="cycle2">
+            <field name="month" eval="3"/>
+        </record>
+        <record model="his.child_health_cycle" id="cycle3">
+            <field name="month" eval="6"/>
+        </record>
+        <record model="his.child_health_cycle" id="cycle4">
+            <field name="month" eval="8"/>
+        </record>
+        <record model="his.child_health_cycle" id="cycle5">
+            <field name="month" eval="12"/>
+        </record>
+        <record model="his.child_health_cycle" id="cycle6">
+            <field name="month" eval="18"/>
+        </record>
+        <record model="his.child_health_cycle" id="cycle7">
+            <field name="month" eval="24"/>
+        </record>
+        <record model="his.child_health_cycle" id="cycle8">
+            <field name="month" eval="30"/>
+        </record>
+        <record model="his.child_health_cycle" id="cycle9">
+            <field name="month" eval="36"/>
+        </record>
+    </data>
+</odoo>

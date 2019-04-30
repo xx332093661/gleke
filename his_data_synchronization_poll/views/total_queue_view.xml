@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+        <record id="hrp_total_queue_tree_view" model="ir.ui.view">
+            <field name="name">hrp.total_queue.tree</field>
+            <field name="model">hrp.total_queue</field>
+            <field name="inherit_id" ref="hrp_queue.hrp_total_queue_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_state']" position="after">
+                    <field name="origin_table"/>
+                    <field name="origin_id"/>
+
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hrp_total_queue_form_view" model="ir.ui.view">
+            <field name="name">hrp.total_queue.form</field>
+            <field name="model">hrp.total_queue</field>
+            <field name="inherit_id" ref="hrp_queue.hrp_total_queue_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='queue_id']" position="after">
+                    <field name="origin_table"/>
+                    <field name="origin_id"/>
+
+                </xpath>
+            </field>
+        </record>
+</odoo>

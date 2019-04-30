@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="hrp_appointment_record_tree" model="ir.ui.view">
+            <field name="name">hrp_appointment_record_tree</field>
+            <field name="model">hrp.appointment_record</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="create_date" string="下单时间"/>
+                    <field name="partner_id"/>
+                    <field name="department_id"/>
+                    <field name="employee_id"/>
+                    <field name="shift_type_id"/>
+                    <field name="register_source_id"/>
+                    <field name="date"/>
+                    <field name="num"/>
+                    <field name="type"/>
+                    <field name="order_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="hrp_appointment_record_form" model="ir.ui.view">
+            <field name="name">hrp_appointment_record_form</field>
+            <field name="model">hrp.appointment_record</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="4">
+                            <field name="partner_id"/>
+                            <field name="department_id"/>
+                            <field name="employee_id"/>
+                            <field name="shift_type_id"/>
+                            <field name="register_source_id"/>
+                            <field name="date"/>
+                            <field name="num"/>
+                            <field name="type"/>
+                            <field name="order_id"/>
+                            <field name="state"/>
+                            <field name="create_date" string="下单时间"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="hrp_appointment_record_action">
+            <field name="name">预约记录</field>
+            <field name="res_model">hrp.appointment_record</field>
+        </record>
+
+        <menuitem id="hrp_appointment_record_menu" name="预约记录" parent="register_plan_main" action="hrp_appointment_record_action"/>
+
+    </data>
+</odoo>

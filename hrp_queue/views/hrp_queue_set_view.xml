@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="hrp_business_tree_view" model="ir.ui.view">
+            <field name="name">hrp_business_tree_view</field>
+            <field name="model">hrp.business</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_business_tree_view">
+                    <field name="name"/>
+                    <field name="business_category"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hrp_business_form_view" model="ir.ui.view">
+            <field name="name">hrp_business_form_view</field>
+            <field name="model">hrp.business</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="hrp_business_form_view">
+                    <sheet>
+                        <group col="4">
+                            <field name="name" required="1"/>
+                            <field name="retain_day"/>
+                            <field name="business_category" required="1"/>
+                        </group>
+                        <notebook>
+                            <page string="科室">
+                                <field name="business_department_ids" nolabel="1">
+                                    <tree string="Department" editable="top">
+                                        <field name="department_id" required="1"/>
+                                        <field name="is_write_room"/>
+                                        <field name="is_auto_confirm"/>
+                                        <field name="stage_new_num"/>
+                                        <field name="return_visit_enable"/>
+                                        <field name="doctor_necessary"/>
+                                        <field name="auto_confirm_time" widget="float_time"/>
+                                        <field name="reconfirm_time" widget="float_time"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <!--<page string="项目明细">-->
+                                <!--<field name="charge_item_ids" nolabel="1"/>-->
+                            <!--</page>-->
+                            <page string="合并">
+                                <group col="4">
+                                    <field name="group_num" string="项目组号"/>
+                                    <field name="priority"/>
+                                </group>
+                            </page>
+                            <page string="其他">
+                                <group col="4">
+                                    <field name="is_replace_dept" string="替换执行科室"/>
+                                    <field name="is_free"/>
+                                    <field name="record_count"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record model="ir.actions.act_window" id="hrp_business_action">
+            <field name="name">业务类型设置</field>
+            <field name="res_model">hrp.business</field>
+        </record>
+
+        <menuitem id="hrp_business_menu2" name="业务类型设置" parent="hrp_queue.hrp_queue_set_menu" sequence="1"
+            action="hrp_business_action"/>
+
+        <!--调度规则-->
+        <record id="hrp_queue_rule_tree_view" model="ir.ui.view">
+            <field name="name">hrp_queue_rule_tree_view</field>
+            <field name="model">hrp.queue_rule</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_queue_rule_tree_view">
+                    <field name="business_id"/>
+                    <field name="department_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hrp_queue_rule_form_view" model="ir.ui.view">
+            <field name="name">hrp_queue_rule_form_view</field>
+            <field name="model">hrp.queue_rule</field>
+            <field name="arch" type="xml">
+                <form string="hrp_queue_rule_form_view">
+                    <sheet>
+                        <group col="4">
+                            <field name="business_id" required="1"/>
+                            <field name="department_id" required="1"/>
+                        </group>
+                        <notebook>
+                            <page string="规则">
+                                <field name="line_ids" context="{'department_id': department_id}">
+                                    <tree>
+                                        <field name="rule_id" invisible="1"/>
+                                        <field name="queue_field"/>
+                                        <field name="value"/>
+                                        <field name="room_ids" widget="many2many_tags"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group col="4">
+                                                <field name="queue_field" required="1"/>
+                                                <field name="room_ids" widget="many2many_tags" context="{'department_id': department_id}" required="1"/>
+                                                <field name="value" widget="text"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="hrp_queue_rule_action">
+            <field name="name">调度规则</field>
+            <field name="res_model">hrp.queue_rule</field>
+        </record>
+
+        <menuitem id="hrp_queue_rule_menu" name="调度规则" parent="hrp_queue.hrp_queue_set_menu" sequence="2"
+                  action="hrp_queue_rule_action"/>
+    </data>
+</odoo>

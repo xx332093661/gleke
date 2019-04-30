@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_child_inspection_record_detail_tree" model="ir.ui.view">
+            <field name="name">child_inspection_record_detail_tree</field>
+            <field name="model">his.child_inspection_record_detail</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="item_id"/>
+                    <field name="department"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_child_inspection_record_detail_form" model="ir.ui.view">
+            <field name="name">child_inspection_record_detail_form</field>
+            <field name="model">his.child_inspection_record_detail</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="item_id" required="1"/>
+                            </group>
+                            <group>
+                                <field name="department"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="检查结果描述">
+                                <field name="result_description" nolabel="1"/>
+                            </page>
+                            <page string="结果图像">
+                                <field name="result_image" nolabel="1"/>
+                            </page>
+                            <page string="结果化验单">
+                                <field name="result_assay" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_child_inspection_record_detail_filter" model="ir.ui.view">
+            <field name="name">his.child_inspection_record_detail.select</field>
+            <field name="model">his.child_inspection_record_detail</field>
+            <field name="arch" type="xml">
+                <search>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="child_inspection_record_detail_action">
+            <field name="name">孕妇产检明细记录</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">his.child_inspection_record_detail</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_child_inspection_record_detail_filter"/>
+        </record>
+
+
+
+
+    </data>
+</odoo>

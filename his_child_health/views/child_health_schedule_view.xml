@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_child_health_schedule_tree" model="ir.ui.view">
+            <field name="name">child_health_schedule_tree</field>
+            <field name="model">his.child_health_schedule</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="0" delete="0">
+                    <field name="partner_id"/>
+                    <field name="month_label"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_child_health_schedule_form" model="ir.ui.view">
+            <field name="name">child_health_schedule_form</field>
+            <field name="model">his.child_health_schedule</field>
+            <field name="arch" type="xml">
+                <form create="0" edit="0" delete="0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_id" required="1" domain="[('is_patient', '=', True), ('patient_property', '=', 'newborn'), ('child_health_in_self', '=', True)]" options="{'no_open':True, 'no_create':True}"/>
+                                <field name="state" required="1"/>
+                            </group>
+                            <group>
+                                <label for="month"/>
+                                <div class="o_address_format">
+                                    <div class="o_form_field_many2one" style="width:20px">第</div>
+                                    <field name="month" style="width:100px" required="1"/>
+                                    <div class="o_form_field_many2one" style="width:20px">月</div>
+                                </div>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="儿保项目">
+                                <field name="item_ids" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_child_health_schedule_filter" model="ir.ui.view">
+            <field name="name">his.child_health_schedule.select</field>
+            <field name="model">his.child_health_schedule</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="partner_id"/>
+                    <filter name="group_by_partner" string="儿童" context="{'group_by':'partner_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="child_health_schedule_action">
+            <field name="name">儿保计划</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">his.child_health_schedule</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_child_health_schedule_filter"/>
+            <field name="context">{'search_default_group_by_partner': 1}</field>
+        </record>
+
+        <menuitem id="child_health_schedule_menu" parent="child_health_inspection_main" action="child_health_schedule_action" sequence="2"/>
+
+
+
+    </data>
+</odoo>

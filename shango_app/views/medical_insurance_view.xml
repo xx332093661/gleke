@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="hrp_medical_insurance_tree" model="ir.ui.view">
+            <field name="name">hrp_medical_insurance_tree</field>
+            <field name="model">hrp.medical_insurance</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="hrp_medical_insurance_tree" >
+                    <field name="num"/>
+                    <field name="old_num"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record  id="hrp_medical_insurance_form" model="ir.ui.view">
+            <field name="name">hrp_medical_insurance_form</field>
+            <field name="model">hrp.medical_insurance</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="hrp_medical_insurance_form" >
+                    <sheet>
+                        <group col="4">
+                            <field name="num"/>
+                            <field name="old_num"/>
+                            <field name="name"/>
+                            <field name="gender"/>
+                            <field name="age"/>
+                            <field name="identity_id"/>
+                            <field name="nation"/>
+                            <field name="address"/>
+                            <field name="personnel_type"/>
+                            <field name="insurance_type"/>
+                            <field name="injury_person_num"/>
+                            <field name="injury_company_num"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

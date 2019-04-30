@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+.scheduleitem {
+  height:25px;
+  padding:5px 0;
+  position: relative
+}
+
+.schedule_cancel_button {
+  position: absolute;
+  top: 3px;
+  right:0px;
+}
+
+#paiban_toolbar_container {
+    border: 1px solid #c4c4c4;
+    text-align: left;
+    position: absolute;
+    background-color: #E7E4F6;
+    width: 250px;
+}
